@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_admin')->default(false);
+        Schema::create('kamars', function (Blueprint $table) {
+            $table->id('nomor_kamar');
+            $table->string('foto');
+            // $table->integer('tipe_kamar');
+            // $table->foreign('tipe_kamar')->references('tipe_kamar')->on('kamar')->onDelete('cascade');
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('kamars');
     }
 };
