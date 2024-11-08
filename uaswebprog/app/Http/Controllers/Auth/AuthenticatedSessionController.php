@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
 
         // Redirect logic for admin users
         if (Auth::user()->is_admin) {
-            return redirect()->intended('/admin'); // Adjust as needed
+            return redirect()->intended('/'); // Adjust as needed
         }
 
         // Default redirect for regular users
