@@ -46,4 +46,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Check if the user has admin privileges.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        // Assumes you have an 'is_admin' column in your 'users' table
+        return $this->is_admin;
+    }
 }
