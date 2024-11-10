@@ -21,18 +21,49 @@
     </head>
 <body>
     
-    <a href="{{ route('register') }}">
-        <x-button>
-            Register
-        </x-button>
-    </a>
+    @if (Route::has('login'))
+    
+        <nav class="-mx-3 flex flex-1 justify-end">
+            @auth
 
-    <a href="{{ route('login') }}">
-        <x-button>
-            Login
-        </x-button>
-    </a>
+                @if (Auth::user()->is_admin)
+                <a
+                    href="{{ url('/home') }}"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                >
+                    Admin Dashboard
+                </a>
 
-    <x-rules />
+                @else
+                <a
+                    href="{{ url('/dashboard') }}"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                >
+                    Dashboard
+                </a>
+
+                @endif
+                
+            @else
+                <a
+                    href="{{ route('login') }}"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                >
+                    Log in
+                </a>
+
+                @if (Route::has('register'))
+                    <a
+                        href="{{ route('register') }}"
+                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                    >
+                        Register
+                    </a>
+                @endif
+            @endauth
+        </nav>
+    @endif
+            
+        <x-rules />
 </body>
 </html>
