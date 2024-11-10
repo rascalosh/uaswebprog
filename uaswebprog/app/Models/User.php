@@ -29,7 +29,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'full_name'
+        'full_name',
+        'no_telp'
     ];
 
     protected $primaryKey = 'id_user';
@@ -51,9 +52,6 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
 
     /**
      * Get the attributes that should be cast.

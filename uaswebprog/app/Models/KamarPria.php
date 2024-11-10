@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kamar extends Model
+class KamarPria extends Model
 {
     //
 }

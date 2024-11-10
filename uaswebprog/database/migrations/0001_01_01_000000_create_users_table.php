@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('no_telp', 11);
+            $table->date('tanggal_masuk');
             // $table->integer('nomor_kamar');
             $table->timestamp('deadline bayar')->nullable();
             $table->rememberToken();
