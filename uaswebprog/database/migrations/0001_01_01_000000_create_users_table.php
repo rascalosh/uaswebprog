@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -32,7 +33,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('no_telp', 11);
-            $table->date('tanggal_masuk');
+            $table->date('tanggal_masuk')->default(date("Y-m-d H:i:s"));
             // $table->integer('nomor_kamar');
             $table->timestamp('deadline bayar')->nullable();
             $table->rememberToken();

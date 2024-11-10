@@ -16,9 +16,14 @@
 
             <div>
                 <x-label for="full_name" value="{{ __('Full Name') }}" />
-                <x-input id="full_mame" class="block mt-1 w-full" type="text" name="full_name" :value="old('full_name')" required autofocus autocomplete="name" />
+                <x-input id="full_name" class="block mt-1 w-full" type="text" name="full_name" :value="old('full_name')" required autofocus autocomplete="name" />
             </div>
 
+            <div>
+                <x-label for="no_telp" value="{{ __('Nomor Telepon') }}" />
+                <x-input id="no_telp" class="block mt-1 w-full" type="text" name="no_telp" :value="old('no_telp')" required autofocus autocomplete="name" />
+            </div>
+            
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />

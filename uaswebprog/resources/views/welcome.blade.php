@@ -21,6 +21,18 @@
     </head>
 <body>
     
-    RULES
+    <a href="{{ route('register') }}">
+        <x-button>
+            Register
+        </x-button>
+    </a>
+
+    <a href="{{ route('login') }}">
+        <x-button>
+            Login
+        </x-button>
+    </a>
+
+    <x-rules />
 </body>
 </html>
