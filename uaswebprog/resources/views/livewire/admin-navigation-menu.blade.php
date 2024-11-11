@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -18,8 +18,14 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('manage_rooms') }}"  :active="request()->routeIs('manage_rooms')">
-                        {{ __('Manage Rooms') }}
+                    <x-nav-link href="{{ route('manage_rooms_pria') }}"  :active="request()->routeIs('manage_rooms_pria')">
+                        {{ __('Manage Rooms Pria') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('manage_rooms_perempuan') }}"  :active="request()->routeIs('manage_rooms_perempuan')">
+                        {{ __('Manage Rooms Perempuan') }}
                     </x-nav-link>
                 </div>
 
