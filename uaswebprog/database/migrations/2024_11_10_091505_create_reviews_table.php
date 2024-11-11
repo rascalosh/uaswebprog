@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->integer('id_user');
-            $table->integer('id_kamar');
+            $table->char('nomor_kamar', 2);
             $table->integer('review');
-            $table->unique(['id_kamar', 'id_user']);
-            $table->foreign('id_user')->references('id_user')->on('user')->onDelete('cascade');
-            $table->foreign('id_kamar')->references('id_kamar')->on('kamar')->onDelete('cascade');
+            $table->unique(['nomor_kamar', 'id_user']);
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
+            $table->foreign('nomor_kamar')->references('nomor_kamar')->on('kamar_pria')->onDelete('cascade');
         });
     }
 

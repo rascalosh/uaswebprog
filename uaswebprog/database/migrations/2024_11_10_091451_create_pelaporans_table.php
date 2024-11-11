@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('pelaporans', function (Blueprint $table) {
             $table->id('id_pelaporan');
-            $table->integer('id_user');
+            $table->unsignedBigInteger('id_user');
             $table->string('desc_pelaporan');
-            $table->foreign('id_user')->references('id_user')->on('user')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
         });
     }
 
