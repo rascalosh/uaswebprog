@@ -22,4 +22,8 @@ class AdminController extends Controller
             }
         }
     }
+
+    public function manae_rooms(){
+        return view('admin.manage_rooms');
+    }
 }

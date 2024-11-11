@@ -1,1 +1,1 @@
-<img src="{{ asset('images/bocchi.jpeg') }}" />
+<img src="{{ asset('images/temp_image.png') }}" class="w-40 h-10"/>

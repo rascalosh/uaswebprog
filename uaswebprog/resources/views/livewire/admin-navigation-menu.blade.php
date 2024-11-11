@@ -16,6 +16,13 @@
                         {{ __('Admin Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('manage_rooms') }}"  :active="request()->routeIs('manage_rooms')">
+                        {{ __('Manage Rooms') }}
+                    </x-nav-link>
+                </div>
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
