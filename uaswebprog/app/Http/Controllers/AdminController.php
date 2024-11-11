@@ -41,7 +41,7 @@ class AdminController extends Controller
             // Clear the email
             DB::table('kamar_pria')
                 ->where('nomor_kamar', $nomor_kamar)
-                ->update(['email' => null]);
+                ->update(['email' => null, 'full_name' => null]);
         }
 
         else{
@@ -53,7 +53,11 @@ class AdminController extends Controller
         DB::table('kamar_pria')
             ->where('nomor_kamar', $nomor_kamar)
             ->update(['email' => $request->input('email')]);
-
+            
+        DB::table('kamar_pria')
+            ->where('nomor_kamar', $nomor_kamar)
+            ->join('users', 'users.email', '=', 'kamar_pria.email')
+            ->update(['kamar_pria.full_name' => DB::raw('users.full_name')]);
         }
 
         return redirect()->back();
