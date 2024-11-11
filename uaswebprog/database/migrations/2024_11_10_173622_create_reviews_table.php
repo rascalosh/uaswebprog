@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->id('id_review');
             $table->integer('id_user');
             $table->char('nomor_kamar', 2);
             $table->integer('review');
