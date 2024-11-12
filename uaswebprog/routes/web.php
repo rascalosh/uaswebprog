@@ -17,12 +17,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/view_rooms', function () {
-        $images = File::files(public_path('images/KamarPerempuan'));
-        return view('user.view_rooms', compact('images'));
+        $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
+        $imagesPria = File::files(public_path('images/KamarPria'));
+        return view('user.view_rooms', compact('imagesPerempuan', 'imagesPria'));
     })->name('view_rooms');
 });
 
+
 Route::get('/home', [AdminController::class, 'index'])->name('home');
+Route::get('/admin/profile', [AdminController::class, 'adminShow'])->name('admin-show');
 
 Route::get('/manage_rooms_pria', [AdminController::class, 'manage_rooms_pria'])->name('manage_rooms_pria');
 Route::post('/admin/update_email_pria/{id}', [AdminController::class, 'updateEmailPria'])->name('admin.update_email_pria');

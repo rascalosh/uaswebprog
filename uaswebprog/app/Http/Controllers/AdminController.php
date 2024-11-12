@@ -24,6 +24,21 @@ class AdminController extends Controller
         }
     }
 
+    public function adminShow(){
+        
+        if(Auth::id()){
+            $is_admin = Auth::user()->is_admin;
+
+            if($is_admin){
+                return view('profile.admin-show');
+            }
+
+            else{
+                return redirect()->back();
+            }
+        }
+    }
+
     public function manage_rooms_pria(){
 
         $is_admin = Auth::user()->is_admin;
