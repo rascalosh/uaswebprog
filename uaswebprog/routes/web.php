@@ -19,8 +19,11 @@ Route::middleware([
     Route::get('/view_rooms', function () {
         $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
         $imagesPria = File::files(public_path('images/KamarPria'));
-        return view('user.view_rooms', compact('imagesPerempuan', 'imagesPria'));
+        return view('user.view-rooms', compact('imagesPerempuan', 'imagesPria'));
     })->name('view_rooms');
+    Route::get('/reserve_room', function () {
+        return view('user.reserve-room');
+    })->name('reserve_room');
 });
 
 
