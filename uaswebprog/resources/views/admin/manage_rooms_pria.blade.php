@@ -8,29 +8,29 @@
     <x-validation-errors class="my-5 text-center" />
 
     @foreach ($data as $row)
+        <div class="grid justify-center mt-10">
 
-    <div class="grid justify-center mt-10">
+            <div>{{ $row->nomor_kamar }}</div>
+            <div>{{ $row->full_name }}</div>
 
-        <div>{{ $row->nomor_kamar }}</div>
+            <form action="{{ route('admin.update_email_pria', $row->nomor_kamar) }}" method="POST">
+                @csrf
+                <div>
+                    <input type="email" name="email" value="{{ $row->email }}">
+                    <!-- <button class="update-email-btn" type="submit">Update Email</button> -->
+                    <!-- <button type="submit" name="clear_email" value="1">Delete Email</button> -->
 
-        <form action="{{ route('admin.update_email_pria', $row->nomor_kamar) }}" method="POST">
-            @csrf
-            <div>
-                <input type="email" name="email" value="{{ $row->email }}">
-                <!-- <button class="update-email-btn" type="submit">Update Email</button> -->
-                <!-- <button type="submit" name="clear_email" value="1">Delete Email</button> -->
+                    <x-button>
+                        {{ __('Update Email') }}
+                    </x-button>
 
-                <x-button>
-                    {{ __('Update Email') }}
-                </x-button>
+                    <x-button name="clear_email" value="1">
+                        {{ __('Delete Email') }}
+                    </x-button>
 
-                <x-button name="clear_email" value="1">
-                    {{ __('Delete Email') }}
-                </x-button>
+                </div>
+            </form>
 
-            </div>
-        </form>
-        
-    </div>
+        </div>
     @endforeach
 </x-admin-layout>
