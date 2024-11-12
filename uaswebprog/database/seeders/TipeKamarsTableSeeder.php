@@ -16,12 +16,12 @@ class TipeKamarsTableSeeder extends Seeder
     {
         $tipe = [
             [
-                'tipe_kamar' => "dalam",
+                'tipe_kamar' => 1,
                 'desc_kamar' => "Menyediakan ruangan toilet di dalam kamar.",
                 'harga' => 2300000
             ],
             [
-                'tipe_kamar' => "luar",
+                'tipe_kamar' => 0,
                 'desc_kamar' => "Tidak menyediakan ruangan toilet di dalam kamar.",
                 'harga' => 1700000
             ]
