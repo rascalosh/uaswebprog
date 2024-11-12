@@ -25,18 +25,25 @@ class AdminController extends Controller
     }
 
     public function manage_rooms_pria(){
+
+        $is_admin = Auth::user()->is_admin;
+
+        if(!$is_admin) return redirect()->back();
         $data = DB::table('kamar_pria')->get();
         return view('admin.manage_rooms_pria', compact('data'));
     }
     
     public function manage_rooms_perempuan(){
+
+        $is_admin = Auth::user()->is_admin;
+
+        if(!$is_admin) return redirect()->back();
         $data = DB::table('kamar_perempuan')->get();
         return view('admin.manage_rooms_perempuan', compact('data'));
     }
 
     public function updateEmailPria(Request $request, $nomor_kamar)
     {
-
         if ($request->input('clear_email')) {
             // Clear the email
             DB::table('kamar_pria')
@@ -47,7 +54,7 @@ class AdminController extends Controller
         else{
         
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|unique:kamar_pria|unique:kamar_perempuan'
         ]);
 
         DB::table('kamar_pria')
@@ -76,12 +83,17 @@ class AdminController extends Controller
         else{
         
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|unique:kamar_perempuan|unique:kamar_pria',
         ]);
 
         DB::table('kamar_perempuan')
             ->where('nomor_kamar', $nomor_kamar)
             ->update(['email' => $request->input('email')]);
+
+        DB::table('kamar_perempuan')
+            ->where('nomor_kamar', $nomor_kamar)
+            ->join('users', 'users.email', '=', 'kamar_perempuan.email')
+            ->update(['kamar_perempuan.full_name' => DB::raw('users.full_name')]);
 
         }
 

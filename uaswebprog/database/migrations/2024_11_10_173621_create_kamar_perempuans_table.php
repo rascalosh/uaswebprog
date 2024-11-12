@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->enum('tipe_kamar', ["dalam", "luar"]);
             $table->string('email')->unique()->nullable();
+            $table->string('full_name')->unique()->nullable();
             $table->foreign('tipe_kamar')->references('tipe_kamar')->on('kamar')->onDelete('cascade');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
         });

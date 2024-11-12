@@ -5,6 +5,8 @@
         </h2>
     </x-slot>
 
+    <x-validation-errors class="my-5 text-center" />
+
     @foreach ($data as $row)
 
     <div class="grid justify-center mt-10">
