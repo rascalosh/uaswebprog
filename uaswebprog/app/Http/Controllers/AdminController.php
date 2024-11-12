@@ -41,7 +41,7 @@ class AdminController extends Controller
         if(!$is_admin) return redirect()->back();
 
         $data = DB::table('kamar_perempuan')->get();
-        return view('admin.manage_rooms_perempuan', compact('data'), compact('images'));
+        return view('admin.manage_rooms_perempuan', compact('data'));
     }
 
     public function updateEmailPria(Request $request, $nomor_kamar)
