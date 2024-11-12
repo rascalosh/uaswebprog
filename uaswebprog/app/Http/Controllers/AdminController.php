@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 USE App\Models\User;
 Use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -42,7 +41,6 @@ class AdminController extends Controller
         if(!$is_admin) return redirect()->back();
 
         $data = DB::table('kamar_perempuan')->get();
-        $images = File::files(public_path('images/KamarPerempuan'));
         return view('admin.manage_rooms_perempuan', compact('data'), compact('images'));
     }
 

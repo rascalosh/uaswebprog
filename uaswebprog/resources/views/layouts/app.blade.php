@@ -41,5 +41,9 @@
         @stack('modals')
 
         @livewireScripts
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="uaswebprog\node_modules\flowbite\dist\flowbite.min.js"></script>
+
     </body>
+
 </html>

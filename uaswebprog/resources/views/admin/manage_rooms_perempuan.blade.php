@@ -7,10 +7,6 @@
 
     <x-validation-errors class="my-5 text-center" />
 
-    @foreach($images as $image)
-        <img src="{{ asset('images/KamarPerempuan/' . $image->getFilename()) }}" class="w-20 h-20" alt="Room Image">
-    @endforeach
-
     @foreach ($data as $row)
 
     <div class="grid justify-center mt-10">

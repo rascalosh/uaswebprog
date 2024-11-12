@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\File;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,10 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/view_rooms', function () {
+        $images = File::files(public_path('images/KamarPerempuan'));
+        return view('user.view_rooms', compact('images'));
+    })->name('view_rooms');
 });
 
 Route::get('/home', [AdminController::class, 'index'])->name('home');
