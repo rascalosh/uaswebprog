@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('kamar_pria', function (Blueprint $table) {
             $table->char('nomor_kamar', 2)->primary();
             // $table->string('foto')->nullable();
-            $table->integer('tipe_kamar');
+            $table->unsignedBigInteger('tipe_kamar');
             $table->string('email')->unique()->nullable();
             $table->string('full_name')->unique()->nullable();
-            $table->foreign('tipe_kamar')->references('tipe_kamar')->on('tipe_kamar')->onDelete('cascade');
+            $table->foreign('tipe_kamar')->references('tipe_kamar')->on('tipe_kamars')->onDelete('cascade');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
         });
     }
