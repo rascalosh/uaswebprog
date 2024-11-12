@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 USE App\Models\User;
 Use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -29,6 +30,7 @@ class AdminController extends Controller
         $is_admin = Auth::user()->is_admin;
 
         if(!$is_admin) return redirect()->back();
+
         $data = DB::table('kamar_pria')->get();
         return view('admin.manage_rooms_pria', compact('data'));
     }
@@ -38,8 +40,10 @@ class AdminController extends Controller
         $is_admin = Auth::user()->is_admin;
 
         if(!$is_admin) return redirect()->back();
+
         $data = DB::table('kamar_perempuan')->get();
-        return view('admin.manage_rooms_perempuan', compact('data'));
+        $images = File::files(public_path('images/KamarPerempuan'));
+        return view('admin.manage_rooms_perempuan', compact('data'), compact('images'));
     }
 
     public function updateEmailPria(Request $request, $nomor_kamar)

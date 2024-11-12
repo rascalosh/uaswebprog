@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kamar_pria', function (Blueprint $table) {
             $table->char('nomor_kamar', 2)->primary();
-            $table->string('foto')->nullable();
+            // $table->string('foto')->nullable();
             $table->enum('tipe_kamar', ["dalam", "luar"]);
             $table->string('email')->unique()->nullable();
             $table->string('full_name')->unique()->nullable();
