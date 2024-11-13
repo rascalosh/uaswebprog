@@ -17,11 +17,11 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <!-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('view_rooms') }}" :active="request()->routeIs('view_rooms')">
                         {{ __('View Rooms') }}
                     </x-nav-link>
-                </div>
+                </div> -->
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('reserve_room') }}" :active="request()->routeIs('reserve_room')">

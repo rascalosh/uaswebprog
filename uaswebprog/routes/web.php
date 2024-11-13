@@ -14,12 +14,12 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::get('/view_rooms', function () {
         $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
         $imagesPria = File::files(public_path('images/KamarPria'));
-        return view('user.view-rooms', compact('imagesPerempuan', 'imagesPria'));
+        return view('dashboard', compact('imagesPerempuan', 'imagesPria'));
+    })->name('dashboard');
+    Route::get('/view_rooms', function () {
+        return view('user.view-rooms');
     })->name('view_rooms');
     Route::get('/reserve_room', function () {
         return view('user.reserve-room');
