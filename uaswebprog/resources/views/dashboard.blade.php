@@ -19,9 +19,9 @@
         <div id="carouselExample" class="relative w-1/2 text-center" data-carousel="static">
             <!-- Carousel wrapper -->
             <div class="relative h-screen overflow-hidden rounded-lg flex items-center justify-center mt-5 mb-5">
-                @foreach ($imagesPerempuan as $imagePath)
+                @foreach ($imagesPerempuan as $image)
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('images/KamarPerempuan/' . $imagePath->getFilename()) }}"
+                        <img src="{{ asset('images/KamarPerempuan/' . $image->getFilename()) }}"
                             class="block w-full h-full rounded-lg" alt="Image">
                     </div>
                 @endforeach

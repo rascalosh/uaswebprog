@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 USE App\Models\User;
 Use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -19,7 +20,9 @@ class AdminController extends Controller
             }
 
             else{
-                return view('dashboard');
+                $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
+                $imagesPria = File::files(public_path('images/KamarPria'));
+                return view('dashboard', compact('imagesPerempuan', 'imagesPria'));
             }
         }
     }
