@@ -26,7 +26,14 @@
                 <x-input id="no_telp" class="block mt-1 w-full" type="text" name="no_telp" :value="old('no_telp')"
                     required autofocus autocomplete="name" />
             </div>
-
+            <div>
+                <x-label for="gender" value="{{ __('Gender') }}" />
+                <select id="gender" name="gender" class="block mt-1 w-full" :value="old('gender')" required
+                    autofocus autocomplete="gender">
+                    <option value="L">{{ __('Male') }}</option>
+                    <option value="P">{{ __('Female') }}</option>
+                </select>
+            </div>
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"

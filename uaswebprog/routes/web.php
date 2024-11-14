@@ -25,6 +25,9 @@ Route::middleware([
     Route::get('/reserve_room', function () {
         return view('user.reserve-room');
     })->name('reserve_room');
+    Route::get('/my_room', function () {
+        return view('user.my-room');
+    })->name('my_room');
 });
 
 
