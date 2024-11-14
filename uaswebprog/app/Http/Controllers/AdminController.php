@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -13,10 +14,15 @@ class AdminController extends Controller
     {
         if (Auth::check()) {
             $is_admin = Auth::user()->is_admin;
-            if ($is_admin) {
+
+            if($is_admin){
                 return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('dashboard');
+            }
+            else{
+                $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
+                $imagesPria = File::files(public_path('images/KamarPria'));
+                return redirect()->route('dashboard', compact('imagesPerempuan', 'imagesPria'));
+                
             }
         }
 
