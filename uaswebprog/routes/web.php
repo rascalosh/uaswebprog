@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\File;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,13 @@ Route::middleware([
     Route::get('/reserve_room', function () {
         return view('user.reserve-room');
     })->name('reserve_room');
+});
+
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', AdminMiddleware::class])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin-dashboard');
+    })->name('admin.dashboard');
 });
 
 

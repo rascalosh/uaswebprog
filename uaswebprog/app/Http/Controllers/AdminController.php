@@ -3,57 +3,57 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-USE App\Models\User;
-Use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
-    public function index(){
-        
-        if(Auth::id()){
+    public function index()
+    {
+        if (Auth::check()) {
             $is_admin = Auth::user()->is_admin;
-
-            if($is_admin){
-                return view('admin-dashboard');
-            }
-
-            else{
-                return view('dashboard');
+            if ($is_admin) {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('dashboard');
             }
         }
+
+        return redirect()->route('login');
     }
 
-    public function adminShow(){
-        
-        if(Auth::id()){
+    public function adminShow()
+    {
+
+        if (Auth::id()) {
             $is_admin = Auth::user()->is_admin;
 
-            if($is_admin){
+            if ($is_admin) {
                 return view('profile.admin-show');
-            }
-
-            else{
+            } else {
                 return redirect()->back();
             }
         }
     }
 
-    public function manage_rooms_pria(){
+    public function manage_rooms_pria()
+    {
 
         $is_admin = Auth::user()->is_admin;
 
-        if(!$is_admin) return redirect()->back();
+        if (!$is_admin) return redirect()->back();
 
         $data = DB::table('kamar_pria')->get();
         return view('admin.manage_rooms_pria', compact('data'));
     }
-    
-    public function manage_rooms_perempuan(){
+
+    public function manage_rooms_perempuan()
+    {
 
         $is_admin = Auth::user()->is_admin;
 
-        if(!$is_admin) return redirect()->back();
+        if (!$is_admin) return redirect()->back();
 
         $data = DB::table('kamar_perempuan')->get();
         return view('admin.manage_rooms_perempuan', compact('data'));
@@ -66,22 +66,20 @@ class AdminController extends Controller
             DB::table('kamar_pria')
                 ->where('nomor_kamar', $nomor_kamar)
                 ->update(['email' => null, 'full_name' => null]);
-        }
+        } else {
 
-        else{
-        
-        $request->validate([
-            'email' => 'required|email|unique:kamar_pria|unique:kamar_perempuan'
-        ]);
+            $request->validate([
+                'email' => 'required|email|unique:kamar_pria|unique:kamar_perempuan'
+            ]);
 
-        DB::table('kamar_pria')
-            ->where('nomor_kamar', $nomor_kamar)
-            ->update(['email' => $request->input('email')]);
-            
-        DB::table('kamar_pria')
-            ->where('nomor_kamar', $nomor_kamar)
-            ->join('users', 'users.email', '=', 'kamar_pria.email')
-            ->update(['kamar_pria.full_name' => DB::raw('users.full_name')]);
+            DB::table('kamar_pria')
+                ->where('nomor_kamar', $nomor_kamar)
+                ->update(['email' => $request->input('email')]);
+
+            DB::table('kamar_pria')
+                ->where('nomor_kamar', $nomor_kamar)
+                ->join('users', 'users.email', '=', 'kamar_pria.email')
+                ->update(['kamar_pria.full_name' => DB::raw('users.full_name')]);
         }
 
         return redirect()->back();
@@ -95,23 +93,20 @@ class AdminController extends Controller
             DB::table('kamar_perempuan')
                 ->where('nomor_kamar', $nomor_kamar)
                 ->update(['email' => null]);
-        }
+        } else {
 
-        else{
-        
-        $request->validate([
-            'email' => 'required|email|unique:kamar_perempuan|unique:kamar_pria',
-        ]);
+            $request->validate([
+                'email' => 'required|email|unique:kamar_perempuan|unique:kamar_pria',
+            ]);
 
-        DB::table('kamar_perempuan')
-            ->where('nomor_kamar', $nomor_kamar)
-            ->update(['email' => $request->input('email')]);
+            DB::table('kamar_perempuan')
+                ->where('nomor_kamar', $nomor_kamar)
+                ->update(['email' => $request->input('email')]);
 
-        DB::table('kamar_perempuan')
-            ->where('nomor_kamar', $nomor_kamar)
-            ->join('users', 'users.email', '=', 'kamar_perempuan.email')
-            ->update(['kamar_perempuan.full_name' => DB::raw('users.full_name')]);
-
+            DB::table('kamar_perempuan')
+                ->where('nomor_kamar', $nomor_kamar)
+                ->join('users', 'users.email', '=', 'kamar_perempuan.email')
+                ->update(['kamar_perempuan.full_name' => DB::raw('users.full_name')]);
         }
 
         return redirect()->back();
