@@ -98,7 +98,7 @@ class AdminController extends Controller
             // Clear the email
             DB::table('kamar_perempuan')
                 ->where('nomor_kamar', $nomor_kamar)
-                ->update(['email' => null]);
+                ->update(['email' => null, 'full_name' => null]);
         } else {
 
             $request->validate([

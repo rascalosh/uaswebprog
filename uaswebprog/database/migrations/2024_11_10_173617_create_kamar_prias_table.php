@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('tipe_kamar');
             $table->string('email')->unique()->nullable();
             $table->string('full_name')->unique()->nullable();
-            $table->boolean('is_reserved')->nullable();
+            $table->boolean('is_reserved')->nullable()->default(0);;
             $table->foreign('tipe_kamar')->references('tipe_kamar')->on('tipe_kamars')->onDelete('cascade');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
         });

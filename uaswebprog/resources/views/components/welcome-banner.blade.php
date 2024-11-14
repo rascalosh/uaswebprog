@@ -1,0 +1,1 @@
+<img src="{{ asset('images/Welcome_Banner.png') }}" class="w-full object-cover"/>

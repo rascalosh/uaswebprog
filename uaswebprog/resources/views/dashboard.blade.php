@@ -8,7 +8,7 @@
     <div>
         <div class="mx-auto">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl w-full">
-                <x-kos-banner />
+                <x-welcome-banner />
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                     </div>
                 @endforeach
             </div>
-
+            
             <!-- Slider controls -->
             <button type="button"
                 class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"

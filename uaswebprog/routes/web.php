@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CreateReport;
 use Illuminate\Support\Facades\File;
 use App\Http\Middleware\AdminMiddleware;
 
@@ -28,6 +29,10 @@ Route::middleware([
     Route::get('/my_room', function () {
         return view('user.my-room');
     })->name('my_room');
+    Route::get('/report', function () {
+        return view('user.report');
+    })->name('report');
+    Route::post('/create-report', [CreateReport::class, 'create'])->name('create-report');
 });
 
 
