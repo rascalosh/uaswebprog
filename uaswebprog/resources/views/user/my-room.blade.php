@@ -8,6 +8,8 @@
         } elseif ($gender == 'P') {
             $room = DB::table('kamar_perempuan')->where('email', $email)->first();
         }
+
+        
     @endphp
 
     @if ($room)

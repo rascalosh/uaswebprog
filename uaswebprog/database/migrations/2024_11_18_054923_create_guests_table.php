@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id('id_guest');
-            $table->string('email_user');
+            $table->string('guest_name');
+            $table->char('nomor_kamar', 2);
+            $table->enum('gender', ['L', 'P']);
             $table->integer('guest_amount');
             $table->date('visit_date');
+            $table->string('relation');
+            $table->string('email_user');
             $table->foreign('email_user')->references('email')->on('users');
         });
     }

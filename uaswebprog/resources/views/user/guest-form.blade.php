@@ -1,4 +1,10 @@
 <x-guest-layout>
+
+    @php
+        $user = Auth::user();
+        $email = $user->email;
+    @endphp
+
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -10,9 +16,9 @@
             @csrf
 
             <div>
-                <x-label for="full_name" value="{{ __('Guest Name') }}" />
-                <x-input id="full_name" class="block mt-1 w-full" type="text" name="full_name" :value="old('full_name')"
-                    required autofocus autocomplete="name" />
+                <x-label for="guest_name" value="{{ __('Guest Name') }}" />
+                <x-input id="guest_name" class="block mt-1 w-full" type="text" name="guest_name" :value="old('guest_name')"
+                    required autofocus autocomplete="guest_name" />
             </div>
 
             <div>
@@ -39,8 +45,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="person" value="{{ __('# of Person') }}" />
-                    <x-input id="person" class="block mt-1 w-full" type="number" name="person" min="0"
+                    <x-label for="amount" value="{{ __('# of Person') }}" />
+                    <x-input id="amount" class="block mt-1 w-full" type="number" name="amount" min="0"
                         required />
                 </div>
 
@@ -51,6 +57,8 @@
                 <x-input id="relation" class="block mt-1 w-full" type="text" name="relation" :value="old('relation')"
                     required autofocus />
             </div>
+
+            <x-input id="user_email" type="hidden" name="user_email" value="{{$email}}" />
 
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ms-4">
