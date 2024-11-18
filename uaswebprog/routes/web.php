@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CreateReport;
-use Illuminate\Support\Facades\File;
+use App\Http\Controllers\CreateGuest;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
@@ -16,9 +16,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
-        $imagesPria = File::files(public_path('images/KamarPria'));
-        return view('dashboard', compact('imagesPerempuan', 'imagesPria'));
+        return view('dashboard');
     })->name('dashboard');
     Route::get('/view_rooms', function () {
         return view('user.view-rooms');
@@ -33,6 +31,10 @@ Route::middleware([
         return view('user.report');
     })->name('report');
     Route::post('/create-report', [CreateReport::class, 'create'])->name('create-report');
+    Route::get('/guest_form', function () {
+        return view('user.guest-form');
+    })->name('guest-form');
+    Route::post('/create-guest', [CreateGuest::class, 'create'])->name('create-guest');
 });
 
 
