@@ -39,10 +39,10 @@ Route::middleware([
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', AdminMiddleware::class])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin-dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'guests'])->name('admin.dashboard');
+    Route::delete('/admin/guests/{id}', [AdminController::class, 'destroyGuest'])->name('admin.guests.destroy');
 });
+
 
 
 Route::get('/home', [AdminController::class, 'index'])->name('home');

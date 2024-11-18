@@ -21,6 +21,8 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('admin-dashboard');
     }
+
+    
 }

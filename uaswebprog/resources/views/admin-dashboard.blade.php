@@ -7,8 +7,30 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Tamu berkunjung</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @foreach ($guests as $guest)
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $guest->guest_name }}
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $guest->nomor_kamar }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $guest->gender }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Email: {{ $guest->email_user }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Relation: {{ $guest->relation }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Check In: {{ $guest->visit_date }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}
+                            </p>
+                            <form action="{{ route('admin.guests.destroy', $guest->id_guest) }}" method="POST"
+                                onsubmit="return confirm('Apakah anda yakin ingin menghapus tamu ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Selesai
+                                    Berkunjung</button>
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

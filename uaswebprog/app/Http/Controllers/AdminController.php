@@ -15,14 +15,12 @@ class AdminController extends Controller
         if (Auth::check()) {
             $is_admin = Auth::user()->is_admin;
 
-            if($is_admin){
+            if ($is_admin) {
                 return redirect()->route('admin.dashboard');
-            }
-            else{
+            } else {
                 $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
                 $imagesPria = File::files(public_path('images/KamarPria'));
                 return redirect()->route('dashboard', compact('imagesPerempuan', 'imagesPria'));
-                
             }
         }
 
@@ -116,5 +114,31 @@ class AdminController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function guests()
+    {
+
+        $guests = DB::table('guests')->get();
+
+        return view('admin-dashboard', ['guests' => $guests]);
+    }
+
+    public function dashboard()
+    {
+        // Fetch guests data from the database
+        $guests = DB::table('guests')->get();
+
+        // Pass the guests data to the view
+        return view('admin-dashboard', ['guests' => $guests]);
+    }
+
+    public function destroyGuest($id)
+    {
+        // Delete the guest from the database
+        DB::table('guests')->where('id_guest', $id)->delete();
+
+        // Redirect back to the admin dashboard with a success message
+        return redirect()->route('admin.dashboard')->with('success', 'Guest deleted successfully.');
     }
 }
