@@ -141,4 +141,20 @@ class AdminController extends Controller
         // Redirect back to the admin dashboard with a success message
         return redirect()->route('admin.dashboard')->with('success', 'Guest deleted successfully.');
     }
+
+    public function showReports()
+    {
+        $reports = DB::table('pelaporans')->get();
+
+        return view('admin.reports', ['reports' => $reports]);
+    }
+
+    public function destroyReport($id)
+    {
+        // Delete the guest from the database
+        DB::table('pelaporans')->where('id_pelaporan', $id)->delete();
+
+        // Redirect back to the admin dashboard with a success message
+        return redirect()->route('show-reports')->with('success', 'Report Has Been Resolved..');
+    }
 }
