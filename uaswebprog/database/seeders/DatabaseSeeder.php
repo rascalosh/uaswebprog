@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TipeKamarsTableSeeder::class);
         $this->call(KamarPriaTableSeeder::class);
         $this->call(KamarPerempuanTableSeeder::class);
+        $this->call(AdminSeeder::class);
     }
 }

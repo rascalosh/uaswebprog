@@ -30,7 +30,7 @@ class CreateGuest extends Controller
             'email_user' => $request['user_email']
         ]);
 
-        return view('user.my-room');
+        return redirect()->route('my_room');
 
         // dd($request->all());
     }

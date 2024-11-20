@@ -11,7 +11,8 @@ class Pelaporan extends Model
         'nomor_kamar',
         'gender_kamar',
         'tanggal',
-        'desc_pelaporan'
+        'desc_pelaporan',
+        'user_email'
     ];
 
     protected $primaryKey = 'id_pelaporan';

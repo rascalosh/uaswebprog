@@ -15,7 +15,8 @@ class CreateReport extends Controller
             'room' => ['required', 'string', 'min:2', 'max:2'],
             'gender' => ['required', 'string', 'in:L,P'],
             'date' => ['required', 'date'],
-            'desc_pelaporan' => ['required', 'string', 'max:255']
+            'desc_pelaporan' => ['required', 'string', 'max:255'],
+            'user_email' => ['required', 'email', 'max:255']
         ])->validate();
 
         Pelaporan::create([
@@ -24,8 +25,9 @@ class CreateReport extends Controller
             'gender_kamar' => $request['gender'],
             'tanggal' => $request['date'],
             'desc_pelaporan' => $request['desc_pelaporan'],
+            'user_email' => $request['user_email']
         ]);
 
-        return view('user.my-room');
+        return redirect()->route('my_room');
     }
 }

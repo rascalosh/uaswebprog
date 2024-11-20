@@ -1,4 +1,10 @@
 <x-guest-layout>
+
+    @php
+        $user = Auth::user();
+        $email = $user->email;
+    @endphp
+
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -41,6 +47,8 @@
                 <x-textarea id="desc_pelaporan" class="block mt-1 w-full h-40 resize-y" name="desc_pelaporan"
                     required />
             </div>
+
+            <x-input id="user_email" type="hidden" name="user_email" value="{{$email}}" />
 
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ms-4">

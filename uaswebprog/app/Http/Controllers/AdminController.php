@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Pelaporan;
+use App\Mail\ReportResolved;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -150,11 +153,24 @@ class AdminController extends Controller
     }
 
     public function destroyReport($id)
-    {
-        // Delete the guest from the database
+    {   
+        $report = Pelaporan::findOrFail($id);
+
+        // Prepare email data
+        $reportDetails = [
+            'full_name' => $report->full_name,
+            'nomor_kamar' => $report->nomor_kamar,
+            'tanggal' => $report->tanggal,
+            'desc_pelaporan' => $report->desc_pelaporan,
+            'user_email' => $report->user_email
+        ];
+        
+        // Send email
+        Mail::to("fabiandustin2710@gmail.com")->send(new ReportResolved($report));
+    
         DB::table('pelaporans')->where('id_pelaporan', $id)->delete();
 
-        // Redirect back to the admin dashboard with a success message
         return redirect()->route('show-reports')->with('success', 'Report Has Been Resolved..');
+        
     }
-}
+ }
