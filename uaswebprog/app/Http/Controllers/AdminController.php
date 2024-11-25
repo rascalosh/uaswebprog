@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pelaporan;
 use App\Mail\ReportResolved;
+use App\Models\Guest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -119,21 +120,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function guests()
-    {
-
-        $guests = DB::table('guests')->get();
-
-        return view('admin-dashboard', ['guests' => $guests]);
-    }
-
     public function dashboard()
     {
         // Fetch guests data from the database
-        $guests = DB::table('guests')->get();
+        $guests = Guest::all();
+        $reports = Pelaporan::all();
 
         // Pass the guests data to the view
-        return view('admin-dashboard', ['guests' => $guests]);
+        return view('admin-dashboard', ['guests' => $guests, 'reports' => $reports]);
     }
 
     public function destroyGuest($id)
@@ -143,13 +137,6 @@ class AdminController extends Controller
 
         // Redirect back to the admin dashboard with a success message
         return redirect()->route('admin.dashboard')->with('success', 'Guest deleted successfully.');
-    }
-
-    public function showReports()
-    {
-        $reports = DB::table('pelaporans')->get();
-
-        return view('admin.reports', ['reports' => $reports]);
     }
 
     public function destroyReport($id)
@@ -166,7 +153,7 @@ class AdminController extends Controller
         ];
         
         // Send email
-        Mail::to("fabiandustin2710@gmail.com")->send(new ReportResolved($report));
+        Mail::to("fabiandustin2710@gmail.com")->send(new ReportResolved($reportDetails));
     
         DB::table('pelaporans')->where('id_pelaporan', $id)->delete();
 
