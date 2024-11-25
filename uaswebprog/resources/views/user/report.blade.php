@@ -18,7 +18,7 @@
             <div>
                 <x-label for="full_name" value="{{ __('Full Name') }}" />
                 <x-input id="full_name" class="block mt-1 w-full" type="text" name="full_name" :value="old('full_name')"
-                    required autofocus autocomplete="name" />
+                    required autofocus autocomplete="full_name" />
             </div>
 
             <div>
@@ -45,7 +45,7 @@
             <div class="mt-4">
                 <x-label for="desc_pelaporan" value="{{ __('Issue(s)') }}" />
                 <x-textarea id="desc_pelaporan" class="block mt-1 w-full h-40 resize-y" name="desc_pelaporan"
-                    required />
+                    required autofocus autocomplete="desc_pelaporan" />
             </div>
 
             <x-input id="user_email" type="hidden" name="user_email" value="{{$email}}" />

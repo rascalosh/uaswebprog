@@ -9,9 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Tamu berkunjung</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
                     @foreach ($guests as $guest)
-                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
                             <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $guest->guest_name }}
                             </h4>
                             <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $guest->nomor_kamar }}</p>
@@ -39,7 +39,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Reports</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
                     @foreach ($reports as $report)
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
                             <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $report->full_name }}</h4>
@@ -59,4 +59,5 @@
             </div>
         </div>
     </div>
+
 </x-admin-layout>
