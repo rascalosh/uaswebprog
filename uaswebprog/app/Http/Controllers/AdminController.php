@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -67,6 +68,16 @@ class AdminController extends Controller
         return view('admin.manage_rooms_perempuan', compact('data'));
     }
 
+    public function add_room_images()
+    {
+
+        $is_admin = Auth::user()->is_admin;
+
+        if (!$is_admin) return redirect()->back();
+
+        return view('admin.add_room_images');
+    }
+
     public function updateEmailPria(Request $request, $nomor_kamar)
     {
         if ($request->input('clear_email')) {
@@ -119,7 +130,22 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+    
+    public function add_images(Request $request)
+    {
+        Validator::make($request->all(), [
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg','max:2048'],
+            'jenis_kos' => ['required', 'string', 'max:20']
+        ])->validate();
 
+        $folder = public_path('images/' . $request['jenis_kos']);
+
+        $filename = uniqid() . '.' . $request['image']->getClientOriginalExtension();
+
+        $request['image']->move($folder, $filename);
+
+        return redirect()->back();
+    }
     public function dashboard()
     {
         // Fetch guests data from the database
@@ -153,7 +179,7 @@ class AdminController extends Controller
         ];
         
         // Send email
-        Mail::to("fabiandustin2710@gmail.com")->send(new ReportResolved($reportDetails));
+        Mail::to($reportDetails['user_email'])->send(new ReportResolved($reportDetails));
     
         DB::table('pelaporans')->where('id_pelaporan', $id)->delete();
 

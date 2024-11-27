@@ -61,4 +61,7 @@ Route::post('/admin/update_email_pria/{id}', [AdminController::class, 'updateEma
 Route::get('/manage_rooms_perempuan', [AdminController::class, 'manage_rooms_perempuan'])->name('manage_rooms_perempuan');
 Route::post('/admin/update_email_perempuan/{id}', [AdminController::class, 'updateEmailPerempuan'])->name('admin.update_email_perempuan');
 
+Route::get('/add_room_images', [AdminController::class, 'add_room_images'])->name('add_room_images');
+Route::post('/admin/add_room_images', [AdminController::class, 'add_images'])->name('admin.add_room_images');
+
 
