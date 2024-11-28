@@ -30,7 +30,8 @@ class User extends Authenticatable
         'email',
         'password',
         'full_name',
-        'no_telp'
+        'no_telp',
+        'is_reserving'
     ];
 
     protected $primaryKey = 'id_user';

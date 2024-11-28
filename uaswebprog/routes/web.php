@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CreateReport;
 use App\Http\Controllers\CreateGuest;
+use App\Http\Controllers\CreateReservation;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
@@ -24,17 +25,18 @@ Route::middleware([
     Route::get('/reserve_room', function () {
         return view('user.reserve-room');
     })->name('reserve_room');
+    Route::post('/create_reservation', [CreateReservation::class, 'create'])->name('create-reservation');
     Route::get('/my_room', function () {
         return view('user.my-room');
     })->name('my_room');
     Route::get('/report', function () {
         return view('user.report');
     })->name('report');
-    Route::post('/create-report', [CreateReport::class, 'create'])->name('create-report');
+    Route::post('/create_report', [CreateReport::class, 'create'])->name('create-report');
     Route::get('/guest_form', function () {
         return view('user.guest-form');
     })->name('guest-form');
-    Route::post('/create-guest', [CreateGuest::class, 'create'])->name('create-guest');
+    Route::post('/create_guest', [CreateGuest::class, 'create'])->name('create-guest');
 });
 
 
