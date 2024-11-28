@@ -34,7 +34,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('no_telp', 11);
-            $table->boolean('is_reserving')->nullable()->default(false);
+            $table->char('is_reserving', 2)->nullable()->default(null);
             // $table->char('reserving_room', 2)->nullable();
             $table->date('tanggal_masuk')->default(date("Y-m-d H:i:s"));
             // $table->integer('nomor_kamar');

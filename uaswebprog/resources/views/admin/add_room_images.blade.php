@@ -6,6 +6,7 @@
     </x-slot>
 
     <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+    
         <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
             <form method="POST" action="{{ route('admin.add_room_images') }}" enctype="multipart/form-data">
                 @csrf
@@ -28,6 +29,9 @@
                     </x-button>
                 </div>
             </form>
+
+            <x-validation-errors class="my-5 text-center" />
+            
         </div>
     </div>
 
