@@ -7,11 +7,6 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 ?>
 
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
 
     <div>
         <div class="mx-auto">
@@ -34,7 +29,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
                     </div>
                 @endforeach
             </div>
-            
+
             <!-- Slider controls -->
             <button type="button"
                 class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
@@ -73,7 +68,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
                     </div>
                 @endforeach
             </div>
-            
+
             <!-- Slider controls -->
             <button type="button"
                 class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
