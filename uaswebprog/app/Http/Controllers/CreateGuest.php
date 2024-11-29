@@ -12,7 +12,7 @@ class CreateGuest extends Controller
     {
         Validator::make($request->all(), [
             'guest_name' => ['required', 'string', 'max:255'],    
-            'room' => ['required', 'string', 'min:2', 'max:2'],
+            'room' => ['required', 'string'],
             'gender' => ['required', 'string', 'in:L,P'],
             'date' => ['required', 'date'],
             'amount' => ['required', 'integer', 'min:1'],

@@ -18,18 +18,6 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('manage_rooms_pria') }}"  :active="request()->routeIs('manage_rooms_pria')">
-                        {{ __('Manage Rooms Pria') }}
-                    </x-nav-link>
-                </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('manage_rooms_perempuan') }}"  :active="request()->routeIs('manage_rooms_perempuan')">
-                        {{ __('Manage Rooms Perempuan') }}
-                    </x-nav-link>
-                </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('add_room_images') }}"  :active="request()->routeIs('add_room_images')">
                         {{ __('Add Room Images') }}
                     </x-nav-link>
@@ -169,6 +157,17 @@
             </x-responsive-nav-link>
         </div>
 
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('add_room_images') }}" :active="request()->routeIs('add_room_images')">
+                {{ __('Add Room Images') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('manage_reservations') }}" :active="request()->routeIs('manage_reservations')">
+                {{ __('Manage Reservations') }}
+            </x-responsive-nav-link>
+        </div>
+
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="flex items-center px-4">
@@ -186,7 +185,7 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('manage_rooms_pria') }}" :active="request()->routeIs('profile.admin-show')">
+                <x-responsive-nav-link href="{{ route('admin-show') }}" :active="request()->routeIs('admin-show')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
