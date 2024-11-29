@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CreateReport;
 use App\Http\Controllers\CreateGuest;
 use App\Http\Controllers\CreateReservation;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RoomController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
@@ -55,7 +57,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::get('/add_room_images', [AdminController::class, 'add_room_images'])->name('add_room_images');
     Route::post('/admin/add_room_images', [AdminController::class, 'add_images'])->name('admin.add_room_images');
-    
+
     Route::get('/admin/manage_reservations', [AdminController::class, 'manage_reservations'])->name('manage_reservations');
     Route::post('/admin/search_email', [AdminController::class, 'search_email'])->name('admin.search_email');
 
@@ -70,6 +72,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     // Route::post('/admin/update_email_perempuan/{id}', [AdminController::class, 'updateEmailPerempuan'])->name('admin.update_email_perempuan');
 });
 
+Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
+Route::get('/my_room', [RoomController::class, 'showMyRoom'])->name('my_room');
 // Route::get('/home', [AdminController::class, 'index'])->name('home');
 // Route::get('/admin/profile', [AdminController::class, 'adminShow'])->name('admin-show');
 
@@ -81,5 +85,3 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
 // Route::get('/add_room_images', [AdminController::class, 'add_room_images'])->name('add_room_images');
 // Route::post('/admin/add_room_images', [AdminController::class, 'add_images'])->name('admin.add_room_images');
-
-
