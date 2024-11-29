@@ -24,13 +24,6 @@
                 <p>Is Reserving: <span id="reservationStatus"></span></p>
                 <p>Room: <span id="roomNumber"></span></p>
                 <p>Gender: <span id="gender"></span></p>
-
-                <div class="flex items-center justify-end mt-4">
-                    <form action="{{ route('admin.update_email_perempuan', $row->nomor_kamar) }}" method="POST">
-                    <x-button class="ms-4">
-                        {{ __('Accept') }}
-                    </x-button>
-                </div>
             </div>
             
         </div>
