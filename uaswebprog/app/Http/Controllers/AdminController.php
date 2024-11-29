@@ -78,6 +78,11 @@ class AdminController extends Controller
         return view('admin.add_room_images');
     }
 
+    public function manage_reservations()
+    {
+        return view('admin.manage_reservations');
+    }
+
     public function updateEmailPria(Request $request, $nomor_kamar)
     {
         if ($request->input('clear_email')) {
@@ -185,5 +190,11 @@ class AdminController extends Controller
 
         return redirect()->route('show-reports')->with('success', 'Report Has Been Resolved..');
         
+    }
+
+    public function search_email(Request $request){
+        $user = User::where('email', $request->user_email)->first();
+
+        return response()->json($user ?: null);
     }
  }
