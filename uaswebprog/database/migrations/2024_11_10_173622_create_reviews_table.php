@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('review');
             $table->unique(['nomor_kamar', 'id_user']);
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
-            $table->foreign('nomor_kamar')->references('nomor_kamar')->on('kamar_pria')->onDelete('cascade');
         });
     }
 

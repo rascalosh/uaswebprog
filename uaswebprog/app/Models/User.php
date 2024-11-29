@@ -34,6 +34,7 @@ class User extends Authenticatable
         'is_reserving'
     ];
 
+
     protected $primaryKey = 'id_user';
 
     /**
