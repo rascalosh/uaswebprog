@@ -178,6 +178,7 @@ class AdminController extends Controller
         $reportDetails = [
             'full_name' => $report->full_name,
             'nomor_kamar' => $report->nomor_kamar,
+            'gender_kamar' => $report->gender_kamar,
             'tanggal' => $report->tanggal,
             'desc_pelaporan' => $report->desc_pelaporan,
             'user_email' => $report->user_email
@@ -188,7 +189,7 @@ class AdminController extends Controller
     
         DB::table('pelaporans')->where('id_pelaporan', $id)->delete();
 
-        return redirect()->route('show-reports')->with('success', 'Report Has Been Resolved..');
+        return redirect()->back()->with('success', 'Report Has Been Resolved..');
         
     }
 
@@ -196,5 +197,52 @@ class AdminController extends Controller
         $user = User::where('email', $request->user_email)->first();
 
         return response()->json($user ?: null);
+    }
+
+    public function update_reservation(Request $request)
+    {
+
+        if ($request->input('clear_reservation')) {
+            // Clear the email
+            DB::table('users')
+                ->where('email', $request->email_reservation)
+                ->update(['is_reserving' => null]);
+        }
+
+        else{
+            $user = User::where('email', $request->email_reservation)->first();
+
+            $gender = $user->gender;
+
+            if($gender == 'P') $table = 'kamar_perempuan';
+            else $table = 'kamar_pria';
+
+            DB::table($table)
+                ->where('nomor_kamar', $user->is_reserving)
+                ->update(['email' => $user->email]);
+
+            DB::table($table)
+            ->where('nomor_kamar', $user->is_reserving)
+            ->join('users', 'users.email', '=', 'kamar_pria.email')
+            ->update([$table . '.full_name' => DB::raw('users.full_name')]);
+        }
+
+        return redirect()->back();
+
+        //     $request->validate([
+        //         'email' => 'required|email|unique:kamar_perempuan|unique:kamar_pria',
+        //     ]);
+
+        //     DB::table('kamar_perempuan')
+        //         ->where('nomor_kamar', $nomor_kamar)
+        //         ->update(['email' => $request->input('email')]);
+
+        //     DB::table('kamar_perempuan')
+        //         ->where('nomor_kamar', $nomor_kamar)
+        //         ->join('users', 'users.email', '=', 'kamar_perempuan.email')
+        //         ->update(['kamar_perempuan.full_name' => DB::raw('users.full_name')]);
+        // }
+
+        // return redirect()->back();
     }
  }

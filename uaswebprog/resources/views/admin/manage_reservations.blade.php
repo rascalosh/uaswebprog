@@ -24,6 +24,21 @@
                 <p>Is Reserving: <span id="reservationStatus"></span></p>
                 <p>Room: <span id="roomNumber"></span></p>
                 <p>Gender: <span id="gender"></span></p>
+
+                <form action="{{ route('admin.update_reservation') }}" method="POST">
+                    @csrf
+                    <div>
+                        <x-button>
+                            {{ __('Accept') }}
+                        </x-button>
+
+                        <x-button name="clear_reservation" value="1">
+                            {{ __('Reject') }}
+                        </x-button>
+                    </div>
+
+                    <x-input id="email_reservation" type="hidden" name="email_reservation"/>
+                </form>
             </div>
             
         </div>
@@ -48,13 +63,15 @@ document.getElementById('user_email').addEventListener('input', function() {
        if(user) {
 
            if(user.gender == 'L') gender = "Pria";
-           else gender = "Perempuan";
+           else if(user.gender == 'P') gender = "Perempuan";
+           else gender = "None";
 
            document.getElementById('fullName').textContent = user.full_name || 'None';
            document.getElementById('userEmail').textContent = user.email || 'None';
            document.getElementById('roomNumber').textContent = user.is_reserving || 'None';
            document.getElementById('reservationStatus').textContent = user.is_reserving ? 'Yes' : 'Not Reserving';
-           document.getElementById('gender').textContent = gender || 'None';
+           document.getElementById('email_reservation').value = user.email;
+           document.getElementById('gender').textContent = gender;
            resultDiv.classList.remove('hidden');
        } else {
            resultDiv.classList.add('hidden');

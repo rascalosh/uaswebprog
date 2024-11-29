@@ -21,14 +21,22 @@
                     required autofocus autocomplete="guest_name" />
             </div>
 
-            <div>
-                <x-label for="room" value="{{ __('Room') }}" />
-                <x-input id="room" class="block mt-1 w-full" type="text" name="room" :value="old('room')"
-                    required autofocus />
-            </div>
+            <select name="room" id="room" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Choose a room</option>
+                    <option value="1A">1A</option>
+                    <option value="1B">1B</option>
+                    <option value="2A">2A</option>
+                    <option value="2B">2B</option>
+                    <option value="2C">2C</option>
+                    <option value="2D">2D</option>
+                    <option value="3A">3A</option>
+                    <option value="3B">3B</option>
+                    <option value="3C">3C</option>
+                    <option value="3D">3D</option>
+                </select>
 
             <div>
-                <x-label for="gender" value="{{ __('Gender Kamar') }}" />
+                <x-label for="gender" value="{{ __('Jenis Kos') }}" />
                 <select id="gender" name="gender" class="block mt-1 w-full" :value="old('gender')" required
                     autofocus autocomplete="gender">
                     <option value="L">{{ __('Male') }}</option>
