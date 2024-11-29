@@ -3,6 +3,13 @@
     @php
         $user = Auth::user();
         $email = $user->email;
+
+        $gender = $user->gender;
+
+        if($gender == 'P') $table = 'kamar_perempuan';
+        else $table = 'kamar_pria';
+
+        $rooms = DB::table($table)->select('nomor_kamar', 'email')->get();
     @endphp
 
     <x-slot name="header">
@@ -20,16 +27,17 @@
                 <label for="room" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
                 <select name="room" id="room" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected>Choose a room</option>
-                    <option value="1A">1A</option>
-                    <option value="1B">1B</option>
-                    <option value="2A">2A</option>
-                    <option value="2B">2B</option>
-                    <option value="2C">2C</option>
-                    <option value="2D">2D</option>
-                    <option value="3A">3A</option>
-                    <option value="3B">3B</option>
-                    <option value="3C">3C</option>
-                    <option value="3D">3D</option>
+                    @foreach($rooms as $room)
+                        @if($room->email)
+                            <option value="{{ $room->nomor_kamar }}" disabled>
+                                {{ $room->nomor_kamar }} (Occupied)
+                            </option>
+                        @else
+                            <option value="{{ $room->nomor_kamar }}">
+                                {{ $room->nomor_kamar }}
+                            </option>
+                        @endif
+                    @endforeach
                 </select>
 
                 <x-input id="user_email" type="hidden" name="user_email" value="{{$email}}" />
