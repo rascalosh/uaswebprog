@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CreateReport;
 use App\Http\Controllers\CreateGuest;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CreateReservation;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
@@ -39,6 +40,7 @@ Route::middleware([
         return view('user.guest-form');
     })->name('guest-form');
     Route::post('/create_guest', [CreateGuest::class, 'create'])->name('create-guest');
+    Route::post('/cancel_room', [UserController::class, 'cancel_room'])->name('cancel_room');
 });
 
 

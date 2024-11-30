@@ -35,6 +35,10 @@
             </x-button>
         </a>
 
+        <x-button color="red" onclick='confirmDelete()'>
+            Cancel Room
+        </x-button>
+
         <form method="POST" action="{{ route('submit-review') }}">
             @csrf
             <div class="mt-5 ms-5">
@@ -57,7 +61,49 @@
             </x-button>
         </form>
     @endif
+
+    <div id="cancelModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+
+        <div class="flex items-center justify-center min-h-screen">
+
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+
+                <div class="px-4 py-3">
+
+                    <h2 class="text-lg font-semibold">Confirm Cancellation</h2>
+                    <p>Are you sure you want to cancel your room?</p>
+
+                    <form method="post" action="{{ route('cancel_room') }}">
+                        @csrf
+                        <div class="flex justify-end mt-4">
+                            <button type="button" onclick="closeModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
+                            <button type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 </x-app-layout>
+
+<script>
+    function closeModal() {
+        const modal = document.getElementById('cancelModal');
+        modal.classList.add('hidden');
+    }
+
+    function confirmDelete() {
+        const modal = document.getElementById('cancelModal');
+        modal.classList.remove('hidden');
+    }
+</script>
 
 <style>
     .star-rating {
