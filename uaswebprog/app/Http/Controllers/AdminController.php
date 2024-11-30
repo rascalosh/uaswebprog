@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pelaporan;
 use App\Mail\ReportResolved;
+use App\Mail\GuestResolved;
 use App\Models\Guest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -163,6 +164,20 @@ class AdminController extends Controller
 
     public function destroyGuest($id)
     {
+
+        $guest = Guest::findOrFail($id);
+
+        $guestDetails = [
+            'guest_name' => $guest->guest_name,
+            'nomor_kamar' => $guest->nomor_kamar,
+            'gender' => $guest->gender,
+            'guest_amount' => $guest->guest_amount,
+            'visit_date' => $guest->visit_date,
+            'relation' => $guest->relation,
+            'user_email' => $guest->email_user
+        ];
+
+        Mail::to($guestDetails['user_email'])->send(new GuestResolved($guestDetails));
         // Delete the guest from the database
         DB::table('guests')->where('id_guest', $id)->delete();
 
