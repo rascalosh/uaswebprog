@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Pelaporan;
 use App\Mail\ReportResolved;
 use App\Mail\GuestResolved;
+use App\Mail\ReservationRejected;
+use App\Mail\ReservationAccepted;
 use App\Models\Guest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -217,16 +219,18 @@ class AdminController extends Controller
     public function update_reservation(Request $request)
     {
 
+        $user = User::where('email', $request->email_reservation)->first();
+
         if ($request->input('clear_reservation')) {
             // Clear the email
             DB::table('users')
                 ->where('email', $request->email_reservation)
                 ->update(['is_reserving' => null]);
+
+            Mail::to($user->email)->send(new ReservationRejected($user));
         }
 
         else{
-            $user = User::where('email', $request->email_reservation)->first();
-
             $gender = $user->gender;
 
             if($gender == 'P') $table = 'kamar_perempuan';
@@ -240,6 +244,12 @@ class AdminController extends Controller
             ->where('nomor_kamar', $user->is_reserving)
             ->join('users', 'users.email', '=', 'kamar_pria.email')
             ->update([$table . '.full_name' => DB::raw('users.full_name')]);
+
+            DB::table('users')
+                ->where('email', $request->email_reservation)
+                ->update(['is_reserving' => null]);
+
+            Mail::to($user->email)->send(new ReservationAccepted($user));
         }
 
         return redirect()->back();

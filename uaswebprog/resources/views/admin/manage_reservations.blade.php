@@ -25,7 +25,7 @@
                 <p>Room: <span id="roomNumber"></span></p>
                 <p>Gender: <span id="gender"></span></p>
 
-                <form action="{{ route('admin.update_reservation') }}" method="POST">
+                <form id="decisionForm" action="{{ route('admin.update_reservation') }}" method="POST" class="hidden">
                     @csrf
                     <div>
                         <x-button>
@@ -39,6 +39,7 @@
 
                     <x-input id="email_reservation" type="hidden" name="email_reservation"/>
                 </form>
+
             </div>
             
         </div>
@@ -60,6 +61,7 @@ document.getElementById('user_email').addEventListener('input', function() {
    .then(res => res.json())
    .then(user => {
        const resultDiv = document.getElementById('userResult');
+       const decisionForm = document.getElementById('decisionForm');
        if(user) {
 
            if(user.gender == 'L') gender = "Pria";
@@ -73,6 +75,12 @@ document.getElementById('user_email').addEventListener('input', function() {
            document.getElementById('email_reservation').value = user.email;
            document.getElementById('gender').textContent = gender;
            resultDiv.classList.remove('hidden');
+
+           if (user.is_reserving) {
+                decisionForm.classList.remove('hidden');
+            } else {
+                decisionForm.classList.add('hidden');
+            }
        } else {
            resultDiv.classList.add('hidden');
        }

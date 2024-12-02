@@ -29,9 +29,10 @@ Route::middleware([
         return view('user.reserve-room');
     })->name('reserve_room');
     Route::post('/create_reservation', [CreateReservation::class, 'create'])->name('create-reservation');
-    Route::get('/my_room', function () {
-        return view('user.my-room');
-    })->name('my_room');
+    // Route::get('/my_room', function () {
+    //     return view('user.my-room');
+    // })->name('my_room');
+    Route::get('/my_room', [RoomController::class, 'showMyRoom'])->name('my_room'); 
     Route::get('/report', function () {
         return view('user.report');
     })->name('report');
@@ -41,6 +42,7 @@ Route::middleware([
     })->name('guest-form');
     Route::post('/create_guest', [CreateGuest::class, 'create'])->name('create-guest');
     Route::post('/cancel_room', [UserController::class, 'cancel_room'])->name('cancel_room');
+    Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
 });
 
 
@@ -74,9 +76,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     // Route::get('/manage_rooms_perempuan', [AdminController::class, 'manage_rooms_perempuan'])->name('manage_rooms_perempuan');
     // Route::post('/admin/update_email_perempuan/{id}', [AdminController::class, 'updateEmailPerempuan'])->name('admin.update_email_perempuan');
 });
-
-Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
-Route::get('/my_room', [RoomController::class, 'showMyRoom'])->name('my_room');
 // Route::get('/home', [AdminController::class, 'index'])->name('home');
 // Route::get('/admin/profile', [AdminController::class, 'adminShow'])->name('admin-show');
 
