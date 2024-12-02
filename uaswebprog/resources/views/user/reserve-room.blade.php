@@ -60,7 +60,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
                         <!-- Room Status -->
                         <div class="mt-4">
                             <p class="text-lg font-bold text-gray-700 mb-2">RpX.XXX.XXX</p>
-                            <a href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="text-sm px-3 py-1 rounded-full inline-block {{ $status === 'READY' ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
+                            <a href="{{ route('view_rooms') }}" :active="request()->routeIs('view_rooms')" class="text-sm px-3 py-1 rounded-full inline-block {{ $status === 'READY' ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
                                 {{ $status }}
                             </a>
                         </div>
