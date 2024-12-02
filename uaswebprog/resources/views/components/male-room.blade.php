@@ -1,0 +1,1 @@
+<img src="{{ asset('images/male_room.png') }}" class="w-full object-cover"/>
