@@ -11,18 +11,23 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Scripts -->
+
+    <!-- Ionicons CSS -->
+    <link href="https://unpkg.com/ionicons@5.5.2/dist/ionicons.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Styles -->
+    <!-- Livewire Styles -->
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
+    <!-- Banner -->
     <x-banner />
 
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen">
+        <!-- Navigation Menu -->
         @livewire('navigation-menu')
 
         <!-- Page Heading -->
@@ -40,12 +45,18 @@
         </main>
     </div>
 
+    <!-- Modals -->
     @stack('modals')
 
+    <!-- Livewire Scripts -->
     @livewireScripts
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="uaswebprog\node_modules\flowbite\dist\flowbite.min.js"></script>
 
+    <!-- Ionicons JS -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Flowbite -->
+    <script src="{{ asset('node_modules/flowbite/dist/flowbite.min.js') }}"></script>
 </body>
 
 </html>
