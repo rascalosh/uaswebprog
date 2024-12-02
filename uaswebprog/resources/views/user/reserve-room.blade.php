@@ -8,6 +8,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
 $roomsPerempuan = [
     [
+        'id' => 11,
         'name' => '(1A) Premium Female Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -16,6 +17,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
+        'id' => 12, // ID unik untuk ruangan
         'name' => '(1B) Premium Female Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -24,6 +26,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
+        'id' => 21, 
         'name' => '(2A) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
@@ -32,6 +35,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur.jpg'), // Example image.
     ],
     [
+        'id' => 22, 
         'name' => '(2B) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -40,6 +44,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur2.jpg'), // Example image.
     ],
     [
+        'id' => 23, 
         'name' => '(2C) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -48,6 +53,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur3.jpg'), // Example image.
     ],
     [
+        'id' => 24, 
         'name' => '(2D) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -56,6 +62,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur4.jpg'), // Example image.
     ],
     [
+        'id' => 31, 
         'name' => '(3A) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -64,6 +71,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
+        'id' => 32,
         'name' => '(3B) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -72,6 +80,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kamar3.jpg'), // Example image.
     ],
     [
+        'id' => 33,
         'name' => '(3C) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
@@ -80,6 +89,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
+        'id' => 34,
         'name' => '(3D) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
@@ -91,6 +101,7 @@ $roomsPerempuan = [
 
 $roomsPria = [
     [
+        'id' => 11,
         'name' => '(1A) Premium Male Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -99,6 +110,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
+        'id' => 12,
         'name' => '(1B) Premium Male Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -107,6 +119,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
+        'id' => 21,
         'name' => '(2A) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -115,6 +128,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur.jpg'), // Example image.
     ],
     [
+        'id' => 22,
         'name' => '(2B) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -123,6 +137,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur2.jpg'), // Example image.
     ],
     [
+        'id' => 23,
         'name' => '(2C) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -131,6 +146,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur3.jpg'), // Example image.
     ],
     [
+        'id' => 24,
         'name' => '(2D) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -139,6 +155,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur4.jpg'), // Example image.
     ],
     [
+        'id' => 31,
         'name' => '(3A) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -147,6 +164,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
+        'id' => 32,
         'name' => '(3B) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -155,6 +173,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kamar3.jpg'), // Example image.
     ],
     [
+        'id' => 33,
         'name' => '(3C) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -163,6 +182,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
+        'id' => 34,
         'name' => '(3D) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
@@ -228,7 +248,9 @@ $roomsPria = [
                         <!-- Room Status -->
                         <div class="mt-4">
                             <p class="text-lg font-bold text-gray-700 mb-2">{{ $room['price'] }}</p>
-                            <a href="{{ route('dashboard') }}" class="text-sm px-3 py-1 rounded-full inline-block {{ $room['status'] === 'READY' ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
+                            <a href="{{ route('view_rooms', ['id' => $room['id']]) }}" 
+                            class="text-sm px-3 py-1 rounded-full inline-block 
+                                    {{ $room['status'] === 'READY' ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
                                 {{ $room['status'] }}
                             </a>
                         </div>
@@ -263,7 +285,9 @@ $roomsPria = [
                         <!-- Room Status -->
                         <div class="mt-4">
                             <p class="text-lg font-bold text-gray-700 mb-2">{{ $room['price'] }}</p>
-                            <a href="{{ route('dashboard') }}" class="text-sm px-3 py-1 rounded-full inline-block {{ $room['status'] === 'READY' ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
+                            <a href="{{ route('view_rooms', ['id' => $room['id']]) }}" 
+                            class="text-sm px-3 py-1 rounded-full inline-block 
+                                    {{ $room['status'] === 'READY' ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
                                 {{ $room['status'] }}
                             </a>
                         </div>
