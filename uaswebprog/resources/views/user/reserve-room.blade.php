@@ -8,7 +8,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
 $roomsPerempuan = [
     [
-        'id' => 11,
+        'id' => 111,
         'name' => '(1A) Premium Female Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -17,7 +17,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
-        'id' => 12, // ID unik untuk ruangan
+        'id' => 121, // ID unik untuk ruangan
         'name' => '(1B) Premium Female Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -26,7 +26,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
-        'id' => 21, 
+        'id' => 211, 
         'name' => '(2A) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
@@ -35,7 +35,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur.jpg'), // Example image.
     ],
     [
-        'id' => 22, 
+        'id' => 221, 
         'name' => '(2B) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -44,7 +44,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur2.jpg'), // Example image.
     ],
     [
-        'id' => 23, 
+        'id' => 231, 
         'name' => '(2C) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -53,7 +53,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur3.jpg'), // Example image.
     ],
     [
-        'id' => 24, 
+        'id' => 241, 
         'name' => '(2D) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -62,7 +62,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kasur4.jpg'), // Example image.
     ],
     [
-        'id' => 31, 
+        'id' => 311, 
         'name' => '(3A) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -71,7 +71,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
-        'id' => 32,
+        'id' => 321,
         'name' => '(3B) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -80,7 +80,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/kamar3.jpg'), // Example image.
     ],
     [
-        'id' => 33,
+        'id' => 331,
         'name' => '(3C) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
@@ -89,7 +89,7 @@ $roomsPerempuan = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
-        'id' => 34,
+        'id' => 341,
         'name' => '(3D) Standard Female Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
@@ -101,7 +101,7 @@ $roomsPerempuan = [
 
 $roomsPria = [
     [
-        'id' => 11,
+        'id' => 112,
         'name' => '(1A) Premium Male Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -110,7 +110,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
-        'id' => 12,
+        'id' => 122,
         'name' => '(1B) Premium Male Room',
         'price' => 'Rp2.000.000',
         'status' => 'TANYA PEMILIK',
@@ -119,7 +119,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
-        'id' => 21,
+        'id' => 212,
         'name' => '(2A) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -128,7 +128,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur.jpg'), // Example image.
     ],
     [
-        'id' => 22,
+        'id' => 222,
         'name' => '(2B) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -137,7 +137,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur2.jpg'), // Example image.
     ],
     [
-        'id' => 23,
+        'id' => 232,
         'name' => '(2C) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -146,7 +146,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur3.jpg'), // Example image.
     ],
     [
-        'id' => 24,
+        'id' => 242,
         'name' => '(2D) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -155,7 +155,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kasur4.jpg'), // Example image.
     ],
     [
-        'id' => 31,
+        'id' => 312,
         'name' => '(3A) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -164,7 +164,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kamar2.jpg'), // Example image.
     ],
     [
-        'id' => 32,
+        'id' => 322,
         'name' => '(3B) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -173,7 +173,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/kamar3.jpg'), // Example image.
     ],
     [
-        'id' => 33,
+        'id' => 332,
         'name' => '(3C) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'TANYA PEMILIK',
@@ -182,7 +182,7 @@ $roomsPria = [
         'image' => asset('images/KamarPerempuan/bedroom.jpg'), // Example image.
     ],
     [
-        'id' => 34,
+        'id' => 342,
         'name' => '(3D) Standard Male Room',
         'price' => 'Rp1.500.000',
         'status' => 'READY',
