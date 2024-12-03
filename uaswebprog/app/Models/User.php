@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens;
+    use HasFactory;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -66,5 +67,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function reservation(){
+        return $this->hasOne(Reservation::class, 'id_user', 'id_user');
     }
 }

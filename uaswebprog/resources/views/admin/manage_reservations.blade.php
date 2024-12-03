@@ -5,45 +5,36 @@
         </h2>
     </x-slot>
 
-    <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-    
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-            <form method="POST" action="{{ route('admin.search_email') }}" onsubmit="return false;">
-                @csrf
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Reservations</h3>
+                <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
+                    @foreach ($reservations as $reservation)
 
-                <div>
-                    <x-label for="user_email" value="{{ __('Search Email') }}" />
-                    <x-input id="user_email" class="block mt-1 w-full" type="text" name="user_email"
-                        required autofocus />
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
+                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $reservation->user->full_name }}</h4>
+                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $reservation->reservation_id }}</p>
+
+                            <form action="{{ route('admin.update_reservation') }}" method="POST">
+                                @csrf
+                                <div>
+                                    <x-button>
+                                        {{ __('Accept') }}
+                                    </x-button>
+
+                                    <x-button name="clear_reservation" value="1">
+                                        {{ __('Reject') }}
+                                    </x-button>
+                                </div>
+
+                                <x-input id="reservation_id" type="hidden" name="reservation_id" value='{{ $reservation->reservation_id }}'/>
+                            </form>
+                        </div>
+                    @endforeach
                 </div>
-            </form>
-
-            <div id="userResult" class="hidden mt-4 p-4 bg-white shadow rounded">
-                <p>Full Name: <span id="fullName"></span></p>
-                <p>Email: <span id="userEmail"></span></p>
-                <p>Is Reserving: <span id="reservationStatus"></span></p>
-                <p>Room: <span id="roomNumber"></span></p>
-                <p>Gender: <span id="gender"></span></p>
-
-                <form id="decisionForm" action="{{ route('admin.update_reservation') }}" method="POST" class="hidden">
-                    @csrf
-                    <div>
-                        <x-button>
-                            {{ __('Accept') }}
-                        </x-button>
-
-                        <x-button name="clear_reservation" value="1">
-                            {{ __('Reject') }}
-                        </x-button>
-                    </div>
-
-                    <x-input id="email_reservation" type="hidden" name="email_reservation"/>
-                </form>
-
             </div>
-            
         </div>
-        
     </div>
 
 </x-admin-layout>

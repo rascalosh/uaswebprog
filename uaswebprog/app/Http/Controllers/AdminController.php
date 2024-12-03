@@ -10,6 +10,7 @@ use App\Mail\GuestResolved;
 use App\Mail\ReservationRejected;
 use App\Mail\ReservationAccepted;
 use App\Models\Guest;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -83,7 +84,9 @@ class AdminController extends Controller
 
     public function manage_reservations()
     {
-        return view('admin.manage_reservations');
+        $reservations = Reservation::all();
+
+        return view('admin.manage_reservations', compact('reservations'));
     }
 
     public function updateEmailPria(Request $request, $nomor_kamar)
@@ -219,30 +222,31 @@ class AdminController extends Controller
     public function update_reservation(Request $request)
     {
 
-        $user = User::where('email', $request->email_reservation)->first();
+        $reservation = Reservation::where('reservation_id', $request->reservation_id)->first();
+
+        print($reservation);
 
         if ($request->input('clear_reservation')) {
             // Clear the email
             DB::table('users')
-                ->where('email', $request->email_reservation)
-                ->update(['is_reserving' => null]);
+                ->where('id_user', $reservation->id_user)
+                ->update(['is_reserving' => FALSE]);
 
-            Mail::to($user->email)->send(new ReservationRejected($user));
+            Mail::to($reservation->user->email)->send(new ReservationRejected($reservation));
         }
 
         else{
-            $gender = $user->gender;
+            $gender = $reservation->gender;
 
-            $table = ($gender === 'P') ? 'kamar_perempuan' : 'kamar_pria';
-
-            DB::table($table)
-                ->where('nomor_kamar', $user->is_reserving)
-                ->update(['email' => $user->email]);
+            $table = ($gender == 'P') ? 'kamar_perempuan' : 'kamar_pria';
 
             DB::table($table)
-                ->where('nomor_kamar', $user->is_reserving)
-                ->join('users', 'users.email', '=', 'kamar_pria.email')
-                ->update([$table . '.full_name' => DB::raw('users.full_name')]);
+                ->where('nomor_kamar', $reservation->nomor_kamar)
+                ->update(['email' => $reservation->user->email]);
+
+            DB::table($table)
+                ->where('nomor_kamar', $reservation->nomor_kamar)
+                ->update(['full_name' => $reservation->user->full_name]);
 
             // later
             // DB::table($table)
@@ -253,10 +257,12 @@ class AdminController extends Controller
             //             ->value('full_name')]);
 
             DB::table('users')
-                ->where('email', $request->email_reservation)
-                ->update(['is_reserving' => null, 'deadline bayar' => now()->addMonth()]);
+                ->where('id_user', $reservation->id_user)
+                ->update(['is_reserving' => FALSE, 'deadline bayar' => now()->addMonth()]);
 
-            Mail::to($user->email)->send(new ReservationAccepted($user));
+            DB::table('reservations')->where('reservation_id', $request->reservation_id)->delete();
+
+            Mail::to($reservation->user->email)->send(new ReservationAccepted($reservation));
         }
 
         return redirect()->back();
