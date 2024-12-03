@@ -233,21 +233,28 @@ class AdminController extends Controller
         else{
             $gender = $user->gender;
 
-            if($gender == 'P') $table = 'kamar_perempuan';
-            else $table = 'kamar_pria';
+            $table = ($gender === 'P') ? 'kamar_perempuan' : 'kamar_pria';
 
             DB::table($table)
                 ->where('nomor_kamar', $user->is_reserving)
                 ->update(['email' => $user->email]);
 
             DB::table($table)
-            ->where('nomor_kamar', $user->is_reserving)
-            ->join('users', 'users.email', '=', 'kamar_pria.email')
-            ->update([$table . '.full_name' => DB::raw('users.full_name')]);
+                ->where('nomor_kamar', $user->is_reserving)
+                ->join('users', 'users.email', '=', 'kamar_pria.email')
+                ->update([$table . '.full_name' => DB::raw('users.full_name')]);
+
+            // later
+            // DB::table($table)
+            //     ->where('nomor_kamar', $user->is_reserving)
+            //     ->update(['email' => $user->email,
+            //             'full_name' => DB::table('users')
+            //             ->where('email', $user->email)
+            //             ->value('full_name')]);
 
             DB::table('users')
                 ->where('email', $request->email_reservation)
-                ->update(['is_reserving' => null]);
+                ->update(['is_reserving' => null, 'deadline bayar' => now()->addMonth()]);
 
             Mail::to($user->email)->send(new ReservationAccepted($user));
         }
