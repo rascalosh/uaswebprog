@@ -45,18 +45,14 @@
  <!-- Action Buttons Section -->
         <div class="mt-5 flex justify-center flex-wrap gap-4 ms-5">
             <!-- Report a Problem Button -->
-            <a href="{{ route('report') }}">
-                <x-button class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                <x-button onclick="openReportModal()" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                     Report a Problem
                 </x-button>
-            </a>
 
             <!-- Notify Guest Button -->
-            <a href="{{ route('guest-form') }}">
-                <x-button class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                <x-button onclick="openGuestFormModal()" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                     Notify Guest
                 </x-button>
-            </a>
 
             <!-- Cancel Room Button -->
             <x-button class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95" onclick="confirmDelete()">
@@ -102,7 +98,149 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal for Report -->
+    <div id="reportModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                <div class="px-6 py-4">
+                    <h2 class="text-lg font-semibold">Report a Problem</h2>
+                    <form method="POST" action="{{ route('create-report') }}">
+                        @csrf
+                        <!-- Full Name -->
+                        <div class="mt-4">
+                            <label for="full_name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input id="full_name" name="full_name" type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $user->name }}" readonly>
+                        </div>
+
+                        <!-- Jenis Kos -->
+                        <div class="mt-4">
+                            <label for="jenis_kos" class="block text-sm font-medium text-gray-700">Jenis Kos</label>
+                            <select id="jenis_kos" name="jenis_kos" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="Pria" {{ $gender == 'L' ? 'selected' : '' }}>Pria</option>
+                                <option value="Perempuan" {{ $gender == 'P' ? 'selected' : '' }}>Perempuan</option>
+                            </select>
+                        </div>
+
+                        <!-- Choose a Room -->
+                        <div class="mt-4">
+                            <label for="room_number" class="block text-sm font-medium text-gray-700">Choose a Room</label>
+                            <select id="room_number" name="room_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                @if ($room)
+                                    <option value="{{ $room->nomor_kamar }}" selected>{{ $room->nomor_kamar }}</option>
+                                @else
+                                    <option disabled selected>No room available</option>
+                                @endif
+                            </select>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="mt-4">
+                            <label for="report_date" class="block text-sm font-medium text-gray-700">Date</label>
+                            <input id="report_date" name="report_date" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ now()->toDateString() }}">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mt-4">
+                            <label for="desc_pelaporan" class="block text-sm font-medium text-gray-700">Issue(s)</label>
+                            <textarea id="desc_pelaporan" name="desc_pelaporan" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="mt-6 flex justify-end">
+                            <button type="button" onclick="closeReportModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
+                            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Guest Form -->
+    <div id="guestFormModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                <div class="px-6 py-4">
+                    <h2 class="text-lg font-semibold">Add Guest</h2>
+                    <form method="POST" action="{{ route('create-guest') }}">
+                        @csrf
+
+                        <!-- Guest Name -->
+                        <div class="mt-4">
+                            <label for="guest_name" class="block text-sm font-medium text-gray-700">Guest Name</label>
+                            <input id="guest_name" name="guest_name" type="text" required autofocus autocomplete="guest_name"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+
+                        <!-- Room Selection -->
+                        <div class="mt-4">
+                            <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
+                            <select id="room" name="room" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option selected>Choose a room</option>
+                                <option value="1A">1A</option>
+                                <option value="1B">1B</option>
+                                <option value="2A">2A</option>
+                                <option value="2B">2B</option>
+                                <option value="2C">2C</option>
+                                <option value="2D">2D</option>
+                                <option value="3A">3A</option>
+                                <option value="3B">3B</option>
+                                <option value="3C">3C</option>
+                                <option value="3D">3D</option>
+                            </select>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="mt-4">
+                            <label for="gender" class="block text-sm font-medium text-gray-700">Jenis Kos</label>
+                            <select id="gender" name="gender" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="L">Male</option>
+                                <option value="P">Female</option>
+                            </select>
+                        </div>
+
+                        <!-- Date and Amount -->
+                        <div class="flex justify-between">
+                            <div class="mt-4">
+                                <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                                <input id="date" name="date" type="date" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            </div>
+
+                            <div class="mt-4">
+                                <label for="amount" class="block text-sm font-medium text-gray-700"># of Person</label>
+                                <input id="amount" name="amount" type="number" min="0" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Relation -->
+                        <div class="mt-4">
+                            <label for="relation" class="block text-sm font-medium text-gray-700">Relation</label>
+                            <input id="relation" name="relation" type="text" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+
+                        <!-- Hidden User Email -->
+                        <input id="user_email" type="hidden" name="user_email" value="{{ $email }}">
+
+                        <!-- Buttons -->
+                        <div class="mt-6 flex justify-end">
+                            <button type="button" onclick="closeGuestFormModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
+                            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
+
+
 
 <script>
     function closeModal() {
@@ -114,6 +252,25 @@
         const modal = document.getElementById('cancelModal');
         modal.classList.remove('hidden');
     }
+
+    function openReportModal() {
+    const modal = document.getElementById('reportModal');
+    modal.classList.remove('hidden');
+    }
+
+    function closeReportModal() {
+        const modal = document.getElementById('reportModal');
+        modal.classList.add('hidden');
+    }
+
+    function openGuestFormModal() {
+        document.getElementById('guestFormModal').classList.remove('hidden');
+    }
+
+    function closeGuestFormModal() {
+        document.getElementById('guestFormModal').classList.add('hidden');
+    }
+
 </script>
 
 <style>
@@ -139,4 +296,13 @@
     .star-rating label:hover ~ label i {
         color: #f5b301;
     }
+    
+    .hidden {
+    display: none;
+    }
+
+    .fixed {
+        position: fixed;
+    }
+
 </style>
