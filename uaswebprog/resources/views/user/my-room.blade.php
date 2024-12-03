@@ -32,9 +32,10 @@
             <!-- Personal Information -->
             <div class="w-2/3 mt-5 p-4 bg-gray-100 rounded-lg shadow-md">
                 <h4 class="font-semibold text-lg">Personal Information</h4>
-                <p>Name: Jap Calvin</p>
-                <p>Phone: 089513598982</p>
-                <p>Date of Entry: 15 November 2024</p>
+                <p>Name: {{ $user->name }}</p>
+                <p>Phone: {{ $user->no_telp }}</p>
+                <p>Date of Entry: {{ $user->tanggal_masuk }}</p>
+
 
                 <!-- Payment Due -->
                 <h4 class="font-semibold text-lg mt-2">Payment Due</h4>
