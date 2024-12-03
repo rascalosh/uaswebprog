@@ -36,7 +36,7 @@
                 </select>
 
             <div>
-                <x-label for="gender" value="{{ __('Jenis Koa') }}" />
+                <x-label for="gender" value="{{ __('Jenis Kos') }}" />
                 <select id="gender" name="gender" class="block mt-1 w-full" :value="old('gender')" required
                     autofocus autocomplete="gender">
                     <option value="L">{{ __('Male') }}</option>

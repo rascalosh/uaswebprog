@@ -116,17 +116,17 @@
 
                         <!-- Jenis Kos -->
                         <div class="mt-4">
-                            <label for="jenis_kos" class="block text-sm font-medium text-gray-700">Jenis Kos</label>
-                            <select id="jenis_kos" name="jenis_kos" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option value="Pria" {{ $gender == 'L' ? 'selected' : '' }}>Pria</option>
-                                <option value="Perempuan" {{ $gender == 'P' ? 'selected' : '' }}>Perempuan</option>
+                            <label for="gender" class="block text-sm font-medium text-gray-700">Jenis Kos</label>
+                            <select id="gender" name="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="L" {{ $gender == 'L' ? 'selected' : '' }}>Pria</option>
+                                <option value="P" {{ $gender == 'P' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                         </div>
 
                         <!-- Choose a Room -->
                         <div class="mt-4">
-                            <label for="room_number" class="block text-sm font-medium text-gray-700">Choose a Room</label>
-                            <select id="room_number" name="room_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <label for="room" class="block text-sm font-medium text-gray-700">Choose a Room</label>
+                            <select id="room" name="room" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 @if ($room)
                                     <option value="{{ $room->nomor_kamar }}" selected>{{ $room->nomor_kamar }}</option>
                                 @else
@@ -137,8 +137,8 @@
 
                         <!-- Date -->
                         <div class="mt-4">
-                            <label for="report_date" class="block text-sm font-medium text-gray-700">Date</label>
-                            <input id="report_date" name="report_date" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ now()->toDateString() }}">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                            <input id="date" name="date" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ now()->toDateString() }}">
                         </div>
 
                         <!-- Description -->
@@ -146,6 +146,8 @@
                             <label for="desc_pelaporan" class="block text-sm font-medium text-gray-700">Issue(s)</label>
                             <textarea id="desc_pelaporan" name="desc_pelaporan" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         </div>
+
+                        <x-input id="user_email" type="hidden" name="user_email" value="{{$email}}" />
 
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
