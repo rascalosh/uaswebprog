@@ -179,17 +179,11 @@
                         <div class="mt-4">
                             <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
                             <select id="room" name="room" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option selected>Choose a room</option>
-                                <option value="1A">1A</option>
-                                <option value="1B">1B</option>
-                                <option value="2A">2A</option>
-                                <option value="2B">2B</option>
-                                <option value="2C">2C</option>
-                                <option value="2D">2D</option>
-                                <option value="3A">3A</option>
-                                <option value="3B">3B</option>
-                                <option value="3C">3C</option>
-                                <option value="3D">3D</option>
+                                @if ($room)
+                                    <option value="{{ $room->nomor_kamar }}" selected>{{ $room->nomor_kamar }}</option>
+                                @else
+                                    <option disabled selected>No room available</option>
+                                @endif
                             </select>
                         </div>
 
@@ -198,8 +192,8 @@
                             <label for="gender" class="block text-sm font-medium text-gray-700">Jenis Kos</label>
                             <select id="gender" name="gender" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <option value="L">Male</option>
-                                <option value="P">Female</option>
+                                <option value="L" {{ $gender == 'L' ? 'selected' : '' }}>Male</option>
+                                <option value="P" {{ $gender == 'P' ? 'selected' : '' }}>Female</option>
                             </select>
                         </div>
 

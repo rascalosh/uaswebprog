@@ -1,9 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+
 $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
 $imagesPria = File::files(public_path('images/KamarPria'));
 
+if($gender == "P") $table = "kamar_perempuan";
+else $table = "kamar_pria";
+
+$room = DB::table($table)
+            ->where('nomor_kamar', $id)
+            ->first();
 ?>
 
 <x-app-layout>
