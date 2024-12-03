@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
 $imagesPria = File::files(public_path('images/KamarPria'));
+
+$is_reserving = Auth::user()->is_reserving;
 
 if($gender == "P"){
     $table = "kamar_perempuan";
@@ -106,7 +109,7 @@ else $status = "Tersisa 1 Kamar!";
             <!-- Booking Buttons -->
             <div class="flex justify-center space-x-6 mb-6">
 
-                @if(!$room->email)
+                @if(!$room->email && !$is_reserving)
                     <form action="{{ route('create-reservation') }}" method="POST" class="block">
                         @csrf
 
