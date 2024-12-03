@@ -7,20 +7,12 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 ?>
 
 <x-app-layout>
-
-    <div>
-        <div class="mx-auto">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl w-full">
-                <x-female-room />
-            </div>
-        </div>
-    </div>
         
     <div class="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Left Section (Room Info) -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
             <!-- Room Image -->
-            <div class="w-full bg-gray-300 rounded-lg h-48 mb-4 flex items-center justify-center">
+         <div class="w-full bg-gray-300 rounded-lg h-48 mb-4 flex items-center justify-center">
                 <img src="{{ asset('images/KamarPerempuan/your_image.jpg') }}" alt="Room Image" class="w-full h-full object-cover rounded-lg">
             </div>
 
