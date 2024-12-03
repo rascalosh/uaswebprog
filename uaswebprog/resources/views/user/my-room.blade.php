@@ -147,8 +147,6 @@
                             <textarea id="desc_pelaporan" name="desc_pelaporan" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         </div>
 
-                        <x-input id="user_email" type="hidden" name="user_email" value="{{$email}}" />
-
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
                             <button type="button" onclick="closeReportModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
@@ -227,9 +225,6 @@
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
 
-                        <!-- Hidden User Email -->
-                        <input id="user_email" type="hidden" name="user_email" value="{{ $email }}">
-
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
                             <button type="button" onclick="closeGuestFormModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
@@ -297,10 +292,6 @@
     .star-rating label:hover i,
     .star-rating label:hover ~ label i {
         color: #f5b301;
-    }
-    
-    .hidden {
-    display: none;
     }
 
     .fixed {
