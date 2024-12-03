@@ -281,33 +281,50 @@ $roomsPria = [
 
         <div id="content-man" class="hidden">
             <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($roomsPria as $room)
+
+                @foreach ($men as $room)
+                    @php
+                        $randomFile = $imagesPria[array_rand($imagesPria)];
+                        $randomAsset = 'images/KamarPria/' . $randomFile->getFilename();
+                        if($room->tipe_kamar == 1){
+                            $features = ['AC', 'WiFi', 'Meja', 'Kasur', 'Lemari Baju', 'Kamar Mandi Dalam'];
+                            $price = 'Rp. 2.000.000,00';
+                            $name = "Premium Male Room";
+                        }
+                        else{
+                            $features = ['AC', 'WiFi', 'Meja', 'Kasur', 'Lemari Baju'];
+                            $price = 'Rp. 1.500.000,00';
+                            $name = "Standard Male Room";
+                        }
+                        if($room->email) $status = "TANYA PEMILIK";
+                        else $status = "READY";
+                    @endphp
+
                 <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white">
                     <!-- Room Image -->
                     <div class="w-full bg-gray-300 rounded-lg h-32 mb-4 flex items-center justify-center">
-                        <img src="{{ $room['image'] }}" alt="{{ $room['name'] }}" class="w-full h-full object-cover rounded-lg">
+                        <img src="{{ asset($randomAsset) }}" class="w-full h-full object-cover rounded-lg">
                     </div>
                     <!-- Room Details -->
                     <div class="flex-1">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ $room['name'] }}</h3>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">({{ $room->nomor_kamar }}) {{$name}}</h3>
                         <!-- Grid for Features -->
                         <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-sm text-gray-600 mb-4">
-                            @foreach ($room['features'] as $feature)
-                            <div class="flex items-center">
-                                <ion-icon name="checkmark-circle-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>
-                                <span>{{ $feature }}</span>
-                            </div>
+                            @foreach ($features as $feature)
+                                <div class="flex items-center">
+                                    <ion-icon name="checkmark-circle-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>
+                                    <span>{{ $feature }}</span>
+                                </div>
                             @endforeach
                         </div>
-                        <p class="text-sm text-gray-500">Lantai: {{ $room['floor'] }}</p>
+                        <p class="text-sm text-gray-500">Lantai:</p>
                     </div>
                     <!-- Room Status -->
                     <div class="mt-4">
-                        <p class="text-lg font-bold text-gray-700 mb-2">{{ $room['price'] }}</p>
-                        <a href="{{ route('view_rooms', ['id' => $room['id']]) }}" 
-                           class="text-sm px-3 py-1 rounded-full inline-block 
-                           {{ $room['status'] === 'READY' ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
-                            {{ $room['status'] }}
+                        <p class="text-lg font-bold text-gray-700 mb-2">{{ $price }}</p>
+                        <a href="{{ route('view_rooms', ['id' => $room->nomor_kamar, 'gender' => 'L']) }}" class="text-sm px-3 py-1 rounded-full inline-block 
+                                {{ $room->email ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
+                            {{ $status }}
                         </a>
                     </div>
                 </div>

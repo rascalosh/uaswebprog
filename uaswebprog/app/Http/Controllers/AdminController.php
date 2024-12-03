@@ -224,8 +224,6 @@ class AdminController extends Controller
 
         $reservation = Reservation::where('reservation_id', $request->reservation_id)->first();
 
-        print($reservation);
-
         if ($request->input('clear_reservation')) {
             // Clear the email
             DB::table('users')
