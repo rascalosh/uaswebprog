@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -11,14 +13,22 @@ class CreateReservation extends Controller
 {
     public function create(Request $request){
 
+        $user = Auth::user();
+
         Validator::make($request->all(), [
-            'room' => ['required', 'string', 'min:2', 'max:2'],
-            'user_email' => ['required', 'email', 'max:255']
+            'room' => ['required', 'string'],
+            'gender' => ['required', 'string', 'in:L,P']
         ])->validate();
 
         DB::table('users')
-                ->where('email', $request->input('user_email'))
-                ->update(['is_reserving' => $request->input('room')]);
+                ->where('id_user', $user->id_user)
+                ->update(['is_reserving' => TRUE]);
+
+        Reservation::create([
+            'id_user' => $user->id_user,
+            'nomor_kamar' => $request->room,
+            'gender' => $request->gender
+        ]);
 
         return redirect()->route('dashboard');
     }

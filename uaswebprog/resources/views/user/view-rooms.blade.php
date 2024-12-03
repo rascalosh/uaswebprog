@@ -6,12 +6,41 @@ use Illuminate\Support\Facades\File;
 $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
 $imagesPria = File::files(public_path('images/KamarPria'));
 
-if($gender == "P") $table = "kamar_perempuan";
-else $table = "kamar_pria";
+if($gender == "P"){
+    $table = "kamar_perempuan";
+    $randomFile = $imagesPerempuan[array_rand($imagesPerempuan)];
+    $randomAsset = 'images/KamarPerempuan/' . $randomFile->getFilename();
+    $kos_gender = "Kos Perempuan";
+}
+else{
+    $table = "kamar_pria";
+    $randomFile = $imagesPria[array_rand($imagesPria)];
+    $randomAsset = 'images/KamarPria/' . $randomFile->getFilename();
+    $kos_gender = "Kos Pria";
+}
 
 $room = DB::table($table)
             ->where('nomor_kamar', $id)
             ->first();
+
+if($room->tipe_kamar == 1){
+    $price = 'Rp2.000.000';
+    $name = "Premium ";
+}
+else{
+    $price = 'Rp1.500.000';
+    $name = "Standard ";
+}
+
+if($gender == "P"){
+    $name = $name . "Female Room";
+}
+else{
+    $name = $name . "Male Room";
+}
+
+if($room->email) $status = "Maaf, Sudah Occupied.";
+else $status = "Tersisa 1 Kamar!";
 ?>
 
 <x-app-layout>
@@ -21,14 +50,14 @@ $room = DB::table($table)
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
             <!-- Room Image -->
          <div class="w-full bg-gray-300 rounded-lg h-48 mb-4 flex items-center justify-center">
-                <img src="{{ asset('images/KamarPerempuan/your_image.jpg') }}" alt="Room Image" class="w-full h-full object-cover rounded-lg">
+                <img src="{{ asset($randomAsset) }}" alt="Room Image" class="w-full h-full object-cover rounded-lg">
             </div>
 
-            <h2 class="text-2xl font-semibold text-gray-800">Standard Female Room</h2>
-            <p class="text-gray-500 text-sm mb-4">Kos Perempuan | Allogio Barat 3</p>
+            <h2 class="text-2xl font-semibold text-gray-800">{{ $name }}</h2>
+            <p class="text-gray-500 text-sm mb-4">{{ $kos_gender }} | Allogio Barat 3</p>
 
             <!-- Availability -->
-            <p class="text-lg font-bold text-red-600 mb-4">Tersisa 1 Kamar!</p>
+            <p class="text-lg font-bold text-red-600 mb-4">{{ $status }}</p>
 
             <!-- Divider -->
             <hr class="border-gray-300 mb-6">
@@ -71,14 +100,26 @@ $room = DB::table($table)
     <!-- Title Section -->
     <div class="text-center mb-6">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Your Reservation</h3>
-        <p class="text-xl font-semibold text-green-600">RpX.XXX.XXX /bulan</p>
+        <p class="text-xl font-semibold text-green-600">{{ $price }} /bulan</p>
     </div>
 
             <!-- Booking Buttons -->
             <div class="flex justify-center space-x-6 mb-6">
-                <a href="#" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
-                    Mulai Kost
-                </a>
+
+                @if(!$room->email)
+                    <form action="{{ route('create-reservation') }}" method="POST" class="block">
+                        @csrf
+
+                        <x-input id="room" type="hidden" name="room" value="{{ $id }}" />
+                        
+                        <x-input id="gender" type="hidden" name="gender" value="{{ $gender }}" />
+
+                        <button type="submit" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                            Mulai Kost
+                        </button>
+                    </form>
+                @endif
+
                 <a href="#" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                     Tanya Pemilik
                 </a>
