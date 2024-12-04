@@ -12,6 +12,7 @@ class Guest extends Model
         'gender',
         'guest_amount',
         'visit_date',
+        'end_date',
         'relation',
         'id_user'
     ];

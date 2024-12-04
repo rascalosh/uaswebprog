@@ -1,3 +1,9 @@
+<?php
+
+use Carbon\Carbon;
+
+?>
+
 <x-app-layout>
     @php
         $user = Auth::user();
@@ -10,6 +16,10 @@
         } elseif ($gender == 'P') {
             $room = DB::table('kamar_perempuan')->where('email', $email)->first();
         }
+
+        DB::table('guests')
+            ->where('end_date', '<', Carbon::now()->subDays(7))
+            ->delete();
     @endphp
 
     @if ($room)
@@ -36,7 +46,7 @@
 
                 <!-- Payment Due -->
                 <h4 class="font-semibold text-lg mt-2">Payment Due</h4>
-                <p class="text-red-600 font-medium">{{ Carbon\Carbon::parse($user->deadline_bayar)->format('F j, Y') }}</p>
+                <p class="text-red-600 font-medium">{{ Carbon::parse($user->deadline_bayar)->format('F j, Y') }}</p>
             </div>
         </div>
 
@@ -79,7 +89,7 @@
                                 <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $report->full_name }}</h4>
                                 <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $report->nomor_kamar }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $report->gender_kamar }}</p>
-                                <p class="text-gray-600 dark:text-gray-400">Reported At: {{ $report->tanggal }}</p>
+                                <p class="text-gray-600 dark:text-gray-400">Reported At: {{ Carbon::parse($report->tanggal)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Decription: {{ $report->desc_pelaporan }}</p>
                                 <form action="{{ route('admin.report.destroy', $report->id_pelaporan) }}" method="POST"
                                     onsubmit="return confirm('Apakah anda yakin ingin resolve report ini?');">
@@ -106,7 +116,8 @@
                                 <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $guest->nomor_kamar }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $guest->gender }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Relation: {{ $guest->relation }}</p>
-                                <p class="text-gray-600 dark:text-gray-400">Check In: {{ $guest->visit_date }}</p>
+                                <p class="text-gray-600 dark:text-gray-400">Check In: {{ Carbon::parse($guest->visit_date)->format('F j, Y') }}</p>
+                                <p class="text-gray-600 dark:text-gray-400">Check Out: {{ Carbon::parse($guest->end_date)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}
                                 </p>
                                 <form action="{{ route('admin.guests.destroy', $guest->id_guest) }}" method="POST"
@@ -227,10 +238,16 @@
                             </div>
 
                             <div class="mt-4">
-                                <label for="amount" class="block text-sm font-medium text-gray-700"># of Person</label>
-                                <input id="amount" name="amount" type="number" min="0" required
+                                <label for="duration" class="block text-sm font-medium text-gray-700">Duration (days)</label>
+                                <input id="duration" name="duration" type="number" min="1" required
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="amount" class="block text-sm font-medium text-gray-700"># of People</label>
+                            <input id="amount" name="amount" type="number" min="0" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         </div>
 
                         <!-- Relation -->

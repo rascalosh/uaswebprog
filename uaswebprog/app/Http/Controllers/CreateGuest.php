@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Guest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -18,9 +19,12 @@ class CreateGuest extends Controller
             'room' => ['required', 'string'],
             'gender' => ['required', 'string', 'in:L,P'],
             'date' => ['required', 'date'],
+            'duration' => ['required', 'integer', 'min:1'],
             'amount' => ['required', 'integer', 'min:1'],
             'relation' => ['required', 'string', 'max:255']
         ])->validate();
+
+        $end_date = Carbon::parse($request['date'])->addDays((int) $request['duration']);
 
         Guest::create([
             'id_user' => $user->id_user,
@@ -29,6 +33,7 @@ class CreateGuest extends Controller
             'gender' => $request['gender'],
             'guest_amount' => $request['amount'],
             'visit_date' => $request['date'],
+            'end_date' => $end_date,
             'relation' => $request['relation'],
         ]);
 

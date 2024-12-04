@@ -18,7 +18,8 @@
                             <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $guest->gender }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Email: {{ $guest->email_user }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Relation: {{ $guest->relation }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Check In: {{ $guest->visit_date }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Check In: {{ Carbon\Carbon::parse($guest->visit_date)->format('F j, Y') }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Check Out: {{ Carbon\Carbon::parse($guest->end_date)->format('F j, Y') }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}
                             </p>
                             <form action="{{ route('admin.guests.destroy', $guest->id_guest) }}" method="POST"
@@ -45,7 +46,7 @@
                             <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $report->full_name }}</h4>
                             <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $report->nomor_kamar }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $report->gender_kamar }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Reported At: {{ $report->tanggal }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Reported At: {{ Carbon\Carbon::parse($report->tanggal)->format('F j, Y') }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Decription: {{ $report->desc_pelaporan }}</p>
                             <form action="{{ route('admin.report.destroy', $report->id_pelaporan) }}" method="POST"
                                 onsubmit="return confirm('Apakah anda yakin ingin resolve report ini?');">

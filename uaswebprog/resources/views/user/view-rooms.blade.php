@@ -7,7 +7,14 @@ use Illuminate\Support\Facades\Auth;
 $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
 $imagesPria = File::files(public_path('images/KamarPria'));
 
-$is_reserving = Auth::user()->is_reserving;
+$user = Auth::user();
+
+$is_reserving = FALSE;
+$has_room = FALSE;
+if($user){
+    $is_reserving = $user->is_reserving;
+    $has_room = $user->has_room;
+}
 
 if($gender == "P"){
     $table = "kamar_perempuan";
@@ -47,6 +54,74 @@ else $status = "Tersisa 1 Kamar!";
 ?>
 
 <x-app-layout>
+
+    @if($is_reserving)
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Pending Reservation</h3>           
+                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
+                        <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->reservation->nomor_kamar }}</p>
+                        <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $user->reservation->gender == 'P' ? "Perempuan" : "Laki-Laki" }}</p>
+                        <p class="text-gray-600 dark:text-gray-400">Start Date: {{ Carbon\Carbon::parse($user->reservation->start_date)->format('F j, Y') }}</p>
+
+                        <div class="flex justify-start space-x-6">
+
+                            <div class="block">
+                                <button onclick="confirmDelete()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                                    Cancel
+                                </button>
+                            </div>
+
+                            <a href="#" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                                Tanya Pemilik
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cancelModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen">
+                <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                    <div class="px-4 py-3">
+                        <h2 class="text-lg font-semibold">Confirm Cancellation</h2>
+                        <p>Are you sure you want to cancel your reservation?</p>
+                        <form method="post" action="{{ route('cancel_reservation') }}">
+                            @csrf
+                            <div class="flex justify-end mt-4">
+                                <button type="button" onclick="closeModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
+                                <button type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    @elseif($has_room)
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">You Already Have a Room</h3>           
+                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
+                        <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}</h4>
+                        <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Check Out Your Room!</h4>
+
+                        <div class="flex justify-start space-x-6">
+                            <a href="{{ route('my_room') }}" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                                My Room
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
         
     <div class="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Left Section (Room Info) -->
@@ -195,6 +270,7 @@ else $status = "Tersisa 1 Kamar!";
         </div>
     </div>
 </div>
+@endif
     
 <script>
 let currentZoom = 1;

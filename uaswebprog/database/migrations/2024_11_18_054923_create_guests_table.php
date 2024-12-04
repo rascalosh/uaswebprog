@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('gender', ['L', 'P']);
             $table->integer('guest_amount');
             $table->date('visit_date');
+            $table->date('end_date');
             $table->string('relation');
         });
     }
