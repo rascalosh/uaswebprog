@@ -22,8 +22,8 @@ $fasilitas = [
 
 ?>
 <x-app-layout>
-    
-    @if(request()->routeIs('fasilitas'))
+
+    @if (request()->routeIs('fasilitas'))
         <div class="relative">
             <img src="{{ asset('images/Fasilitas/Fasilitas.png') }}" alt="Fasilitas Kami" class="w-full h-48 object-cover">
             <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -42,16 +42,20 @@ $fasilitas = [
                 <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'dalam')
-                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900" data-aos="fade-up">
+                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
+                                data-aos="fade-up">
                                 <div class="w-full mb-4">
-                                    <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}" alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
+                                    <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}"
+                                        alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
                                 </div>
-                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center mb-2">{{ $fasilitasItem['name'] }}</h3>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center mb-2">
+                                    {{ $fasilitasItem['name'] }}</h3>
                                 <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">
                                     {{ $fasilitasItem['description'] }}
                                 </p>
                                 <div class="w-full flex justify-center">
-                                    <ion-icon name="{{ $fasilitasItem['icon'] }}" class="w-12 h-12 text-gray-700 dark:text-gray-300"></ion-icon>
+                                    <ion-icon name="{{ $fasilitasItem['icon'] }}"
+                                        class="w-12 h-12 text-gray-700 dark:text-gray-300"></ion-icon>
                                 </div>
                             </div>
                         @endif
@@ -65,16 +69,20 @@ $fasilitas = [
                 <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'luar')
-                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900" data-aos="fade-up">
+                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
+                                data-aos="fade-up">
                                 <div class="w-full mb-4">
-                                    <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}" alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
+                                    <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}"
+                                        alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
                                 </div>
-                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center mb-2">{{ $fasilitasItem['name'] }}</h3>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center mb-2">
+                                    {{ $fasilitasItem['name'] }}</h3>
                                 <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">
                                     {{ $fasilitasItem['description'] }}
                                 </p>
                                 <div class="w-full flex justify-center">
-                                    <ion-icon name="{{ $fasilitasItem['icon'] }}" class="w-12 h-12 text-gray-700 dark:text-gray-300"></ion-icon>
+                                    <ion-icon name="{{ $fasilitasItem['icon'] }}"
+                                        class="w-12 h-12 text-gray-700 dark:text-gray-300"></ion-icon>
                                 </div>
                             </div>
                         @endif
@@ -83,4 +91,47 @@ $fasilitas = [
             </div>
         </div>
     </div>
+    <!-- Footer -->
+    <footer class="bg-slate-600 text-gray-200 py-1 mt-56">
+        <div class="container mx-auto px-6 lg:px-5">
+            <div class="lg:flex lg:justify-between">
+                <!-- Logo dan Deskripsi -->
+                <div class="mb-6 lg:mb-0">
+                    <h3 class="text-2xl font-bold mb-1 mt-7">Aloha Guest House</h3>
+                    <p class="text-sm">
+                        Hunian nyaman dengan lokasi strategis di Gading Serpong. Menyediakan fasilitas terbaik untuk
+                        mahasiswa dan profesional muda.
+                    </p>
+                </div>
+
+                <!-- Link Navigasi -->
+                <div class="grid grid-cols-2 gap-4 lg:gap-8 text-sm">
+                    <div>
+                        <h4 class="font-semibold mb-2 mt-5">Quick Links</h4>
+                        <ul>
+                            <li><a href="#" class="hover:text-white">Home</a></li>
+                            <li><a href="#" class="hover:text-white">Facilities</a></li>
+                            <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2 mt-5">Contact</h4>
+                        <ul>
+                            <li>Phone: +62 812-3456-7890</li>
+                            <li>Email: info@alohaguesthouse.com</li>
+                            <li>Address: Gading Serpong, Indonesia</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4 border-gray-700">
+
+            <!-- Hak Cipta -->
+            <div class="text-center text-sm">
+                © 2024 Aloha Guest House. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
 </x-app-layout>
