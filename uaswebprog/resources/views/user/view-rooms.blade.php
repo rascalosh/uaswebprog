@@ -50,7 +50,7 @@ else $status = "Tersisa 1 Kamar!";
         
     <div class="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Left Section (Room Info) -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6" data-aos="flip-left">
             <!-- Room Image -->
          <div class="w-full bg-gray-300 rounded-lg h-48 mb-4 flex items-center justify-center">
                 <img src="{{ asset($randomAsset) }}" alt="Room Image" class="w-full h-full object-cover rounded-lg">
@@ -99,7 +99,7 @@ else $status = "Tersisa 1 Kamar!";
         </div>
 
 <!-- Right Section (Booking Info) -->
-<div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6" data-aos="flip-right">
     <!-- Title Section -->
     <div class="text-center mb-6">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Your Reservation</h3>

@@ -234,6 +234,12 @@ class AdminController extends Controller
         }
 
         else{
+
+            Validator::make($request->all(), [
+                'image' => ['required', 'image', 'mimes:jpeg,png,jpg','max:2048'],
+                'jenis_kos' => ['required', 'string', 'max:20']
+            ])->validate();
+            
             $gender = $reservation->gender;
 
             $table = ($gender == 'P') ? 'kamar_perempuan' : 'kamar_pria';

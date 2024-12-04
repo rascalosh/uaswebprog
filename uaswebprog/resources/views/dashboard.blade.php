@@ -18,7 +18,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
     </div>
 
     <!-- About Section -->
-    <div class="mt-16 lg:px-20 px-6">
+    <div class="mt-16 lg:px-20 px-6" data-aos="fade-up">
         <div class="lg:flex lg:items-start lg:gap-8">
             <div class="lg:w-2/7 mb-6 lg:mb-0">
                 <img src="{{ asset('images/aloha.jpeg') }}" alt="Aloha Guest House" class="w-full h-auto rounded shadow-md ml-10" style="width: 25rem; height: 25rem; object-fit: cover;">
@@ -33,7 +33,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
     </div>
     
     <!-- Rooms Section -->
-    <div class="mt-40 lg:px-20 px-6">
+    <div class="mt-40 lg:px-20 px-6" data-aos="zoom-in">
         <h2 class="text-3xl font-bold mb-6 text-center">OUR FACILITIES</h2>
         <div x-data="{ currentIndex: 0 }" class="relative w-full overflow-hidden">
             <!-- Carousel Container -->
@@ -77,7 +77,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
     </div>
 
     <!-- Rooms Section -->
-    <div class="mt-16 lg:px-20 px-6">
+    <div class="mt-16 lg:px-20 px-6" data-aos="zoom-in">
         <h2 class="text-3xl font-bold mb-6 text-center">OUR FACILITIES</h2>
         <div x-data="{ currentIndex: 0 }" class="relative w-full overflow-hidden">
             <!-- Carousel Container -->
@@ -121,7 +121,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
     </div>
 
     <!-- Rooms Section -->
-    <div class="mt-16 lg:px-20 px-6">
+    <div class="mt-16 lg:px-20 px-6" data-aos="zoom-in">
         <h2 class="text-3xl font-bold mb-6 text-center">OUR FACILITIES</h2>
         <div x-data="{ currentIndex: 0 }" class="relative w-full overflow-hidden">
             <!-- Carousel Container -->

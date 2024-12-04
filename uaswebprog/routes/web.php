@@ -26,8 +26,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/view_rooms', function () {
-        return view('user.view-rooms');
+    Route::get('/view_rooms/{id?}/{gender?}', function ($id, $gender) {
+        return view('user.view-rooms', compact('id', 'gender'));
     })->name('view_rooms');
     Route::get('/reserve_room', function () {
         return view('user.reserve-room');

@@ -42,7 +42,7 @@ $fasilitas = [
                 <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'dalam')
-                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900">
+                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900" data-aos="fade-up">
                                 <div class="w-full mb-4">
                                     <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}" alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
                                 </div>
@@ -65,7 +65,7 @@ $fasilitas = [
                 <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'luar')
-                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900">
+                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900" data-aos="fade-up">
                                 <div class="w-full mb-4">
                                     <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}" alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
                                 </div>
