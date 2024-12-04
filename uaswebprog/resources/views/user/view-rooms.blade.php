@@ -110,17 +110,11 @@ else $status = "Tersisa 1 Kamar!";
             <div class="flex justify-center space-x-6 mb-6">
 
                 @if(!$room->email && !$is_reserving)
-                    <form action="{{ route('create-reservation') }}" method="POST" class="block">
-                        @csrf
-
-                        <x-input id="room" type="hidden" name="room" value="{{ $id }}" />
-                        
-                        <x-input id="gender" type="hidden" name="gender" value="{{ $gender }}" />
-
-                        <button type="submit" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                    <div class="block">
+                        <button onclick="openReserveModal()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                             Mulai Kost
                         </button>
-                    </form>
+                    </div>
                 @endif
 
                 <a href="#" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
@@ -172,6 +166,35 @@ else $status = "Tersisa 1 Kamar!";
         <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-800 text-white p-2 rounded-full">X</button>
     </div>
 </div>
+
+<div id="reserveModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+        <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+            <div class="px-6 py-4">
+                <h2 class="text-lg font-semibold">Reserve Form</h2>
+                <form method="POST" action="{{ route('create-reservation') }}">
+                    @csrf
+                    <!-- Choose a Room -->
+                    <div class="mt-4">
+                        <label for="start_date" class="block text-sm font-medium text-gray-700">Start Date</label>
+                        <input id="start_date" name="start_date" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ now()->toDateString() }}">
+                    </div>
+
+                    <x-input id="nomor_kamar" type="hidden" name="nomor_kamar" value="{{ $id }}" />
+
+                    <x-input id="gender" type="hidden" name="gender" value="{{ $gender }}" />
+
+                    <!-- Buttons -->
+                    <div class="mt-6 flex justify-end">
+                        <button type="button" onclick="closeReserveModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
+                        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">RESERVE!!!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     
 <script>
 let currentZoom = 1;
@@ -202,6 +225,16 @@ function zoomOut() {
 function updateImageZoom() {
     const modalImage = document.getElementById('modalImage');
     modalImage.style.transform = `scale(${currentZoom})`;
+}
+
+function openReserveModal() {
+    const modal = document.getElementById('reserveModal');
+    modal.classList.remove('hidden');
+}
+
+function closeReserveModal() {
+    const modal = document.getElementById('reserveModal');
+    modal.classList.add('hidden');
 }
 
 // Image drag functionality

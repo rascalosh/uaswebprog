@@ -32,7 +32,8 @@ class User extends Authenticatable
         'password',
         'full_name',
         'no_telp',
-        'is_reserving'
+        'is_reserving',
+        'has_room'
     ];
 
 
@@ -71,5 +72,13 @@ class User extends Authenticatable
 
     public function reservation(){
         return $this->hasOne(Reservation::class, 'id_user', 'id_user');
+    }
+
+    public function reports(){
+        return $this->hasMany(Pelaporan::class, 'id_user', 'id_user');
+    }
+
+    public function guests(){
+        return $this->hasMany(Guest::class, 'id_user', 'id_user');
     }
 }

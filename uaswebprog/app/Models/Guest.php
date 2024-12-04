@@ -13,10 +13,14 @@ class Guest extends Model
         'guest_amount',
         'visit_date',
         'relation',
-        'email_user'
+        'id_user'
     ];
 
     protected $primaryKey = 'id_guest';
 
     public $timestamps = false;
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
+    }
 }

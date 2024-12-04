@@ -5,7 +5,21 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <x-application-mark class="block h-9 w-auto" />
+                    <a href="{{ route('welcome') }}">
+                        <x-application-mark class="block h-9 w-auto" />
+                    </a>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('fasilitas') }}" :active="request()->routeIs('fasilitas')">
+                        {{ __('Facilities') }}
+                    </x-nav-link>
+                </div>
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('reserve-room') }}" :active="request()->routeIs('reserve-room')">
+                        {{ __('Reserve a Room') }}
+                    </x-nav-link>
                 </div>
 
             </div>

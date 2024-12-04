@@ -11,7 +11,7 @@ class CreateGuest extends Controller
 {
     public function create(Request $request)
     {
-        $email = Auth::user()->is_admin;
+        $user = Auth::user();
 
         Validator::make($request->all(), [
             'guest_name' => ['required', 'string', 'max:255'],    
@@ -23,13 +23,13 @@ class CreateGuest extends Controller
         ])->validate();
 
         Guest::create([
+            'id_user' => $user->id_user,
             'guest_name' => $request['guest_name'],
             'nomor_kamar' => $request['room'],
             'gender' => $request['gender'],
             'guest_amount' => $request['amount'],
             'visit_date' => $request['date'],
             'relation' => $request['relation'],
-            'email_user' => $email
         ]);
 
         return redirect()->route('my_room');

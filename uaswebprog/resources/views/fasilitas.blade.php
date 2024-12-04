@@ -21,7 +21,7 @@ $fasilitas = [
 ];
 
 ?>
-<x-app-layout>
+<x-dynamic-component :component="Auth::check() ? 'app-layout' : 'welcome-layout'">
 
     @if (request()->routeIs('fasilitas'))
         <div class="relative">
@@ -43,7 +43,7 @@ $fasilitas = [
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'dalam')
                             <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
-                                data-aos="fade-up">
+                                data-aos="zoom-in">
                                 <div class="w-full mb-4">
                                     <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}"
                                         alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
@@ -70,7 +70,7 @@ $fasilitas = [
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'luar')
                             <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
-                                data-aos="fade-up">
+                                data-aos="zoom-in">
                                 <div class="w-full mb-4">
                                     <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}"
                                         alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
@@ -134,4 +134,4 @@ $fasilitas = [
         </div>
     </footer>
 
-</x-app-layout>
+</x-dynamic-component>

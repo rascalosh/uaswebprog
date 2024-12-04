@@ -222,23 +222,20 @@ class AdminController extends Controller
     public function update_reservation(Request $request)
     {
 
+        Validator::make($request->all(), [
+            'reservation_id' => ['required', 'integer'],
+        ])->validate();
+
         $reservation = Reservation::where('reservation_id', $request->reservation_id)->first();
 
         if ($request->input('clear_reservation')) {
-            // Clear the email
-            DB::table('users')
-                ->where('id_user', $reservation->id_user)
+            User::where('id_user', $reservation->id_user)
                 ->update(['is_reserving' => FALSE]);
 
             Mail::to($reservation->user->email)->send(new ReservationRejected($reservation));
         }
 
         else{
-
-            Validator::make($request->all(), [
-                'image' => ['required', 'image', 'mimes:jpeg,png,jpg','max:2048'],
-                'jenis_kos' => ['required', 'string', 'max:20']
-            ])->validate();
             
             $gender = $reservation->gender;
 
@@ -252,22 +249,13 @@ class AdminController extends Controller
                 ->where('nomor_kamar', $reservation->nomor_kamar)
                 ->update(['full_name' => $reservation->user->full_name]);
 
-            // later
-            // DB::table($table)
-            //     ->where('nomor_kamar', $user->is_reserving)
-            //     ->update(['email' => $user->email,
-            //             'full_name' => DB::table('users')
-            //             ->where('email', $user->email)
-            //             ->value('full_name')]);
-
-            DB::table('users')
-                ->where('id_user', $reservation->id_user)
-                ->update(['is_reserving' => FALSE, 'deadline bayar' => now()->addMonth()]);
-
-            DB::table('reservations')->where('reservation_id', $request->reservation_id)->delete();
+            User::where('id_user', $reservation->id_user)
+                ->update(['is_reserving' => FALSE, 'has_room' => TRUE, 'deadline_bayar' => $reservation->start_date->addMonth()]);
 
             Mail::to($reservation->user->email)->send(new ReservationAccepted($reservation));
         }
+
+        DB::table('reservations')->where('reservation_id', $request->reservation_id)->delete();
 
         return redirect()->back();
 

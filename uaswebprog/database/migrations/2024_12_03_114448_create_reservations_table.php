@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("id_user");
             $table->enum('gender', ['L', 'P']);
             $table->char('nomor_kamar', 2);
+            $table->date('start_date');
             $table->timestamps();
         });
     }

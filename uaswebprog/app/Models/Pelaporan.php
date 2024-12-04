@@ -12,7 +12,7 @@ class Pelaporan extends Model
         'gender_kamar',
         'tanggal',
         'desc_pelaporan',
-        'user_email'
+        'id_user'
     ];
 
     protected $primaryKey = 'id_pelaporan';
@@ -36,5 +36,9 @@ class Pelaporan extends Model
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 }

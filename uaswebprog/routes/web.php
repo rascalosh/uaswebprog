@@ -11,12 +11,13 @@ use App\Http\Controllers\RoomController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\FacilitiesController;
 
-
-
-
 Route::get('/', function () {
     return view('welcome');
-});
+    })->name('welcome');
+Route::get('/facilities', [FacilitiesController::class, 'index'])->name('fasilitas');
+Route::get('/reserve_room', function () {
+    return view('reserve-room');
+})->name('reserve-room');
 
 Route::middleware([
     'auth:sanctum',
@@ -29,9 +30,6 @@ Route::middleware([
     Route::get('/view_rooms/{id?}/{gender?}', function ($id, $gender) {
         return view('user.view-rooms', compact('id', 'gender'));
     })->name('view_rooms');
-    Route::get('/reserve_room', function () {
-        return view('user.reserve-room');
-    })->name('reserve_room');
     Route::post('/create_reservation', [CreateReservation::class, 'create'])->name('create-reservation');
     Route::get('/my_room', function () {
         return view('user.my-room');
@@ -44,7 +42,7 @@ Route::middleware([
         return view('user.guest-form');
     })->name('guest-form');
     Route::post('/create_guest', [CreateGuest::class, 'create'])->name('create-guest');
-    Route::post('/cancel_room', [UserController::class, 'cancel_room'])->name('cancel_room');
+    Route::post('/cancel_room', [UserController::class, 'cancel_room'])->name('cancel_reservation');
 });
 
 
@@ -93,12 +91,10 @@ Route::get('/my_room', [RoomController::class, 'showMyRoom'])->name('my_room');
 // Route::get('/add_room_images', [AdminController::class, 'add_room_images'])->name('add_room_images');
 // Route::post('/admin/add_room_images', [AdminController::class, 'add_images'])->name('admin.add_room_images');
 
-Route::get('/fasilitas', function () {
-    return view('fasilitas');
-})->name('fasilitas');
+// Route::get('/fasilitas', function () {
+//     return view('fasilitas');
+// })->name('fasilitas');
 
-Route::get('/facilities', function () {
-    return view('facilities');
-})->name('facilities');
-
-Route::get('/fasilitas', [FacilitiesController::class, 'index'])->name('fasilitas');
+// Route::get('/facilities', function () {
+//     return view('facilities');
+// })->name('facilities');

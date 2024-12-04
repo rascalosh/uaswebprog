@@ -12,12 +12,6 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('fasilitas') }}" :active="request()->routeIs('fasilitas')">
                         {{ __('Facilities') }}
                     </x-nav-link>
@@ -25,10 +19,11 @@
 
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('reserve_room') }}" :active="request()->routeIs('reserve_room')">
+                    <x-nav-link href="{{ route('reserve-room') }}" :active="request()->routeIs('reserve-room')">
                         {{ __('Reserve Room') }}
                     </x-nav-link>
                 </div>
+                
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('my_room') }}" :active="request()->routeIs('my_room')">
                         {{ __('My Room') }}
@@ -172,7 +167,7 @@
         </div>
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('reserve_room') }}" :active="request()->routeIs('reserve_room')">
+            <x-responsive-nav-link href="{{ route('reserve-room') }}" :active="request()->routeIs('reserve-room')">
                 {{ __('Reserve a Room') }}
             </x-responsive-nav-link>
         </div>

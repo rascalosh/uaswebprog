@@ -16,8 +16,12 @@ class Reservation extends Model
         'gender',
         'nomor_kamar',
         'id_user',
+        'start_date',
         'created_at',
         'updated_at'
+    ];
+    protected $casts = [
+        'start_date' => 'datetime',
     ];
 
     public function user(){

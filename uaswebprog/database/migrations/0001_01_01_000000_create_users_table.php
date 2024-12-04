@@ -35,10 +35,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('no_telp', 11);
             $table->boolean('is_reserving')->default(FALSE);
+            $table->boolean('has_room')->default(FALSE);
             // $table->char('reserving_room', 2)->nullable();
             $table->date('tanggal_masuk')->default(date("Y-m-d H:i:s"));
             // $table->integer('nomor_kamar');
-            $table->timestamp('deadline bayar')->nullable();
+            $table->timestamp('deadline_bayar')->nullable();
             $table->rememberToken();
             $table->timestamps();
             // $table->foreign('reserving_room')->references('nomor_kamar')->on('kamar_pria')->onDelete('cascade');
