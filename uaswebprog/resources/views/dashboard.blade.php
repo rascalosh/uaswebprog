@@ -159,50 +159,70 @@ $imagesPria = File::files(public_path('images/KamarPria'));
         </div>
     </div>
 
-    <!-- Rooms Section -->
-    <div class="mt-16 lg:px-20 px-6" data-aos="zoom-in">
-        <h2 class="text-3xl font-bold mb-6 text-center">OUR FACILITIES</h2>
-        <div x-data="{ currentIndex: 0 }" class="relative w-full overflow-hidden">
-            <!-- Carousel Container -->
-            <div class="flex transition-transform duration-500"
-                :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-                @php
-                    $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
-                    $chunks = array_chunk($imagesPerempuan, 3); // Bagi gambar ke grup 3 per baris
-                @endphp
 
-                @foreach ($chunks as $chunk)
-                    <div class="grid grid-cols-3 gap-4 flex-shrink-0 w-full">
-                        @foreach ($chunk as $image)
-                            <div>
-                                <img src="{{ asset('images/KamarPerempuan/' . $image->getFilename()) }}"
-                                    alt="Room Image" class="w-full h-48 object-cover rounded shadow-md"
-                                    style="width: 40rem; height: 20rem; object-fit: cover;">
-                            </div>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
-
-            <!-- Left Button -->
-            <button @click="currentIndex = (currentIndex === 0) ? {{ count($chunks) - 1 }} : currentIndex - 1"
-                class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full shadow hover:bg-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
-
-            <!-- Right Button -->
-            <button @click="currentIndex = (currentIndex === {{ count($chunks) - 1 }}) ? 0 : currentIndex + 1"
-                class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full shadow hover:bg-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
+<!-- Our Awesome Services and Facilities Section -->
+<div class="mt-20 lg:px-28 px-8 py-16 bg-gradient-to-b from-navy-800 to-white" data-aos="fade-up">
+    <div class="text-center">
+        <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-12 animate__animated animate__fadeIn animate__delay-0.5s">
+            Layanan & Fasilitas <span class="text-yellow-600">Unggulan</span> Kami
+        </h2>
+    </div>
+    
+    <!-- Grid Layout: 2 Baris 3 Kolom -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <!-- Keamanan -->
+        <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 ease-in-out hover:scale-105 transform group">
+            <img src="{{ asset('images/Fasilitas/FasilitasLuar/Keamanan.jpg') }}" alt="Keamanan" class="w-16 h-16 mb-4 object-cover rounded-full group-hover:scale-110 transition-all duration-300 ease-in-out">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-yellow-600 transition-all duration-300 ease-in-out">Keamanan 24 Jam</h3>
+            <p class="text-gray-700 text-center opacity-90 group-hover:opacity-100 transition-all duration-300 ease-in-out">Keamanan yang terjamin dengan sistem pengawasan 24 jam dan petugas keamanan yang berjaga di depan kompleks.</p>
+        </div>
+        
+        <!-- Parkir -->
+        <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 ease-in-out hover:scale-105 transform group">
+            <img src="{{ asset('images/Fasilitas/FasilitasLuar/Parkiran.jpg') }}" alt="Parkir" class="w-16 h-16 mb-4 object-cover rounded-full group-hover:scale-110 transition-all duration-300 ease-in-out">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-yellow-600 transition-all duration-300 ease-in-out">Parkir Luas</h3>
+            <p class="text-gray-700 text-center opacity-90 group-hover:opacity-100 transition-all duration-300 ease-in-out">Tempat parkir yang luas dan memadai, memberikan kenyamanan untuk kendaraan para tamu kami.</p>
+        </div>
+        
+        <!-- Kolam Renang -->
+        <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 ease-in-out hover:scale-105 transform group">
+            <img src="{{ asset('images/Fasilitas/FasilitasLuar/Kolam.jpg') }}" alt="Kolam Renang" class="w-16 h-16 mb-4 object-cover rounded-full group-hover:scale-110 transition-all duration-300 ease-in-out">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-yellow-600 transition-all duration-300 ease-in-out">Kolam Renang</h3>
+            <p class="text-gray-700 text-center opacity-90 group-hover:opacity-100 transition-all duration-300 ease-in-out">Kolam renang yang indah, sempurna untuk bersantai dan menikmati waktu luang setelah beraktivitas.</p>
+        </div>
+        
+        <!-- Lapangan Basket -->
+        <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 ease-in-out hover:scale-105 transform group">
+            <img src="{{ asset('images/Fasilitas/FasilitasLuar/Lapangan.jpg') }}" alt="Lapangan Basket" class="w-16 h-16 mb-4 object-cover rounded-full group-hover:scale-110 transition-all duration-300 ease-in-out">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-yellow-600 transition-all duration-300 ease-in-out">Lapangan Basket</h3>
+            <p class="text-gray-700 text-center opacity-90 group-hover:opacity-100 transition-all duration-300 ease-in-out">Lapangan basket yang dapat digunakan untuk berolahraga dan bersenang-senang bersama teman-teman.</p>
+        </div>
+        
+        <!-- Laundry -->
+        <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 ease-in-out hover:scale-105 transform group">
+            <img src="{{ asset('images/Fasilitas/FasilitasDalam/Laundry.jpg') }}" alt="Layanan Laundry" class="w-16 h-16 mb-4 object-cover rounded-full group-hover:scale-110 transition-all duration-300 ease-in-out">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-yellow-600 transition-all duration-300 ease-in-out">Layanan Laundry</h3>
+            <p class="text-gray-700 text-center opacity-90 group-hover:opacity-100 transition-all duration-300 ease-in-out">Layanan laundry profesional untuk memastikan pakaian Anda tetap bersih dan segar selama menginap.</p>
+        </div>
+        
+        <!-- Pembersihan Kamar -->
+        <div class="flex flex-col items-center bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 ease-in-out hover:scale-105 transform group">
+            <img src="{{ asset('images/Fasilitas/FasilitasDalam/Kebersihan.jpg') }}" alt="Pembersihan Kamar" class="w-16 h-16 mb-4 object-cover rounded-full group-hover:scale-110 transition-all duration-300 ease-in-out">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-yellow-600 transition-all duration-300 ease-in-out">Pembersihan Kamar</h3>
+            <p class="text-gray-700 text-center opacity-90 group-hover:opacity-100 transition-all duration-300 ease-in-out">Layanan pembersihan kamar harian untuk menjaga kenyamanan dan kebersihan ruang tinggal Anda.</p>
         </div>
     </div>
+
+    <!-- Button "More" -->
+    <div class="text-center mt-12">
+        <a href="{{ route('fasilitas') }}" class="inline-block px-8 py-3 border-2 border-yellow-600 text-lg font-semibold text-yellow-600 bg-transparent rounded-lg transition-all duration-300 ease-in-out transform hover:bg-yellow-600 hover:text-white hover:border-yellow-600 hover:scale-105">
+            More
+        </a>
+    </div>
+</div>
+
+
+
 
 
 
@@ -249,3 +269,25 @@ $imagesPria = File::files(public_path('images/KamarPria'));
             </div>
         </div>
     </footer>
+
+<!-- Interactive Animation with JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const facilityCards = document.querySelectorAll('.facility-card');
+        facilityCards.forEach(card => {
+            card.addEventListener('mouseover', () => {
+                card.classList.add('animate__animated', 'animate__pulse');
+            });
+            card.addEventListener('mouseout', () => {
+                card.classList.remove('animate__animated', 'animate__pulse');
+            });
+        });
+
+        const facilitiesContainer = document.getElementById('facilities-container');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                facilitiesContainer.classList.add('animate__animated', 'animate__fadeInUp');
+            }
+        });
+    });
+</script>
