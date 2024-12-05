@@ -11,12 +11,14 @@ class RoomController extends Controller
     public function showMyRoom()
     {
         $user = Auth::user();
+        $reports = $user->reports()->withTrashed()->get();
+        $guests = $user->guests()->withTrashed()->get();
         $gender = $user->gender;
 
         if ($gender == 'L') {
-            $room = DB::table('kamar_pria')->where('id_user', $user->id_user)->first();
+            $room = $user->maleRoom;
         } elseif ($gender == 'P') {
-            $room = DB::table('kamar_perempuan')->where('id_user', $user->id_user)->first();
+            $room = $user->femaleRoom;
         }
 
         if ($room) {
@@ -27,6 +29,6 @@ class RoomController extends Controller
             $averageRating = null;
         }
 
-        return view('user.my-room', compact('room', 'averageRating'));
+        return view('user.my-room', compact('room', 'averageRating', 'guests', 'reports'));
     }
 }

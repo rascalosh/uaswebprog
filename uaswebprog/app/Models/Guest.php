@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Guest extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = [
         'guest_name',
         'nomor_kamar',
@@ -16,6 +19,8 @@ class Guest extends Model
         'relation',
         'id_user'
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected $primaryKey = 'id_guest';
 

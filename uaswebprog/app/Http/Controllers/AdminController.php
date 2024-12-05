@@ -187,7 +187,7 @@ class AdminController extends Controller
             'guest_amount' => $guest->guest_amount,
             'visit_date' => $guest->visit_date,
             'relation' => $guest->relation,
-            'user_email' => $guest->email_user
+            'user_email' => $guest->user->email
         ];
 
         Mail::to($guestDetails['user_email'])->send(new GuestResolved($guestDetails));
@@ -209,13 +209,13 @@ class AdminController extends Controller
             'gender_kamar' => $report->gender_kamar,
             'tanggal' => $report->tanggal,
             'desc_pelaporan' => $report->desc_pelaporan,
-            'user_email' => $report->user_email
+            'user_email' => $report->user->email
         ];
         
         // Send email
         Mail::to($reportDetails['user_email'])->send(new ReportResolved($reportDetails));
     
-        DB::table('pelaporans')->where('id_pelaporan', $id)->delete();
+        $report->delete(); // Soft Deletes
 
         return redirect()->back()->with('success', 'Report Has Been Resolved..');
         

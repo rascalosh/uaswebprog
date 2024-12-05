@@ -81,4 +81,15 @@ class User extends Authenticatable
     public function guests(){
         return $this->hasMany(Guest::class, 'id_user', 'id_user');
     }
+
+    public function maleRoom()
+    {
+        return $this->hasOne(KamarPria::class, 'id_user', 'id_user');
+    }
+
+    // Relationship with FemaleRoom
+    public function femaleRoom()
+    {
+        return $this->hasOne(KamarPerempuan::class, 'id_user', 'id_user');
+    }
 }

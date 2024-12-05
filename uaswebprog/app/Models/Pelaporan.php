@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pelaporan extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'full_name',
         'nomor_kamar',
@@ -14,6 +17,8 @@ class Pelaporan extends Model
         'desc_pelaporan',
         'id_user'
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected $primaryKey = 'id_pelaporan';
 
@@ -36,6 +41,11 @@ class Pelaporan extends Model
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function scopeWithHistory($query)
+    {
+        return $query->withTrashed(); // Includes soft-deleted records
     }
 
     public function user(){

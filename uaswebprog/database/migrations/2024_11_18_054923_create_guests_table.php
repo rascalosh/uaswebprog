@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('visit_date');
             $table->date('end_date');
             $table->string('relation');
+            $table->softDeletes();
         });
     }
 

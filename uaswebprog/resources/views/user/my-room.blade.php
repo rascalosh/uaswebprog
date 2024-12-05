@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Pelaporan;
 
 ?>
 
@@ -9,22 +10,19 @@ use Carbon\Carbon;
         $user = Auth::user();
         $gender = $user->gender;
 
-        // Retrieve user-specific room data based on gender and email
-        if ($gender == 'L') {
-            $room = DB::table('kamar_pria')->where('id_user', $user->id_user)->first();
-        } elseif ($gender == 'P') {
-            $room = DB::table('kamar_perempuan')->where('id_user', $user->id_user)->first();
-        }
-
         DB::table('guests')
             ->where('end_date', '<', Carbon::now()->subDays(7))
             ->delete();
+
+        Pelaporan::onlyTrashed()
+            ->where('deleted_at', '<', Carbon::now()->subDays(7))
+            ->forceDelete();
     @endphp
 
     @if ($room)
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ $room->nomor_kamar }} - {{ $room->full_name }}
+                {{ $room->nomor_kamar }} - {{ $user->full_name }}
             </h2>
         </x-slot>
 
@@ -84,13 +82,17 @@ use Carbon\Carbon;
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Reports</h3>
                     <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
-                        @foreach ($user->reports as $report)
+                        @foreach ($reports as $report)
                             <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
                                 <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $report->full_name }}</h4>
                                 <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $report->nomor_kamar }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $report->gender_kamar }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Reported At: {{ Carbon::parse($report->tanggal)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Decription: {{ $report->desc_pelaporan }}</p>
+
+                                @if($report->deleted_at)
+                                    <p class="text-red-600 font-medium">Report has been resolved</p>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -103,7 +105,7 @@ use Carbon\Carbon;
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Tamu berkunjung</h3>
                     <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
-                        @foreach ($user->guests as $guest)
+                        @foreach ($guests as $guest)
                             <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
                                 <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $guest->guest_name }}
                                 </h4>
