@@ -25,7 +25,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
             <img src="{{ asset('images/aloha.jpeg') }}" alt="Aloha Guest House"
                 class="w-80 h-80 lg:w-96 lg:h-96 rounded-xl shadow-xl object-cover transition transform duration-700 ease-in-out hover:scale-110 hover:rotate-3">
             <!-- Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black opacity-30 rounded-xl"></div>
+            <div class="absolute inset-0  opacity-30 rounded-xl"></div>
         </div>
 
         <!-- Konten -->
@@ -114,58 +114,98 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
 
 
-    <!-- Rooms Section -->
-    <div class="mt-40 lg:px-20 px-6" data-aos="zoom-in">
-        <h2 class="text-3xl font-bold mb-6 text-center">OUR FACILITIES</h2>
-        <div x-data="{ currentIndex: 0 }" class="relative w-full overflow-hidden">
-            <!-- Carousel Container -->
-            <div class="flex transition-transform duration-500"
-                :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-                @php
-                    $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
-                    $chunks = array_chunk($imagesPerempuan, 3); // Bagi gambar ke grup 3 per baris
-                @endphp
+    <<!-- Rooms Section -->
+<div class="mt-40 lg:px-20 px-6" data-aos="zoom-in">
+        <h2 class="text-4xl font-extrabold text-gray-900 text-center leading-tight mb-5 animate__animated animate__fadeIn animate__delay-0.5s">
+            <span class="text-yellow-600">Kamar Terbaik</span> untuk Anda
+        </h2>
+    
+        <!-- Pemisah -->
+        <div class="flex justify-center items-center mb-8">
+            <span class="w-1/4 border-t-2 border-gray-300"></span>
+            <span class="mx-4 text-gray-400 font-semibold">x</span>
+            <span class="w-1/4 border-t-2 border-gray-300"></span>
+        </div>
 
-                @foreach ($chunks as $chunk)
-                    <div class="grid grid-cols-3 gap-4 flex-shrink-0 w-full">
-                        @foreach ($chunk as $image)
-                            <div>
-                                <img src="{{ asset('images/KamarPerempuan/' . $image->getFilename()) }}"
-                                    alt="Room Image" class="w-full h-48 object-cover rounded shadow-md"
-                                    style="width: 40rem; height: 20rem; object-fit: cover;">
+        @php
+            $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
+            $chunks = array_chunk($imagesPerempuan, 3); // Bagi gambar ke grup 3 per baris
+        @endphp
+
+    <div x-data="{ currentIndex: 0, totalSlides: {{ count($chunks) }} }" class="relative w-full overflow-hidden">
+
+        <!-- Carousel Container -->
+        <div class="flex transition-transform duration-700 ease-in-out"
+            :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+
+            @foreach ($chunks as $chunk)
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-shrink-0 w-full">
+                    @foreach ($chunk as $image)
+                        <div class="relative group overflow-hidden rounded-lg shadow-lg">
+                            <!-- Room Image -->
+                            <img src="{{ asset('images/KamarPerempuan/' . $image->getFilename()) }}" alt="Room Image"
+                                class="w-full h-72 object-cover transform group-hover:scale-110 transition duration-500 ease-in-out">
+                            
+                            <!-- Overlay with Room Description -->
+                            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div class="text-center text-white px-4 py-6">
+                                    <h3 class="text-2xl font-semibold mb-2 text-shadow-md">Kamar untuk Anda</h3>
+                                    <p class="text-lg mb-4">Nikmati kenyamanan dan privasi di kamar dengan fasilitas lengkap. Ideal untuk istirahat dan relaksasi.</p>
+                                    <a href="{{ route('reserve-room') }}"
+                                        class="inline-block px-8 py-3 border-2 border-white text-lg font-semibold text-white bg-transparent rounded-lg transition-all duration-300 ease-in-out transform hover:bg-yellow-600 hover:text-white hover:border-yellow-600 hover:scale-105">
+                                        Lihat Lebih Banyak
+                                    </a>
+                                </div>
                             </div>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
 
-            <!-- Left Button -->
-            <button @click="currentIndex = (currentIndex === 0) ? {{ count($chunks) - 1 }} : currentIndex - 1"
-                class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full shadow hover:bg-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
+        <!-- Left Button -->
+        <button @click="currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 border-2 border-white p-4 rounded-full shadow-lg text-white hover:scale-110 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
 
-            <!-- Right Button -->
-            <button @click="currentIndex = (currentIndex === {{ count($chunks) - 1 }}) ? 0 : currentIndex + 1"
-                class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 p-2 rounded-full shadow hover:bg-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
+        <!-- Right Button -->
+        <button @click="currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 border-2 border-white p-4 rounded-full shadow-lg text-white hover:scale-110 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+
+        <!-- Indicator Dots -->
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <template x-for="(dot, index) in totalSlides" :key="index">
+                <span :class="{'bg-gray-500': currentIndex === index, 'bg-gray-300': currentIndex !== index}"
+                    class="w-3 h-3 rounded-full cursor-pointer transition duration-300"
+                    @click="currentIndex = index"></span>
+            </template>
         </div>
     </div>
+</div>
+
+
 
 
 <!-- Our Awesome Services and Facilities Section -->
 <div class="mt-20 lg:px-28 px-8 py-16 bg-gradient-to-b from-navy-800 to-white" data-aos="fade-up">
     <div class="text-center">
-        <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-12 animate__animated animate__fadeIn animate__delay-0.5s">
+        <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-5 animate__animated animate__fadeIn animate__delay-0.5s">
             Layanan & Fasilitas <span class="text-yellow-600">Unggulan</span> Kami
         </h2>
+        <!-- Pemisah -->
+        <div class="flex justify-center items-center mb-8">
+            <span class="w-1/4 border-t-2 border-gray-300"></span>
+            <span class="mx-4 text-gray-400 font-semibold">x</span>
+            <span class="w-1/4 border-t-2 border-gray-300"></span>
+        </div>
+
     </div>
     
     <!-- Grid Layout: 2 Baris 3 Kolom -->
@@ -228,7 +268,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
 </x-app-layout>
     <!-- Footer -->
-    <footer class="bg-slate-600 text-gray-200 py-1 mt-56">
+    <footer class="bg-slate-600 text-gray-200 py-1 mt-50">
         <div class="container mx-auto px-6 lg:px-5">
             <div class="lg:flex lg:justify-between">
                 <!-- Logo dan Deskripsi -->
@@ -290,4 +330,13 @@ $imagesPria = File::files(public_path('images/KamarPria'));
             }
         });
     });
+
+    setInterval(function () {
+        const slides = document.querySelector('[x-data]');
+        const totalSlides = slides.__x.$data.totalSlides;
+        let currentIndex = slides.__x.$data.currentIndex;
+        
+        currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+        slides.__x.$data.currentIndex = currentIndex;
+    }, 5000);  // Change slide every 5 seconds
 </script>
