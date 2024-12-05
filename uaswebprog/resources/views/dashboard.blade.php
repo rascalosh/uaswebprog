@@ -310,7 +310,6 @@ $imagesPria = File::files(public_path('images/KamarPria'));
         </div>
     </footer>
 
-<!-- Interactive Animation with JavaScript -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const facilityCards = document.querySelectorAll('.facility-card');
