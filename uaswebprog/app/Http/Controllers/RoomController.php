@@ -11,13 +11,12 @@ class RoomController extends Controller
     public function showMyRoom()
     {
         $user = Auth::user();
-        $email = $user->email;
         $gender = $user->gender;
 
         if ($gender == 'L') {
-            $room = DB::table('kamar_pria')->where('email', $email)->first();
+            $room = DB::table('kamar_pria')->where('id_user', $user->id_user)->first();
         } elseif ($gender == 'P') {
-            $room = DB::table('kamar_perempuan')->where('email', $email)->first();
+            $room = DB::table('kamar_perempuan')->where('id_user', $user->id_user)->first();
         }
 
         if ($room) {

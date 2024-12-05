@@ -7,14 +7,13 @@ use Carbon\Carbon;
 <x-app-layout>
     @php
         $user = Auth::user();
-        $email = $user->email;
         $gender = $user->gender;
 
         // Retrieve user-specific room data based on gender and email
         if ($gender == 'L') {
-            $room = DB::table('kamar_pria')->where('email', $email)->first();
+            $room = DB::table('kamar_pria')->where('id_user', $user->id_user)->first();
         } elseif ($gender == 'P') {
-            $room = DB::table('kamar_perempuan')->where('email', $email)->first();
+            $room = DB::table('kamar_perempuan')->where('id_user', $user->id_user)->first();
         }
 
         DB::table('guests')
@@ -40,8 +39,9 @@ use Carbon\Carbon;
             <div class="w-2/3 mt-5 p-4 bg-gray-100 rounded-lg shadow-md">
                 <h4 class="font-semibold text-lg">Personal Information</h4>
                 <p>Name: {{ $user->name }}</p>
+                <p>Gender: {{ $user->gender == "P" ? "Perempuan" : "Laki-Laki" }}</p>
                 <p>Phone: {{ $user->no_telp }}</p>
-                <p>Date of Entry: {{ $user->tanggal_masuk }}</p>
+                <p>Date of Entry: {{ Carbon::parse($user->tanggal_masuk)->format('F j, Y') }}</p>
 
 
                 <!-- Payment Due -->
@@ -91,12 +91,6 @@ use Carbon\Carbon;
                                 <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $report->gender_kamar }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Reported At: {{ Carbon::parse($report->tanggal)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Decription: {{ $report->desc_pelaporan }}</p>
-                                <form action="{{ route('admin.report.destroy', $report->id_pelaporan) }}" method="POST"
-                                    onsubmit="return confirm('Apakah anda yakin ingin resolve report ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Resolved</button>
-                                </form>
                             </div>
                         @endforeach
                     </div>

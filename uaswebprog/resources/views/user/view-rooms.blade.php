@@ -49,7 +49,7 @@ else{
     $name = $name . "Male Room";
 }
 
-if($room->email) $status = "Maaf, Sudah Occupied.";
+if($room->id_user) $status = "Maaf, Sudah Occupied.";
 else $status = "Tersisa 1 Kamar!";
 ?>
 
@@ -184,7 +184,7 @@ else $status = "Tersisa 1 Kamar!";
             <!-- Booking Buttons -->
             <div class="flex justify-center space-x-6 mb-6">
 
-                @if(!$room->email && !$is_reserving)
+                @if(!$room->id_user && !$is_reserving)
                     <div class="block">
                         <button onclick="openReserveModal()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                             Mulai Kost

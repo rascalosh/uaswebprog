@@ -71,6 +71,7 @@ if($user){
             </div>
         </div>
     
+    <!-- If User Has Room -->
     @elseif($has_room)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -89,6 +90,7 @@ if($user){
                 </div>
             </div>
         </div>
+        
     @else
     <div>
         <!-- Welcome Section -->
@@ -133,7 +135,7 @@ if($user){
                             $price = 'Rp. 1.500.000,00';
                             $name = "Standard Female Room";
                         }
-                        if($room->email) $status = "TANYA PEMILIK";
+                        if($room->id_user) $status = "TANYA PEMILIK";
                         else $status = "READY";
                     @endphp
 
@@ -160,7 +162,7 @@ if($user){
                     <div class="mt-4">
                         <p class="text-lg font-bold text-gray-700 mb-2">{{ $price }}</p>
                         <a href="{{ route('view_rooms', ['id' => $room->nomor_kamar, 'gender' => 'P']) }}" class="text-sm px-3 py-1 rounded-full inline-block 
-                                {{ $room->email ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
+                                {{ $room->id_user ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
                             {{ $status }}
                         </a>
                     </div>
@@ -186,7 +188,7 @@ if($user){
                             $price = 'Rp. 1.500.000,00';
                             $name = "Standard Male Room";
                         }
-                        if($room->email) $status = "TANYA PEMILIK";
+                        if($room->id_user) $status = "TANYA PEMILIK";
                         else $status = "READY";
                     @endphp
 
@@ -213,7 +215,7 @@ if($user){
                         <div class="mt-4">
                             <p class="text-lg font-bold text-gray-700 mb-2">{{ $price }}</p>
                             <a href="{{ route('view_rooms', ['id' => $room->nomor_kamar, 'gender' => 'L']) }}" class="text-sm px-3 py-1 rounded-full inline-block 
-                                    {{ $room->email ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
+                                    {{ $room->id_user ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
                                 {{ $status }}
                             </a>
                         </div>

@@ -89,6 +89,14 @@ class AdminController extends Controller
         return view('admin.manage_reservations', compact('reservations'));
     }
 
+    public function manage_payments()
+    {
+        $maleOccupants = User::where('has_room', true)->where('gender', 'L')->get();
+        $femaleOccupants = User::where('has_room', true)->where('gender', 'P')->get();
+
+        return view('admin.manage_payments', compact('maleOccupants', 'femaleOccupants'));
+    }
+
     public function updateEmailPria(Request $request, $nomor_kamar)
     {
         if ($request->input('clear_email')) {
@@ -243,11 +251,7 @@ class AdminController extends Controller
 
             DB::table($table)
                 ->where('nomor_kamar', $reservation->nomor_kamar)
-                ->update(['email' => $reservation->user->email]);
-
-            DB::table($table)
-                ->where('nomor_kamar', $reservation->nomor_kamar)
-                ->update(['full_name' => $reservation->user->full_name]);
+                ->update(['id_user' => $reservation->id_user]);
 
             User::where('id_user', $reservation->id_user)
                 ->update(['is_reserving' => FALSE, 'has_room' => TRUE, 'deadline_bayar' => $reservation->start_date->addMonth()]);
