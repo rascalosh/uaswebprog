@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ class RoomController extends Controller
     public function showMyRoom()
     {
         $user = Auth::user();
+        $user = User::find($user->id_user);
         $reports = $user->reports()->withTrashed()->get();
         $guests = $user->guests()->withTrashed()->get();
         $gender = $user->gender;
