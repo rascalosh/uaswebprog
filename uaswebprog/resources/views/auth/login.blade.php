@@ -46,9 +46,6 @@
                     href="{{ route('register') }}">
                     {{ __('Create an account') }}
                 </a>
-
-
-
                 <x-button class="ms-4">
                     {{ __('Log in') }}
                 </x-button>
