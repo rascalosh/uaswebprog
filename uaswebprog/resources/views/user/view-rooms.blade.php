@@ -50,7 +50,7 @@ else{
 }
 
 if($room->id_user) $status = "Maaf, Sudah Occupied.";
-else $status = "Tersisa 1 Kamar!";
+else $status = "Tersedia!";
 ?>
 
 <x-app-layout>
@@ -203,12 +203,66 @@ else $status = "Tersisa 1 Kamar!";
 
     <!-- Rules Section -->
     <div class="mb-6">
-        <h4 class="text-lg font-semibold text-gray-700 mb-3">Peraturan Kost</h4>
-        <div class="relative cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <!-- Image for Peraturan Kost -->
-            <img src="{{ asset('images/peraturan_kost.jpg') }}" alt="Peraturan" class="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300" onclick="openModal()">
+        <h4 class="text-lg font-semibold text-gray-700 mb-3">PERATURAN KAMAR KOST</h4>
+        <div class="relative cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 bg-gray-100">
+            <!-- Paragraf untuk Peraturan Kost -->
+            <p class="text-gray-600 leading-relaxed">
+            1.  Dilarang keras membawa maupun memakai narkoba,minuman keras,berjudi,berbuat kriminal dan
+            berbuat asusila.
+            <br>
+            2. Dilarang merokok didalam kamar atau didalam gedung
+            ALOHA dan dilarang membuang softex di closet kamar
+            mandi.
+            <br>
+            3. Penyewa diwajibkan menjaga kebersihan kamar sendiri, jika ingin minta tolong dibersihkan dapat memberitahu pihak
+            ALOHA.
+            <br>
+            4. Penyewa dilarang membawa hewan peliharan yang memiliki
+            bulu ( Anjing, Kucing, Hamster, Burung, dan lain - lain ).
+            <br>
+            5. Orang tua dan keluarga kandung diperbolehkan menginap di kamar penyewa dengan memberitahu pihak ALOHA.
+            <br>
+            6. Elektronik yang disediakan (TV dan AC) oleh pihak ALOHA
+            merupakan tanggung jawab pribadi penyewa kamar dan jika
+            terjadi kerusakan merupakan tanggung jawab penyewa.
+            <br>
+            7. Jika penyewa ingin memaku tembok harap melapor kepada
+            pihak ALOHA terlebih dahulu.
+            <br>
+            8. Listrik token per kamar merupakan tanggung jawab penyewa dan dapat mengisi nya sendiri dengan kebutuhan masing-masing.
+            <br>
+            9. Tamu dari penyewa kamar dapat menginap dengan melapor
+            ke pihak ALOHA terlebih dahulu.
+            <br>
+            10. Tamu yang menginap di kamar penyewa tidak boleh lawan
+            jenis
+            <br>
+            11. Deposit penyewa merupakan kewajiban yang harus
+            diberikan kepada pihak ALOHA.
+            <br>
+            12. Deposit yang diberikan kepada pihak ALOHA akan di
+            gunakan jika terjadi kerusakan dikamar penyewa.
+            <br>
+            13. Laundry akan diberikan secara gratis dengan maksimal 4
+            potong pakaian per hari dan diluar underwear.
+            <br>
+            14. Demi kenyamanan bersama dilarang membuat kebisingan
+            yang melebihi batas.
+            <br>
+            15. Pembayaran dapat dilakukan per tanggal masuk yang sudah ada di FORM ALOHA.
+            <br>
+            16. Segala bentuk kehilangan di dalam kamar penyewa bukan
+            merupakan tanggung jawab dari pihak ALOHA, penyewa
+            diharapkan menjaga barang pribadi masing - masing.
+            <br>
+            17. Jam berkunjung untuk lawan jenis dibatasi sampai jam
+            19.00,karena sesuai peraturan tidak bisa lawan jenis
+            menginap di ALOHA. Jika ada lawan jenis melewati jam
+            batas mohon laporan kepada pihak ALOHA.
+            </p>
         </div>
     </div>
+
 
     <!-- Additional Info -->
     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
