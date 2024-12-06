@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('manage_payments') }}"  :active="request()->routeIs('mane_payments')">
+                    <x-nav-link href="{{ route('manage_payments') }}"  :active="request()->routeIs('manage_payments')">
                         {{ __('Manage Payments') }}
                     </x-nav-link>
                 </div>

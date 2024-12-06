@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id('id_guest');
-            $table->unsignedBigInteger('id_user');
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $table->string('guest_name');
             $table->char('nomor_kamar', 2);
             $table->enum('gender', ['L', 'P']);
