@@ -99,6 +99,8 @@ class User extends Authenticatable
         static::deleting(function ($user) {
             $user->reports()->forceDelete(); // Delete associated reports
             $user->guests()->forceDelete();
+            $user->maleRoom()->update(['id_user' => null]);
+            $user->femaleRoom()->update(['id_user' => null]);
         });
     }
 }

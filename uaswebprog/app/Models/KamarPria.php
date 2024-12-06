@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class KamarPria extends Model
 {
     protected $table = 'kamar_pria';
+
+    protected $fillable = [
+        'id_user'
+    ];
+
+    public $timestamps = false;
     
     public function user()
     {
