@@ -114,7 +114,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
 
 
-    <<!-- Rooms Section -->
+    <!-- Rooms Section -->
 <div class="mt-40 lg:px-20 px-6" data-aos="zoom-in">
         <h2 class="text-4xl font-extrabold text-gray-900 text-center leading-tight mb-5 animate__animated animate__fadeIn animate__delay-0.5s">
             <span class="text-yellow-600">Kamar Terbaik</span> untuk Anda
