@@ -68,6 +68,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/admin/manage_payments', [AdminController::class, 'manage_payments'])->name('manage_payments');
     Route::post('/admin/search_email', [AdminController::class, 'search_email'])->name('admin.search_email');
     Route::post('/admin/update_reservation', [AdminController::class, 'update_reservation'])->name('admin.update_reservation');
+    Route::post('/admin/update_payment', [AdminController::class, 'update_payment'])->name('admin.update_payment');
 
 
     // Route::get('/home', [AdminController::class, 'index'])->name('home');

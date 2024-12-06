@@ -279,8 +279,8 @@ use App\Models\Pelaporan;
     }
 
     function openReportModal() {
-    const modal = document.getElementById('reportModal');
-    modal.classList.remove('hidden');
+        const modal = document.getElementById('reportModal');
+        modal.classList.remove('hidden');
     }
 
     function closeReportModal() {

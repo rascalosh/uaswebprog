@@ -33,7 +33,8 @@ class User extends Authenticatable
         'full_name',
         'no_telp',
         'is_reserving',
-        'has_room'
+        'has_room',
+        'deadline_bayar'
     ];
 
 

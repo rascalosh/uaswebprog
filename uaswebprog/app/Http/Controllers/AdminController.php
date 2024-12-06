@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -278,5 +279,22 @@ class AdminController extends Controller
         // }
 
         // return redirect()->back();
+    }
+
+    public function update_payment(Request $request)
+    {
+        
+        Validator::make($request->all(), [
+            'duration' => ['required', 'integer', 'min:1'],
+            'id_user' => ['required', 'integer', 'exists:users,id_user']
+        ])->validate();
+
+        $user = User::find($request->id_user);
+
+        $newDeadline = Carbon::parse($user->deadline_bayar)->addMonths((int) $request->duration);
+
+        $user->update(['deadline_bayar' => $newDeadline]);
+
+        return redirect()->back();
     }
  }
