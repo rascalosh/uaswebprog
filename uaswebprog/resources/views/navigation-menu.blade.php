@@ -6,11 +6,11 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    if(@auth){
+                    @if(@auth){
                         <a href="{{ route('dashboard') }}">
                             <x-application-mark class="block h-9 w-auto" />
                         </a>
-                        } else {
+                        } @else {
                         <a href="{{ route('welcome') }}">
                             <x-application-mark class="block h-9 w-auto" />
                         </a>
