@@ -11,7 +11,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
     <div>
         <div class="mx-auto">
             <div class="bg-white dark:bg-gray-800 overflow-hidden w-full">
-                <x-welcome-banner />
+                <x-swelcome-banner />
             </div>
         </div>
     </div>
