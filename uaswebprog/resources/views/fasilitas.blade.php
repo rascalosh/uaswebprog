@@ -40,7 +40,6 @@ $fasilitas = [
                 <!-- Filter -->
                 <div class="flex justify-between items-center mb-6">
                     <input id="searchBar" type="text" placeholder="Cari fasilitas..." class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button id="toggleView" class="ml-4 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Toggle Grid/List</button>
                 </div>
 
                 <!-- Dalam -->
@@ -144,7 +143,6 @@ $fasilitas = [
 <script>
     document.addEventListener('DOMContentLoaded', () => {
     const searchBar = document.getElementById('searchBar');
-    const toggleView = document.getElementById('toggleView');
     const fasilitasItems = document.querySelectorAll('.fasilitas-item');
     const fasilitasContainers = [document.getElementById('fasilitasDalam'), document.getElementById('fasilitasLuar')];
 
