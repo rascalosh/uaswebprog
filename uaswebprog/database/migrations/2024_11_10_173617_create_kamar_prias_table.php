@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('kamar_pria', function (Blueprint $table) {
             $table->char('nomor_kamar', 2)->primary();
-            // $table->string('foto')->nullable();
             $table->integer('tipe_kamar');
-            $table->unsignedBigInteger('id_user')->unique()->nullable();
+            $table->foreignId('id_user')->nullable()->unique()->onDelete('cascade');
             $table->foreign('tipe_kamar')->references('tipe_kamar')->on('tipe_kamars')->onDelete('cascade');
+            // $table->string('foto')->nullable();
+            // $table->unsignedBigInteger('id_user')->unique()->nullable();
         });
     }
 
