@@ -95,8 +95,8 @@ if($user){
     <div>
         <!-- Welcome Section -->
         <div class="mx-auto">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl w-full">
-                <x-welcome-banner />
+            <div class="dark:bg-gray-800 overflow-hidden w-full">
+                <x-swelcome-banner />
             </div>
         </div>
 
