@@ -23,19 +23,17 @@ $fasilitas = [
 ?>
 <x-dynamic-component :component="Auth::check() ? 'app-layout' : 'welcome-layout'">
 
-    @if (request()->routeIs('fasilitas'))
-        <div class="relative">
-            <img src="{{ asset('images/Fasilitas/Fasilitas.png') }}" alt="Fasilitas Kami" class="w-full h-48 object-cover">
-            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                <h2 class="text-white text-3xl font-bold">Fasilitas Kami</h2>
+    <div>
+        <div class="mx-auto">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden w-full">
+                <x-facilities />
             </div>
         </div>
-    @endif
+    </div>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Fasilitas Kami</h1>
 
                 <!-- Filter -->
                 <div class="flex justify-between items-center mb-6">
