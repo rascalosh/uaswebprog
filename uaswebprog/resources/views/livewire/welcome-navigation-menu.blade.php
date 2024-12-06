@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('welcome') }}">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -139,8 +139,20 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">
+                {{ __('Welcome') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('fasilitas') }}" :active="request()->routeIs('fasilitas')">
+                {{ __('Facilities') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('reserve-room') }}" :active="request()->routeIs('reserve-room')">
+                {{ __('Reserve Room') }}
             </x-responsive-nav-link>
         </div>
 
