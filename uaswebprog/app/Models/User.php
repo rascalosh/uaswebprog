@@ -93,4 +93,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(KamarPerempuan::class, 'id_user', 'id_user');
     }
+
+    protected static function booted()
+    {
+        static::deleting(function ($user) {
+            $user->reports()->forceDelete(); // Delete associated reports
+            $user->guests()->forceDelete();
+        });
+    }
 }
