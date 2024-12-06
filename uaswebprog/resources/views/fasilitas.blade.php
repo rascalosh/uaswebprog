@@ -32,68 +32,110 @@ $fasilitas = [
     </div>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+            <!-- Filter & View Toggle -->
+            <div class="flex justify-between items-center mb-6">
+                <input id="searchBar" type="text" placeholder="Cari fasilitas..."
+                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-                <!-- Filter -->
-                <div class="flex justify-between items-center mb-6">
-                    <input id="searchBar" type="text" placeholder="Cari fasilitas..." class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <!-- Dalam -->
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Fasilitas Dalam</h2>
-                <div id="fasilitasDalam" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach ($fasilitas as $fasilitasItem)
-                        @if ($fasilitasItem['category'] === 'dalam')
-                            <div class="fasilitas-item border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
-                                data-aos="fade-up" data-name="{{ strtolower($fasilitasItem['name']) }}">
-                                <div class="w-full mb-4">
-                                    <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}"
-                                        alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center mb-2">
-                                    {{ $fasilitasItem['name'] }}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">
-                                    {{ $fasilitasItem['description'] }}
-                                </p>
-                                <div class="w-full flex justify-center">
-                                    <ion-icon name="{{ $fasilitasItem['icon'] }}"
-                                        class="w-12 h-12 text-gray-700 dark:text-gray-300"></ion-icon>
-                                </div>
+            <!-- Fasilitas Dalam -->
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 text-center">
+                Fasilitas Dalam
+            </h2>
+            <div id="fasilitasDalam" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                @foreach ($fasilitas as $fasilitasItem)
+                    @if ($fasilitasItem['category'] === 'dalam')
+                        <div class="fasilitas-item group relative overflow-hidden border border-gray-200 rounded-lg shadow-lg bg-white dark:bg-gray-900 p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+                            <div class="w-full h-40 relative mb-4">
+                                <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}"
+                                    alt="{{ $fasilitasItem['name'] }}"
+                                    class="rounded-lg object-cover w-full h-full transition-transform transform group-hover:scale-110">
+                                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition"></div>
                             </div>
-                        @endif
-                    @endforeach
-                </div>
-
-                <hr class="my-12 border-t-2 border-gray-300 dark:border-gray-600">
-
-                <!-- Luar -->
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Fasilitas Luar</h2>
-                <div id="fasilitasLuar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach ($fasilitas as $fasilitasItem)
-                        @if ($fasilitasItem['category'] === 'luar')
-                            <div class="fasilitas-item border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
-                                data-aos="fade-up" data-name="{{ strtolower($fasilitasItem['name']) }}">
-                                <div class="w-full mb-4">
-                                    <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}"
-                                        alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center mb-2">
-                                    {{ $fasilitasItem['name'] }}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">
-                                    {{ $fasilitasItem['description'] }}
-                                </p>
-                                <div class="w-full flex justify-center">
-                                    <ion-icon name="{{ $fasilitasItem['icon'] }}"
-                                        class="w-12 h-12 text-gray-700 dark:text-gray-300"></ion-icon>
-                                </div>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center">
+                                {{ $fasilitasItem['name'] }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
+                                {{ $fasilitasItem['description'] }}
+                            </p>
+                            <div class="w-full flex justify-center mt-4">
+                                <ion-icon name="{{ $fasilitasItem['icon'] }}" class="text-4xl text-blue-500"></ion-icon>
                             </div>
-                        @endif
-                    @endforeach
-                </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+
+            <hr class="my-12 border-t-2 border-gray-300 dark:border-gray-600">
+
+            <!-- Fasilitas Luar -->
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 text-center">
+                Fasilitas Luar
+            </h2>
+            <div id="fasilitasLuar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                @foreach ($fasilitas as $fasilitasItem)
+                    @if ($fasilitasItem['category'] === 'luar')
+                        <div class="fasilitas-item group relative overflow-hidden border border-gray-200 rounded-lg shadow-lg bg-white dark:bg-gray-900 p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+                            <div class="w-full h-40 relative mb-4">
+                                <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}"
+                                    alt="{{ $fasilitasItem['name'] }}"
+                                    class="rounded-lg object-cover w-full h-full transition-transform transform group-hover:scale-110">
+                                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition"></div>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center">
+                                {{ $fasilitasItem['name'] }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
+                                {{ $fasilitasItem['description'] }}
+                            </p>
+                            <div class="w-full flex justify-center mt-4">
+                                <ion-icon name="{{ $fasilitasItem['icon'] }}" class="text-4xl text-green-500"></ion-icon>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
+</div>
+
+
+</x-dynamic-component>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchBar = document.getElementById('searchBar');
+        const fasilitasItems = document.querySelectorAll('.fasilitas-item');
+        const toggleView = document.getElementById('toggleView');
+        const fasilitasContainers = [document.getElementById('fasilitasDalam'), document.getElementById('fasilitasLuar')];
+
+        // Filter fasilitas
+        searchBar.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            fasilitasItems.forEach(item => {
+                const name = item.getAttribute('data-name');
+                item.style.display = name.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // Animasi hover tambahan
+        fasilitasItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.classList.add('shadow-2xl');
+                item.classList.add('transform', 'scale-105');
+            });
+            item.addEventListener('mouseleave', () => {
+                item.classList.remove('shadow-2xl');
+                item.classList.remove('transform', 'scale-105');
+            });
+        });
+    });
+</script>
+
+
+
     <!-- Footer -->
     <footer class="bg-slate-600 text-gray-200 py-1 mt-56">
         <div class="container mx-auto px-6 lg:px-5">
@@ -136,30 +178,3 @@ $fasilitas = [
             </div>
         </div>
     </footer>
-
-</x-dynamic-component>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const searchBar = document.getElementById('searchBar');
-    const fasilitasItems = document.querySelectorAll('.fasilitas-item');
-    const fasilitasContainers = [document.getElementById('fasilitasDalam'), document.getElementById('fasilitasLuar')];
-
-    // Filter fasilitas
-    searchBar.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
-        fasilitasItems.forEach(item => {
-            const name = item.getAttribute('data-name');
-            item.style.display = name.includes(query) ? 'block' : 'none';
-        });
-    });
-
-    // Toggle Grid/List View
-    toggleView.addEventListener('click', () => {
-        fasilitasContainers.forEach(container => {
-            container.classList.toggle('grid');
-            container.classList.toggle('list');
-        });
-    });
-});
-
-</script>
