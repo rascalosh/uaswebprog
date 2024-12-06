@@ -34,16 +34,22 @@ $fasilitas = [
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <h1 class="text-2xl font-bold text-gray-800 dark:text-white p-6">Fasilitas Kami</h1>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Fasilitas Kami</h1>
+
+                <!-- Filter -->
+                <div class="flex justify-between items-center mb-6">
+                    <input id="searchBar" type="text" placeholder="Cari fasilitas..." class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button id="toggleView" class="ml-4 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Toggle Grid/List</button>
+                </div>
 
                 <!-- Dalam -->
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-white p-6">Fasilitas Dalam</h2>
-                <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Fasilitas Dalam</h2>
+                <div id="fasilitasDalam" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'dalam')
-                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
-                                data-aos="zoom-in">
+                            <div class="fasilitas-item border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
+                                data-aos="fade-up" data-name="{{ strtolower($fasilitasItem['name']) }}">
                                 <div class="w-full mb-4">
                                     <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}"
                                         alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
@@ -65,12 +71,12 @@ $fasilitas = [
                 <hr class="my-12 border-t-2 border-gray-300 dark:border-gray-600">
 
                 <!-- Luar -->
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-white p-6">Fasilitas Luar</h2>
-                <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Fasilitas Luar</h2>
+                <div id="fasilitasLuar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'luar')
-                            <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
-                                data-aos="zoom-in">
+                            <div class="fasilitas-item border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white dark:bg-gray-900"
+                                data-aos="fade-up" data-name="{{ strtolower($fasilitasItem['name']) }}">
                                 <div class="w-full mb-4">
                                     <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}"
                                         alt="{{ $fasilitasItem['name'] }}" class="rounded-lg object-cover w-full h-40">
@@ -135,3 +141,29 @@ $fasilitas = [
     </footer>
 
 </x-dynamic-component>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const searchBar = document.getElementById('searchBar');
+    const toggleView = document.getElementById('toggleView');
+    const fasilitasItems = document.querySelectorAll('.fasilitas-item');
+    const fasilitasContainers = [document.getElementById('fasilitasDalam'), document.getElementById('fasilitasLuar')];
+
+    // Filter fasilitas
+    searchBar.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        fasilitasItems.forEach(item => {
+            const name = item.getAttribute('data-name');
+            item.style.display = name.includes(query) ? 'block' : 'none';
+        });
+    });
+
+    // Toggle Grid/List View
+    toggleView.addEventListener('click', () => {
+        fasilitasContainers.forEach(container => {
+            container.classList.toggle('grid');
+            container.classList.toggle('list');
+        });
+    });
+});
+
+</script>
