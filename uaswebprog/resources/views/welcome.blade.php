@@ -159,7 +159,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
             <!-- Left Button -->
             <button @click="currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1"
-                class="absolute left-0 top-1/2 transform -translate-y-1/2 border-2 border-white p-4 rounded-full shadow-lg text-white hover:scale-110 transition-all duration-300">
+                class="absolute left-0 top-1/2 transform -translate-y-1/2 border-2 border-white p-4 rounded-full shadow-lg text-white scale-75 hover:scale-100 transition-all duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -167,7 +167,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
             <!-- Right Button -->
             <button @click="currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1"
-                class="absolute right-0 top-1/2 transform -translate-y-1/2 border-2 border-white p-4 rounded-full shadow-lg text-white hover:scale-110 transition-all duration-300">
+                class="absolute right-0 top-1/2 transform -translate-y-1/2 border-2 border-white p-4 rounded-full shadow-lg text-white scale-75 hover:scale-100 transition-all duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>

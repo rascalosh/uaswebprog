@@ -125,6 +125,10 @@ if($user){
         <div id="content-woman" class="hidden">
             <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
+                @php
+                    $i = 0;
+                @endphp
+
                 @foreach ($women as $room)
                     @php
                         $randomFile = $imagesPerempuan[array_rand($imagesPerempuan)];
@@ -141,6 +145,12 @@ if($user){
                         }
                         if($room->id_user) $status = "TANYA PEMILIK";
                         else $status = "READY";
+
+                        if($i < 2) $floor = "1st Floor";
+                        else if($i < 6) $floor = "2nd Floor";
+                        else $floor = "3rd Floor";
+
+                        $i++;
                     @endphp
 
                 <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white" data-aos="fade-up">
@@ -160,7 +170,7 @@ if($user){
                                 </div>
                             @endforeach
                         </div>
-                        <p class="text-sm text-gray-500">Lantai:</p>
+                        <p class="text-sm text-gray-500">Lantai: {{ $floor }}</p>
                     </div>
                     <!-- Room Status -->
                     <div class="mt-4">
@@ -178,6 +188,10 @@ if($user){
         <div id="content-man" class="hidden">
             <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
+                @php
+                    $i = 0;
+                @endphp
+
                 @foreach ($men as $room)
                     @php
                         $randomFile = $imagesPria[array_rand($imagesPria)];
@@ -194,6 +208,12 @@ if($user){
                         }
                         if($room->id_user) $status = "TANYA PEMILIK";
                         else $status = "READY";
+
+                        if($i < 2) $floor = "1st Floor";
+                        else if($i < 6) $floor = "2nd Floor";
+                        else $floor = "3rd Floor";
+
+                        $i++;
                     @endphp
 
                     <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white" data-aos="fade-up">
@@ -213,7 +233,7 @@ if($user){
                                     </div>
                                 @endforeach
                             </div>
-                            <p class="text-sm text-gray-500">Lantai:</p>
+                            <p class="text-sm text-gray-500">Lantai: {{ $floor }}</p>
                         </div>
                         <!-- Room Status -->
                         <div class="mt-4">

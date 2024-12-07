@@ -15,9 +15,9 @@
             Feel at home, <span class="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">away from home</span>
         </p>
         <!-- Tombol Explore Now -->
-        <a href="#main-content" 
+        <a 
            id="explore-btn" 
-           class="px-8 py-4 border-2 border-white text-white rounded-full text-xl font-semibold shadow-lg transform scale-90 transition-all duration-300 ease-in-out hover:bg-white hover:text-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 opacity-0">
+           class="px-8 py-4 border-2 border-white text-white rounded-full text-xl font-semibold shadow-lg transform scale-90 transition-all duration-300 ease-in-out hover:bg-white hover:text-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 opacity-0 hover:cursor-pointer">
             Explore Now
         </a>
     </div>
