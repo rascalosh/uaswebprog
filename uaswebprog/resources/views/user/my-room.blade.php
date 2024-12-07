@@ -130,8 +130,15 @@ use App\Models\Pelaporan;
             </div>
         </div>
     @else
-        <p class="mt-5 ms-5 text-gray-600">No room found. Please contact support.</p>
+        <div class="flex flex-col min-h-screen">
+            <!-- Main Content -->
+            <div class="flex-grow">
+                <p class="mt-5 ms-5 text-gray-600">No room found. Please contact support.</p>
+            </div>
+        </div>
     @endif
+
+    <x-footer />
 
     <!-- Modal for Report -->
     <div id="reportModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
