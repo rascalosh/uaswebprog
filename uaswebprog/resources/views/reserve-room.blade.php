@@ -140,7 +140,7 @@ if($user){
                         }
                         else{
                             $features = ['AC', 'WiFi', 'Meja', 'Kasur', 'Lemari Baju'];
-                            $price = 'Rp. 1.500.000,00';
+                            $price = 'Rp. 1.700.000,00';
                             $name = "Standard Female Room";
                         }
                         if($room->id_user) $status = "TANYA PEMILIK";
