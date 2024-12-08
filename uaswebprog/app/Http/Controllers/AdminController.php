@@ -92,8 +92,8 @@ class AdminController extends Controller
 
     public function manage_payments()
     {
-        $maleOccupants = User::where('has_room', true)->where('gender', 'L')->get();
-        $femaleOccupants = User::where('has_room', true)->where('gender', 'P')->get();
+        $maleOccupants = User::where('has_room', true)->where('gender', 'L')->orderBy('deadline_bayar', 'asc')->get();
+        $femaleOccupants = User::where('has_room', true)->where('gender', 'P')->orderBy('deadline_bayar', 'asc')->get();
 
         return view('admin.manage_payments', compact('maleOccupants', 'femaleOccupants'));
     }

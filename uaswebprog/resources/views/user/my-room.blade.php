@@ -92,6 +92,12 @@ use App\Models\Pelaporan;
 
                                 @if($report->deleted_at)
                                     <p class="text-red-600 font-medium">Report has been resolved</p>
+                                    <form action="{{ route('report.destroy', $report->id_pelaporan) }}" method="POST"
+                                        onsubmit="return confirm('Apakah anda yakin ingin menghapus report ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Delete</button>
+                                    </form>
                                 @endif
                             </div>
                         @endforeach
@@ -114,8 +120,7 @@ use App\Models\Pelaporan;
                                 <p class="text-gray-600 dark:text-gray-400">Relation: {{ $guest->relation }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Check In: {{ Carbon::parse($guest->visit_date)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Check Out: {{ Carbon::parse($guest->end_date)->format('F j, Y') }}</p>
-                                <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}
-                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}</p>
                                 <form action="{{ route('admin.guests.destroy', $guest->id_guest) }}" method="POST"
                                     onsubmit="return confirm('Apakah anda yakin ingin menghapus tamu ini?');">
                                     @csrf

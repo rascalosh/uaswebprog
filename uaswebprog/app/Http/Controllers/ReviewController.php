@@ -17,8 +17,8 @@ class ReviewController extends Controller
 
         $user = Auth::user();
         $room = $user->gender == 'L'
-            ? DB::table('kamar_pria')->where('email', $user->email)->first()
-            : DB::table('kamar_perempuan')->where('email', $user->email)->first();
+            ? DB::table('kamar_pria')->where('id_user', $user->id_user)->first()
+            : DB::table('kamar_perempuan')->where('id_user', $user->id_user)->first();
 
         if ($room) {
             Review::create([

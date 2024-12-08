@@ -32,6 +32,7 @@ class User extends Authenticatable
         'password',
         'full_name',
         'no_telp',
+        'gender',
         'is_reserving',
         'has_room',
         'deadline_bayar'

@@ -18,7 +18,7 @@
                             </h4>
                             <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->maleRoom->nomor_kamar }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($user->deadline_bayar)->format('F j, Y') }}</p>
-                            <button onclick="openPaymentModal()" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Prolong Ownership</button>
+                            <button onclick="openPaymentModal({{ $user->id_user }})" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Prolong Ownership</button>
                         </div>
                     @endforeach
                 </div>
@@ -37,6 +37,7 @@
                             </h4>
                             <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->femaleRoom->nomor_kamar }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($user->deadline_bayar)->format('F j, Y') }}</p>
+                            <button onclick="openPaymentModal({{ $user->id_user }})" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Prolong Ownership</button>
                         </div>
                     @endforeach
                 </div>
@@ -71,7 +72,7 @@
                             </select>
                         </div>
 
-                        <x-input type="hidden" name="id_user" value="{{ $user->id_user }}" />
+                        <x-input type="hidden" name="id_user" value="" />
 
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
@@ -88,8 +89,10 @@
 
 <script>
 
-    function openPaymentModal() {    
+    function openPaymentModal(userId) {
         const modal = document.getElementById('paymentModal');
+        const userInput = modal.querySelector('input[name="id_user"]');
+        userInput.value = userId;
         modal.classList.remove('hidden');
     }
 
