@@ -9,6 +9,8 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
 $user = Auth::user();
 
+$women = DB::table('kamar_perempuan')->get();
+$men = DB::table('kamar_pria')->get();
 $is_reserving = FALSE;
 $has_room = FALSE;
 if($user){
@@ -38,7 +40,7 @@ if($room->tipe_kamar == 1){
     $name = "Premium ";
 }
 else{
-    $price = 'Rp1.500.000';
+    $price = 'Rp1.700.000';
     $name = "Standard ";
 }
 
@@ -51,6 +53,19 @@ else{
 
 if($room->id_user) $status = "Maaf, Sudah Occupied.";
 else $status = "Tersedia!";
+
+$floor = "";
+if ($room) {
+    $room_number = $room->nomor_kamar;
+    
+    if (substr($room_number, 0, 1) == '1') {
+        $floor = "1st Floor";
+    } elseif (substr($room_number, 0, 1) == '2') {
+        $floor = "2nd Floor";
+    } elseif (substr($room_number, 0, 1) == '3') {
+        $floor = "3rd Floor";
+    }
+}
 ?>
 
 <x-app-layout>
@@ -140,18 +155,21 @@ else $status = "Tersedia!";
             <!-- Divider -->
             <hr class="border-gray-300 mb-6">
 
-            <!-- Room Specifications -->
-            <div class="space-y-4 mb-6">
+           <!-- Room Specifications -->
+           <div class="space-y-4 mb-6">
                 <h4 class="text-lg font-semibold text-gray-700">Spesifikasi Kamar</h4>
-                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-600">
-                    <li class="flex items-center"><ion-icon name="snow-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>AC</li>
-                    <li class="flex items-center"><ion-icon name="bed-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Kasur</li>
-                    <li class="flex items-center"><ion-icon name="tv-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>TV</li>
-                    <li class="flex items-center"><ion-icon name="wifi-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>WiFi</li>
-                    <li class="flex items-center"><ion-icon name="cube-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Lemari</li>
-                    <li class="flex items-center"><ion-icon name="resize-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>3x3 m²</li>
-                    <li class="flex items-center"><ion-icon name="home-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Lantai 2</li>
-                </ul>
+                    <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Kamar {{ $room->nomor_kamar }}</h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-600">
+                            <li class="flex items-center"><ion-icon name="snow-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>AC</li>
+                            <li class="flex items-center"><ion-icon name="bed-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Kasur</li>
+                            <li class="flex items-center"><ion-icon name="tv-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>TV</li>
+                            <li class="flex items-center"><ion-icon name="wifi-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>WiFi</li>
+                            <li class="flex items-center"><ion-icon name="cube-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Lemari</li>
+                            <li class="flex items-center"><ion-icon name="resize-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>3x3 m²</li>
+                            <li class="flex items-center"><ion-icon name="home-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>{{ $floor }}</li>
+                        </ul>
+                    </div>
             </div>
 
             <!-- Divider -->
@@ -161,14 +179,15 @@ else $status = "Tersedia!";
             <div class="space-y-4">
                 <h4 class="text-lg font-semibold text-gray-700 mb-4">Fasilitas Kost</h4>
                 <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-600">
-                    <li class="flex items-center"><ion-icon name="key-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Depan</li>
+                    <li class="flex items-center"><ion-icon name="key-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Kunci</li>
                     <li class="flex items-center"><ion-icon name="restaurant-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Dapur</li>
                     <li class="flex items-center"><ion-icon name="car-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Parkiran</li>
                     <li class="flex items-center"><ion-icon name="water-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Kamar Mandi</li>
                     <li class="flex items-center"><ion-icon name="thermometer-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Water Heater</li>
                     <li class="flex items-center"><ion-icon name="snow-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>AC</li>
-                    <li class="flex items-center"><ion-icon name="desktop-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Meja</li>
+                    <li class="flex items-center"><ion-icon name="desktop-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Televisi</li>
                     <li class="flex items-center"><ion-icon name="cube-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Lemari</li>
+                    <li class="flex items-center"><ion-icon name="videocam-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>CCTV</li>
                 </ul>
             </div>
         </div>
