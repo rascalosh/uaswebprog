@@ -104,20 +104,13 @@ if($user){
             </div>
         </div>
 
-        <!-- Buttons Section -->
-        <div class="flex justify-center items-center gap-5 my-8 mx-5">
-            <!-- Button for Women's Room -->
-            <button onclick="showContent('woman')" class="hover:opacity-80 focus:outline-none rounded-lg overflow-hidden" data-aos="zoom-in-up" data-aos-offset="300">
-                <div class="relative">
-                    <x-female-room />
-                </div>
+        <!-- Filter Buttons -->
+        <div class="mb-1">
+            <button onclick="showContent('woman')" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 ml-4 mt-16">
+                Kamar Perempuan
             </button>
-
-            <!-- Button for Men's Room -->
-            <button onclick="showContent('man')" class="hover:opacity-80 focus:outline-none rounded-lg overflow-hidden" data-aos="zoom-in-up" data-aos-offset="300">
-                <div class="relative">
-                    <x-male-room />
-                </div>
+            <button onclick="showContent('man')" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 ml-4 mt-16">
+                Kamar Laki-Laki
             </button>
         </div>
 
@@ -254,36 +247,23 @@ if($user){
     <x-footer />
 </x-dynamic-component>
 
-<!-- JavaScript for Switching Content -->
+<!-- JavaScript to Filter Content -->
 <script>
-
     function showContent(type) {
         const womanContent = document.getElementById('content-woman');
         const manContent = document.getElementById('content-man');
 
-        // Show or hide content based on the button pressed
         if (type === 'woman') {
             womanContent.classList.remove('hidden');
             manContent.classList.add('hidden');
-            setTimeout(() => {
-                AOS.refresh();
-            }, 10);
-        } else {
+        } else if (type === 'man') {
             womanContent.classList.add('hidden');
             manContent.classList.remove('hidden');
-            setTimeout(() => {
-                AOS.refresh();
-            }, 10);
         }
     }
 
-    function closeModal() {
-        const modal = document.getElementById('cancelModal');
-        modal.classList.add('hidden');
-    }
-
-    function confirmDelete() {
-        const modal = document.getElementById('cancelModal');
-        modal.classList.remove('hidden');
-    }
+    // Display women rooms by default
+    document.addEventListener('DOMContentLoaded', function() {
+        showContent('woman');
+    });
 </script>
