@@ -47,7 +47,7 @@ $fasilitas = [
             <div id="fasilitasDalam" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                 @foreach ($fasilitas as $fasilitasItem)
                     @if ($fasilitasItem['category'] === 'dalam')
-                        <div class="fasilitas-item group relative overflow-hidden border border-gray-200 rounded-lg shadow-lg bg-white dark:bg-gray-900 p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+                        <div class="fasilitas-item group relative overflow-hidden border border-gray-200 rounded-lg shadow-lg bg-white dark:bg-gray-900 p-6 transition-transform transform hover:scale-105 hover:shadow-2xl" data-aos="fade-up">
                             <div class="w-full h-40 relative mb-4">
                                 <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}"
                                     alt="{{ $fasilitasItem['name'] }}"
@@ -77,7 +77,7 @@ $fasilitas = [
             <div id="fasilitasLuar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                 @foreach ($fasilitas as $fasilitasItem)
                     @if ($fasilitasItem['category'] === 'luar')
-                        <div class="fasilitas-item group relative overflow-hidden border border-gray-200 rounded-lg shadow-lg bg-white dark:bg-gray-900 p-6 transition-transform transform hover:scale-105 hover:shadow-2xl">
+                        <div class="fasilitas-item group relative overflow-hidden border border-gray-200 rounded-lg shadow-lg bg-white dark:bg-gray-900 p-6 transition-transform transform hover:scale-105 hover:shadow-2xl" " data-aos="fade-up">
                             <div class="w-full h-40 relative mb-4">
                                 <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}"
                                     alt="{{ $fasilitasItem['name'] }}"
