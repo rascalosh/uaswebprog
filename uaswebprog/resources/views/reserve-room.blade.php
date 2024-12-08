@@ -256,9 +256,18 @@ if($user){
         if (type === 'woman') {
             womanContent.classList.remove('hidden');
             manContent.classList.add('hidden');
-        } else if (type === 'man') {
+
+            setTimeout(() => {
+                AOS.refresh();
+            }, 10);
+        }
+        else if (type === 'man') {
             womanContent.classList.add('hidden');
             manContent.classList.remove('hidden');
+
+            setTimeout(() => {
+                AOS.refresh();
+            }, 10); 
         }
     }
 
