@@ -38,10 +38,12 @@ $room = DB::table($table)
 if($room->tipe_kamar == 1){
     $price = 'Rp2.000.000';
     $name = "Premium ";
+    $bathroom_facility = "Kamar Mandi Dalam";
 }
 else{
     $price = 'Rp1.700.000';
     $name = "Standard ";
+    $bathroom_facility = "Kamar Mandi Luar";
 }
 
 if($gender == "P"){
@@ -168,6 +170,7 @@ if ($room) {
                             <li class="flex items-center"><ion-icon name="cube-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>Lemari</li>
                             <li class="flex items-center"><ion-icon name="resize-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>3x3 m²</li>
                             <li class="flex items-center"><ion-icon name="home-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>{{ $floor }}</li>
+                            <li class="flex items-center"><ion-icon name="water-outline" class="w-5 h-5 mr-2 text-gray-700"></ion-icon>{{ $bathroom_facility }}</li>
                         </ul>
                     </div>
             </div>
