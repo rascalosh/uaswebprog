@@ -22,7 +22,7 @@ class AdminMiddleware
         }
 
         // return redirect()->route('admin.dashboard');
-        return redirect()->route('dashboard');
+        return redirect()->back();
     }
 
     

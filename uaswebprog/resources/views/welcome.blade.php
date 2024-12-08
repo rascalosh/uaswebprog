@@ -187,7 +187,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
 
 
-    <!-- Our Awesome Services and Facilities Section -->
+    <!-- Our Services and Facilities Section -->
     <div class="mt-20 lg:px-28 px-8 py-16 bg-gradient-to-b from-navy-800 to-white" data-aos="fade-up">
         <div class="text-center">
             <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-5 animate__animated animate__fadeIn animate__delay-0.5s">
