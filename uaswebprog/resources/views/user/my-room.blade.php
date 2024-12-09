@@ -66,11 +66,11 @@ use App\Models\Pelaporan;
             @csrf
             <x-label for="review" value="{{ __('Rate the Room') }}" class="mx-3 mt-4"/>
             <div class="star-rating">
-                <input type="radio" id="star5" name="review" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
-                <input type="radio" id="star4" name="review" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
-                <input type="radio" id="star3" name="review" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
-                <input type="radio" id="star2" name="review" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
                 <input type="radio" id="star1" name="review" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
+                <input type="radio" id="star2" name="review" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                <input type="radio" id="star3" name="review" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                <input type="radio" id="star4" name="review" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                <input type="radio" id="star5" name="review" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
             </div>
             <x-button class="mt-3 ml-3 py-1 px-4 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                 {{ __('Submit Rating') }}

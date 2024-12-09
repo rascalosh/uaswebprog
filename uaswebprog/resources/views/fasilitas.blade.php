@@ -46,7 +46,7 @@ $fasilitas = [
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'dalam')
-                            <div class="relative group rounded-lg overflow-hidden shadow-lg">
+                            <div class="relative group rounded-lg overflow-hidden shadow-lg fasilitas-item" data-name="{{ strtolower($fasilitasItem['name']) }}">
                                 <img src="{{ asset('images/Fasilitas/FasilitasDalam/' . $fasilitasItem['image']) }}" 
                                      alt="{{ $fasilitasItem['name'] }}" 
                                      class="object-cover w-full h-64">
@@ -66,7 +66,7 @@ $fasilitas = [
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach ($fasilitas as $fasilitasItem)
                         @if ($fasilitasItem['category'] === 'luar')
-                            <div class="relative group rounded-lg overflow-hidden shadow-lg">
+                            <div class="relative group rounded-lg overflow-hidden shadow-lg fasilitas-item" data-name="{{ strtolower($fasilitasItem['name']) }}">
                                 <img src="{{ asset('images/Fasilitas/FasilitasLuar/' . $fasilitasItem['image']) }}" 
                                      alt="{{ $fasilitasItem['name'] }}" 
                                      class="object-cover w-full h-64">
