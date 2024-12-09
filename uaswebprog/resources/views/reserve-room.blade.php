@@ -79,14 +79,28 @@ if($user){
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">You Already Have a Room</h3>           
-                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}</h4>
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Check Out Your Room!</h4>
+                        <!-- Section Title -->
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6 text-center">
+                            You Have a Room!
+                        </h3>
+                        
+                        <!-- Content Wrapper -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg space-y-6">
+                            <!-- Welcome Message -->
+                            <h4 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 text-center">
+                                Welcome, {{ $user->full_name }}!
+                            </h4>
+                            <p class="text-lg text-gray-600 dark:text-gray-300 text-center">
+                                Check out your room here.
+                            </p>
 
-                            <div class="flex justify-start space-x-6">
-                                <a href="{{ route('my_room') }}" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
-                                    My Room
+                            <!-- Button Section -->
+                            <div class="flex justify-center">
+                                <a href="{{ route('my_room') }}" 
+                                class="py-3 px-8 text-lg text-gray-700 font-semibold border border-gray-300 rounded-lg transition duration-300 ease-in-out 
+                                        transform hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 
+                                        focus:ring-opacity-50 shadow-lg hover:shadow-xl active:scale-95">
+                                    Go to My Room
                                 </a>
                             </div>
                         </div>
@@ -94,7 +108,6 @@ if($user){
                 </div>
             </div>
         </div>
-        
     @else
     <div>
         <!-- Welcome Section -->
@@ -255,28 +268,6 @@ if($user){
 
 <!-- JavaScript to Filter Content -->
 <script>
-    function showContent(type) {
-        const womanContent = document.getElementById('content-woman');
-        const manContent = document.getElementById('content-man');
-
-        if (type === 'woman') {
-            womanContent.classList.remove('hidden');
-            manContent.classList.add('hidden');
-
-            setTimeout(() => {
-                AOS.refresh();
-            }, 10);
-        }
-        else if (type === 'man') {
-            womanContent.classList.add('hidden');
-            manContent.classList.remove('hidden');
-
-            setTimeout(() => {
-                AOS.refresh();
-            }, 10); 
-        }
-    }
-
     function closeModal() {
         const modal = document.getElementById('cancelModal');
         modal.classList.add('hidden');
@@ -293,19 +284,36 @@ if($user){
     });
 
     function showContent(type) {
-    // Tombol untuk transisi yang lembut
-    const womanBtn = document.getElementById('woman-btn');
-    const manBtn = document.getElementById('man-btn');
+        const womanContent = document.getElementById('content-woman');
+        const manContent = document.getElementById('content-man');
+        const womanBtn = document.getElementById('woman-btn');
+        const manBtn = document.getElementById('man-btn');
 
-    if (type === 'woman') {
-        womanBtn.classList.add('active');
-        manBtn.classList.remove('active');
-    } else {
-        manBtn.classList.add('active');
-        womanBtn.classList.remove('active');
-    }
+        if (type === 'woman') {
+            womanContent.classList.remove('hidden');
+            manContent.classList.add('hidden');
+            womanBtn.classList.add('active');
+            manBtn.classList.remove('active');
+        } else if (type === 'man') {
+            womanContent.classList.add('hidden');
+            manContent.classList.remove('hidden');
+            womanBtn.classList.remove('active');
+            manBtn.classList.add('active');
+        }
 
-    // Fungsi untuk menampilkan konten (bisa disesuaikan dengan kebutuhan)
-    console.log(`${type} content shown`);
+     // Optional: Refresh AOS if using animations
+    setTimeout(() => {
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    }, 10);
 }
 </script>
+
+<style>
+    .active {
+        background-color: #fbbf24;
+        color: #ffff;
+        box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+    }
+</style>
