@@ -104,15 +104,21 @@ if($user){
             </div>
         </div>
 
-        <!-- Filter Buttons -->
-        <div class="mb-1">
-            <button onclick="showContent('woman')" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 ml-4 mt-16">
-                Kamar Perempuan
-            </button>
-            <button onclick="showContent('man')" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 ml-4 mt-16">
-                Kamar Laki-Laki
-            </button>
-        </div>
+    <!-- Filter Buttons -->
+    <div class="mb-1 flex justify-center space-x-4 mt-16">
+        <button 
+            onclick="showContent('woman')" 
+            class="transition-all duration-300 ease-in-out px-6 py-3 rounded-lg text-gray-700 font-semibold border border-gray-300 bg-white shadow-md hover:bg-yellow-100 hover:shadow-lg hover:-translate-y-1 active:translate-y-0"
+            id="woman-btn">
+            Kamar Perempuan
+        </button>
+        <button 
+            onclick="showContent('man')" 
+            class="transition-all duration-300 ease-in-out px-6 py-3 rounded-lg text-gray-700 font-semibold border border-gray-300 bg-white shadow-md hover:bg-yellow-100 hover:shadow-lg hover:-translate-y-1 active:translate-y-0"
+            id="man-btn">
+            Kamar Laki-Laki
+        </button>
+    </div>
 
         <!-- Dynamic Content Section -->
         <div id="content-woman" class="hidden">
@@ -275,4 +281,21 @@ if($user){
     document.addEventListener('DOMContentLoaded', function() {
         showContent('woman');
     });
+
+    function showContent(type) {
+    // Tombol untuk transisi yang lembut
+    const womanBtn = document.getElementById('woman-btn');
+    const manBtn = document.getElementById('man-btn');
+
+    if (type === 'woman') {
+        womanBtn.classList.add('active');
+        manBtn.classList.remove('active');
+    } else {
+        manBtn.classList.add('active');
+        womanBtn.classList.remove('active');
+    }
+
+    // Fungsi untuk menampilkan konten (bisa disesuaikan dengan kebutuhan)
+    console.log(`${type} content shown`);
+}
 </script>
