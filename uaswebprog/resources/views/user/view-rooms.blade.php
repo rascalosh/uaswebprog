@@ -73,28 +73,30 @@ if ($room) {
 <x-app-layout>
 
     @if($is_reserving)
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Pending Reservation</h3>           
-                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
-                        <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}
-                        </h4>
-                        <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->reservation->nomor_kamar }}</p>
-                        <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $user->reservation->gender == 'P' ? "Perempuan" : "Laki-Laki" }}</p>
-                        <p class="text-gray-600 dark:text-gray-400">Start Date: {{ Carbon\Carbon::parse($user->reservation->start_date)->format('F j, Y') }}</p>
+        <div class="flex flex-col min-h-screen">
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Pending Reservation</h3>           
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
+                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->reservation->nomor_kamar }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $user->reservation->gender == 'P' ? "Perempuan" : "Laki-Laki" }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Start Date: {{ Carbon\Carbon::parse($user->reservation->start_date)->format('F j, Y') }}</p>
 
-                        <div class="flex justify-start space-x-6">
+                            <div class="flex justify-start space-x-6">
 
-                            <div class="block">
-                                <button onclick="confirmDelete()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
-                                    Cancel
-                                </button>
+                                <div class="block">
+                                    <button onclick="confirmCancel()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                                        Cancel
+                                    </button>
+                                </div>
+
+                                <a href="https://wa.link/4ee7rb" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                                    Tanya Pemilik
+                                </a>
                             </div>
-
-                            <a href="https://wa.link/4ee7rb" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
-                                Tanya Pemilik
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -214,7 +216,7 @@ if ($room) {
                     </div>
                 @endif
 
-                <a href="#" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                <a href="https://wa.link/4ee7rb" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                     Tanya Pemilik
                 </a>
             </div>
@@ -345,8 +347,10 @@ if ($room) {
             </div>
         </div>
     </div>
+    @endif
+
+    <x-footer />
 </div>
-@endif
     
 <script>
 let currentZoom = 1;
@@ -372,6 +376,16 @@ function zoomIn() {
 function zoomOut() {
     currentZoom = Math.max(0.1, currentZoom - 0.1); // Prevent zooming out too much
     updateImageZoom();
+}
+
+function closeModal() {
+    const modal = document.getElementById('cancelModal');
+    modal.classList.add('hidden');
+}
+
+function confirmCancel() {
+    const modal = document.getElementById('cancelModal');
+    modal.classList.remove('hidden');
 }
 
 function updateImageZoom() {

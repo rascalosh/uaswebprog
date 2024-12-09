@@ -39,12 +39,12 @@ if($user){
                             <div class="flex justify-start space-x-6">
 
                                 <div class="block">
-                                    <button onclick="confirmDelete()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                                    <button onclick="confirmCancel()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                                         Cancel
                                     </button>
                                 </div>
 
-                                <a href="#" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                                <a href="https://wa.link/4ee7rb" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
                                     Tanya Pemilik
                                 </a>
                             </div>
@@ -52,27 +52,27 @@ if($user){
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div id="cancelModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
-                <div class="flex items-center justify-center min-h-screen">
-                    <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
-                    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
-                        <div class="px-4 py-3">
-                            <h2 class="text-lg font-semibold">Confirm Cancellation</h2>
-                            <p>Are you sure you want to cancel your reservation?</p>
-                            <form method="post" action="{{ route('cancel_reservation') }}">
-                                @csrf
-                                <div class="flex justify-end mt-4">
-                                    <button type="button" onclick="closeModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
-                                    <button type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
-                                </div>
-                            </form>
-                        </div>
+        <div id="cancelModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen">
+                <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                    <div class="px-4 py-3">
+                        <h2 class="text-lg font-semibold">Confirm Cancellation</h2>
+                        <p>Are you sure you want to cancel your reservation?</p>
+                        <form method="post" action="{{ route('cancel_reservation') }}">
+                            @csrf
+                            <div class="flex justify-end mt-4">
+                                <button type="button" onclick="closeModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
+                                <button type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    
+
     <!-- If User Has Room -->
     @elseif($has_room)
         <div class="flex flex-col min-h-screen">
@@ -269,6 +269,16 @@ if($user){
                 AOS.refresh();
             }, 10); 
         }
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('cancelModal');
+        modal.classList.add('hidden');
+    }
+
+    function confirmCancel() {
+        const modal = document.getElementById('cancelModal');
+        modal.classList.remove('hidden');
     }
 
     // Display women rooms by default

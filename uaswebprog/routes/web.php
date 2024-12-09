@@ -42,7 +42,7 @@ Route::middleware([
         return view('user.guest-form');
     })->name('guest-form');
     Route::post('/create_guest', [CreateGuest::class, 'create'])->name('create-guest');
-    Route::post('/cancel_room', [UserController::class, 'cancel_room'])->name('cancel_reservation');
+    Route::post('/cancel_reservation', [UserController::class, 'cancel_reservation'])->name('cancel_reservation');
     Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
     Route::get('/my_room', [RoomController::class, 'showMyRoom'])->name('my_room');
     Route::delete('/destroy/report/{id?}', [UserController::class, 'destroyReport'])->name('report.destroy');
