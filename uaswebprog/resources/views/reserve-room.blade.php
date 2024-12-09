@@ -78,31 +78,29 @@ if($user){
         <div class="flex flex-col min-h-screen">
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                        <!-- Section Title -->
-                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6 text-center">
-                            You Have a Room!
-                        </h3>
-                        
-                        <!-- Content Wrapper -->
-                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg space-y-6">
-                            <!-- Welcome Message -->
-                            <h4 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 text-center">
-                                Welcome, {{ $user->full_name }}!
-                            </h4>
-                            <p class="text-lg text-gray-600 dark:text-gray-300 text-center">
-                                Check out your room here.
-                            </p>
+                    <!-- Section Title -->
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6 text-center">
+                        You Have a Room!
+                    </h3>
+                    
+                    <!-- Content Wrapper -->
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg space-y-6">
+                        <!-- Welcome Message -->
+                        <h4 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 text-center">
+                            Welcome, {{ $user->full_name }}!
+                        </h4>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 text-center">
+                            Check out your room here.
+                        </p>
 
-                            <!-- Button Section -->
-                            <div class="flex justify-center">
-                                <a href="{{ route('my_room') }}" 
-                                class="py-3 px-8 text-lg text-gray-700 font-semibold border border-gray-300 rounded-lg transition duration-300 ease-in-out 
-                                        transform hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 
-                                        focus:ring-opacity-50 shadow-lg hover:shadow-xl active:scale-95">
-                                    Go to My Room
-                                </a>
-                            </div>
+                        <!-- Button Section -->
+                        <div class="flex justify-center">
+                            <a href="{{ route('my_room') }}" 
+                            class="py-3 px-8 text-lg text-gray-700 font-semibold border border-gray-300 rounded-lg transition duration-300 ease-in-out 
+                                    transform hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 
+                                    focus:ring-opacity-50 shadow-lg hover:shadow-xl active:scale-95">
+                                Go to My Room
+                            </a>
                         </div>
                     </div>
                 </div>
