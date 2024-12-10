@@ -16,6 +16,7 @@
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
                             <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $kamar->user->full_name }}
                             </h4>
+                            <p class="text-gray-600 dark:text-gray-400">Nomor HP: {{ $kamar->user->no_telp }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $kamar->nomor_kamar }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($kamar->user->deadline_bayar)->format('F j, Y') }}</p>
                             <button onclick="openPaymentModal({{ $kamar->user->id_user }})" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Prolong Ownership</button>
@@ -36,6 +37,7 @@
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
                             <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $kamar->user->full_name }}
                             </h4>
+                            <p class="text-gray-600 dark:text-gray-400">Nomor HP: {{ $kamar->user->no_telp }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $kamar->nomor_kamar }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($kamar->user->deadline_bayar)->format('F j, Y') }}</p>
                             <button onclick="openPaymentModal({{ $kamar->user->id_user }})" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Prolong Ownership</button>
