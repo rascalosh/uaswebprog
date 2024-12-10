@@ -20,35 +20,53 @@ use App\Models\Pelaporan;
     @endphp
 
     @if ($room)
-        <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+    <x-slot name="header">
+            <h2 class="font-semibold text-2xl text-gray-900 dark:text-gray-200 leading-tight">
                 {{ $room->nomor_kamar }} - {{ $user->full_name }}
             </h2>
         </x-slot>
 
         <!-- Room Information Section -->
-        <div class="mt-5 ms-5 mb-5 flex gap-8">
+        <div class=" ms-5 mb-5 flex gap-8">
             <!-- Room Image -->
-            <div class="w-1/3">
+            <div class="mt-5 w-1/3">
                 <img src="https://via.placeholder.com/600x400/gray/FFFFFF/?text=Room+Image" alt="Room Image" class="w-full h-auto rounded-lg shadow-md">
             </div>
 
             <!-- Personal Information -->
-            <div class="w-2/3 mt-5 p-4 bg-gray-100 rounded-lg shadow-md">
+            <div class="w-2/3 p-4 bg-gray-100 rounded-lg shadow-md">
                 <h4 class="font-semibold text-lg">Personal Information</h4>
-                <p>Name: {{ $user->name }}</p>
-                <p>Gender: {{ $user->gender == "P" ? "Perempuan" : "Laki-Laki" }}</p>
-                <p>Phone: {{ $user->no_telp }}</p>
-                <p>Date of Entry: {{ Carbon::parse($user->tanggal_masuk)->format('F j, Y') }}</p>
+                <div class="mt-2 space-y-3">
+                    <div class="flex justify-between">
+                        <p class="text-m text-gray-700 w-1/3 font-medium"><strong>Name:</strong></p>
+                        <p class="text-m text-gray-700 w-2/3">{{ $user->name }}</p>
+                    </div>
 
+                    <div class="flex justify-between">
+                        <p class="text-m text-gray-700 w-1/3 font-medium"><strong>Gender:</strong></p>
+                        <p class="text-m text-gray-700 w-2/3">{{ $user->gender == "P" ? "Perempuan" : "Laki-Laki" }}</p>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <p class="text-m text-gray-700 w-1/3 font-medium"><strong>Phone:</strong></p>
+                        <p class="text-m text-gray-700 w-2/3">{{ $user->no_telp }}</p>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <p class="text-m text-gray-700 w-1/3 font-medium"><strong>Date of Entry:</strong></p>
+                        <p class="text-m text-gray-700 w-2/3">{{ Carbon::parse($user->tanggal_masuk)->format('F j, Y') }}</p>
+                    </div>
+                </div>
 
                 <!-- Payment Due -->
-                <h4 class="font-semibold text-lg mt-2">Payment Due</h4>
-                <p class="text-red-600 font-medium">{{ Carbon::parse($user->deadline_bayar)->format('F j, Y') }}</p>
+                <h4 class="text-gray-700 text-s mt-8 border-b-2 border-yellow-500 pb-2">Next Payment Due</h4>
+                <p class="text-red-600 font-semibold text-xl bg-yellow-100 rounded-md p-2 shadow-lg">
+                    {{ Carbon::parse($user->deadline_bayar)->format('F j, Y') }}
+                </p>
             </div>
         </div>
 
- <!-- Action Buttons Section -->
+        <!-- Action Buttons Section -->
         <div class="mt-5 flex justify-center flex-wrap gap-4 ms-5">
             <!-- Report a Problem Button -->
                 <x-button onclick="openReportModal()" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
@@ -60,22 +78,7 @@ use App\Models\Pelaporan;
                     Notify Guest
                 </x-button>
         </div>
-
-        <!-- Review Form Section -->
-        <form method="POST" action="{{ route('submit-review') }}" class="mt-5 ms-5 mb-5 flex justify-center">
-            @csrf
-            <x-label for="review" value="{{ __('Rate the Room') }}" class="mx-3 mt-4"/>
-            <div class="star-rating">
-                <input type="radio" id="star1" name="review" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
-                <input type="radio" id="star2" name="review" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
-                <input type="radio" id="star3" name="review" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
-                <input type="radio" id="star4" name="review" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
-                <input type="radio" id="star5" name="review" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
-            </div>
-            <x-button class="mt-3 ml-3 py-1 px-4 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
-                {{ __('Submit Rating') }}
-            </x-button>
-        </form>
+        
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -134,6 +137,31 @@ use App\Models\Pelaporan;
                 </div>
             </div>
         </div>
+
+        <div class="py-12 bg-gray-50 flex items-center">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class=bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6> 
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Enjoying your stay? Share your experience by rating us!
+                    <form method="POST" action="{{ route('submit-review') }}" class="mt-5 ms-5 mb-1 flex flex-col items-center justify-center">
+                        @csrf
+                        <x-label for="review" value="{{ __('Rate the Room') }}" class="mx-5 mb-3"/>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="review" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="review" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="review" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="review" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="review" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                        
+                        <div class="btn-rating">
+                        <x-button class="mt-5 ml-3 py-3 px-8 text-center text-yellow-600 font-semibold border-2 border-yellow-600 bg-transparent rounded-lg transition-all duration-300 ease-in-out transform hover:bg-yellow-600 hover:text-white hover:border-yellow-600 hover:scale-105">
+                            {{ __('Submit Rating') }}
+                        </x-button>
+                        </div>
+                    </form>
+                </div>
+            </div>        
+        </div>
     @else
         <div class="flex flex-col min-h-screen">
             <!-- Main Content -->
@@ -141,7 +169,7 @@ use App\Models\Pelaporan;
                 <p class="mt-5 ms-5 text-gray-600">No room found. Please contact support.</p>
             </div>
         </div>
-    @endif
+    @endif 
 
     <x-footer />
 
@@ -280,6 +308,8 @@ use App\Models\Pelaporan;
 
 
 <script>
+
+    
     function closeModal() {
         const modal = document.getElementById('cancelModal');
         modal.classList.add('hidden');
@@ -313,6 +343,7 @@ use App\Models\Pelaporan;
 <style>
     .star-rating {
         display: inline-block;
+        direction: rtl;
     }
 
     .star-rating input[type="radio"] {
@@ -337,5 +368,4 @@ use App\Models\Pelaporan;
     .fixed {
         position: fixed;
     }
-
 </style>
