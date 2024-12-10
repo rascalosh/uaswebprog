@@ -62,14 +62,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     // Route::get('/manage_rooms_perempuan', [AdminController::class, 'manage_rooms_perempuan'])->name('manage_rooms_perempuan');
     // Route::post('/admin/update_email_perempuan/{id}', [AdminController::class, 'updateEmailPerempuan'])->name('admin.update_email_perempuan');
 
-    Route::get('/add_room_images', [AdminController::class, 'add_room_images'])->name('add_room_images');
-    Route::post('/admin/add_room_images', [AdminController::class, 'add_images'])->name('admin.add_room_images');
-
     Route::get('/admin/manage_reservations', [AdminController::class, 'manage_reservations'])->name('manage_reservations');
     Route::get('/admin/manage_payments', [AdminController::class, 'manage_payments'])->name('manage_payments');
     Route::post('/admin/search_email', [AdminController::class, 'search_email'])->name('admin.search_email');
     Route::post('/admin/update_reservation', [AdminController::class, 'update_reservation'])->name('admin.update_reservation');
     Route::post('/admin/update_payment', [AdminController::class, 'update_payment'])->name('admin.update_payment');
+    Route::post('/admin/revoke_ownership', [AdminController::class, 'revoke_ownership'])->name('admin.revoke_ownership');
 
 
     // Route::get('/home', [AdminController::class, 'index'])->name('home');

@@ -10,6 +10,8 @@ use App\Mail\GuestResolved;
 use App\Mail\ReservationRejected;
 use App\Mail\ReservationAccepted;
 use App\Models\Guest;
+use App\Models\KamarPria;
+use App\Models\KamarPerempuan;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -92,8 +94,30 @@ class AdminController extends Controller
 
     public function manage_payments()
     {
-        $maleOccupants = User::where('has_room', true)->where('gender', 'L')->orderBy('deadline_bayar', 'asc')->get();
-        $femaleOccupants = User::where('has_room', true)->where('gender', 'P')->orderBy('deadline_bayar', 'asc')->get();
+        // $maleOccupants = DB::table('kamar_pria')
+        // ->join('users', 'kamar_pria.id_user', '=', 'users.id_user')
+        // ->whereNotNull('kamar_pria.id_user')
+        // ->select('users.id_user as id_user', 'users.deadline_bayar', 'kamar_pria.nomor_kamar', 'kamar_pria.tipe_kamar')
+        // ->orderBy('users.deadline_bayar', 'asc')
+        // ->get();
+
+        // $femaleOccupants = DB::table('kamar_perempuan')
+        // ->join('users', 'kamar_perempuan.id_user', '=', 'users.id_user')
+        // ->whereNotNull('kamar_perempuan.id_user')
+        // ->select('users.id_user as id_user', 'users.deadline_bayar', 'kamar_perempuan.nomor_kamar', 'kamar_perempuan.tipe_kamar')
+        // ->orderBy('users.deadline_bayar', 'asc')
+        // ->get();
+
+        $femaleOccupants = KamarPerempuan::with('user')
+        ->whereNotNull('id_user')
+        ->get()
+        ->sortBy('user.deadline_bayar');
+
+        // Fetch male occupants
+        $maleOccupants = KamarPria::with('user')
+        ->whereNotNull('id_user')
+        ->get()
+        ->sortBy('user.deadline_bayar');
 
         return view('admin.manage_payments', compact('maleOccupants', 'femaleOccupants'));
     }
@@ -294,6 +318,23 @@ class AdminController extends Controller
         $newDeadline = Carbon::parse($user->deadline_bayar)->addMonths((int) $request->duration);
 
         $user->update(['deadline_bayar' => $newDeadline]);
+
+        return redirect()->back();
+    }
+
+    public function revoke_ownership(Request $request)
+    {
+        Validator::make($request->all(), [
+            'id_user' => ['required', 'integer', 'exists:users,id_user']
+        ])->validate();
+
+        $user = User::find($request->id_user);
+
+        $user->maleRoom()->update(['id_user' => null]);
+        $user->femaleRoom()->update(['id_user' => null]);
+        $user->guests()->forceDelete();
+
+        $user->update(['has_room' => FALSE]);
 
         return redirect()->back();
     }

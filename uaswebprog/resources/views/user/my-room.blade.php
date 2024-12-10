@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Models\Pelaporan;
+use App\Models\Guest;
 
 ?>
 
@@ -10,8 +11,7 @@ use App\Models\Pelaporan;
         $user = Auth::user();
         $gender = $user->gender;
 
-        DB::table('guests')
-            ->where('end_date', '<', Carbon::now()->subDays(7))
+        Guest::where('end_date', '<', Carbon::now()->subDays(7))
             ->delete();
 
         Pelaporan::onlyTrashed()
@@ -22,7 +22,7 @@ use App\Models\Pelaporan;
     @if ($room)
     <x-slot name="header">
             <h2 class="font-semibold text-2xl text-gray-900 dark:text-gray-200 leading-tight">
-                {{ $room->nomor_kamar }} - {{ $user->full_name }}
+                {{ $room->nomor_kamar }} ({{ $roomGender == 'P' ? "Perempuan" : "Laki-Laki" }}) - {{ $user->full_name }}
             </h2>
         </x-slot>
 
@@ -93,15 +93,34 @@ use App\Models\Pelaporan;
                                 <p class="text-gray-600 dark:text-gray-400">Reported At: {{ Carbon::parse($report->tanggal)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Decription: {{ $report->desc_pelaporan }}</p>
 
+                                @if($report->proof)
+                                    <button onclick="openProofModal()" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Proof</button>
+                                @endif
+
                                 @if($report->deleted_at)
                                     <p class="text-red-600 font-medium">Report has been resolved</p>
                                     <form action="{{ route('report.destroy', $report->id_pelaporan) }}" method="POST"
                                         onsubmit="return confirm('Apakah anda yakin ingin menghapus report ini?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Delete</button>
+                                        <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</button>
                                     </form>
                                 @endif
+                            </div>
+
+                            <div id="proofModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+                                <div class="flex items-center justify-center min-h-screen">
+                                    <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+                                    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                                        <div class="px-4 py-3">
+                                            <h2 class="text-lg font-semibold">Proof Image</h2>
+                                            <img src="{{ asset('images/ReportProofs/' . $report->proof) }}" /> 
+                                            <div class="flex justify-end mt-4">
+                                                <button type="button" onclick="closeProofModal()" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -128,7 +147,7 @@ use App\Models\Pelaporan;
                                     onsubmit="return confirm('Apakah anda yakin ingin menghapus tamu ini?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Selesai
+                                    <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Selesai
                                         Berkunjung</button>
                                 </form>
                             </div>
@@ -180,7 +199,7 @@ use App\Models\Pelaporan;
             <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
                 <div class="px-6 py-4">
                     <h2 class="text-lg font-semibold">Report a Problem</h2>
-                    <form method="POST" action="{{ route('create-report') }}">
+                    <form method="POST" action="{{ route('create-report') }}" enctype="multipart/form-data">
                         @csrf
                         <!-- Jenis Kos -->
                         <div class="mt-4">
@@ -213,6 +232,13 @@ use App\Models\Pelaporan;
                         <div class="mt-4">
                             <label for="desc_pelaporan" class="block text-sm font-medium text-gray-700">Issue(s)</label>
                             <textarea id="desc_pelaporan" name="desc_pelaporan" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                        </div>
+
+                        <!-- Proof -->
+                        <div class="mt-4">
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Proof (Optional)</label>
+                            <input name="proof" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG, JPG or JPEG (MAX. 2048 KB).</p>
                         </div>
 
                         <!-- Buttons -->
@@ -336,6 +362,16 @@ use App\Models\Pelaporan;
 
     function closeGuestFormModal() {
         document.getElementById('guestFormModal').classList.add('hidden');
+    }
+
+    function openProofModal(userId) {
+        const modal = document.getElementById('proofModal');
+        modal.classList.remove('hidden');
+    }
+
+    function closeProofModal() {
+        const modal = document.getElementById('proofModal');
+        modal.classList.add('hidden');
     }
 
 </script>

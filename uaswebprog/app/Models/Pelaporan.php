@@ -15,7 +15,8 @@ class Pelaporan extends Model
         'gender_kamar',
         'tanggal',
         'desc_pelaporan',
-        'id_user'
+        'id_user',
+        'proof'
     ];
 
     protected $dates = ['deleted_at'];

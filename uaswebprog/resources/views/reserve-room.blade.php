@@ -27,27 +27,36 @@ if($user){
         <div class="flex flex-col min-h-screen">
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Pending Reservation</h3>           
-                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}
-                            </h4>
-                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->reservation->nomor_kamar }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $user->reservation->gender == 'P' ? "Perempuan" : "Laki-Laki" }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Start Date: {{ Carbon\Carbon::parse($user->reservation->start_date)->format('F j, Y') }}</p>
+                    <!-- Section Title -->
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6 text-center">
+                        Your Reservation is Pending!
+                    </h3>
+                    
+                    <!-- Content Wrapper -->
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg space-y-6">
+                        <!-- Welcome Message -->
+                        <h4 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 text-center">
+                            The room you reserved is {{ $user->reservation->nomor_kamar }} in the {{ $user->reservation->gender == 'P' ? "Perempuan" : "Laki-Laki" }} section.
+                        </h4>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 text-center">
+                            Enrty Date if Accepted: {{ Carbon\Carbon::parse($user->reservation->start_date)->format('F j, Y') }}.
+                        </p>
 
-                            <div class="flex justify-start space-x-6">
+                        <!-- Button Section -->
+                        <div class="flex justify-center space-x-4"">
+                            <button onclick="confirmCancel()" 
+                            class="py-3 px-8 text-lg text-gray-700 font-semibold border border-gray-300 rounded-lg transition duration-300 ease-in-out 
+                                    transform hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 
+                                    focus:ring-opacity-50 shadow-lg hover:shadow-xl active:scale-95">
+                                Cancel
+                            </button>
 
-                                <div class="block">
-                                    <button onclick="confirmCancel()" class="w-full py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-green-50 hover:text-green-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
-                                        Cancel
-                                    </button>
-                                </div>
-
-                                <a href="https://wa.link/4ee7rb" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
-                                    Tanya Pemilik
-                                </a>
-                            </div>
+                            <a href="https://wa.link/4ee7rb" 
+                            class="py-3 px-8 text-lg text-gray-700 font-semibold border border-gray-300 rounded-lg transition duration-300 ease-in-out 
+                                    transform hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 
+                                    focus:ring-opacity-50 shadow-lg hover:shadow-xl active:scale-95">
+                                Tanya Pemilik
+                            </a>
                         </div>
                     </div>
                 </div>

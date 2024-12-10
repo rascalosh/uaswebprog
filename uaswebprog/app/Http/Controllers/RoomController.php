@@ -15,12 +15,19 @@ class RoomController extends Controller
         $user = User::find($user->id_user);
         $reports = $user->reports()->withTrashed()->get();
         $guests = $user->guests()->withTrashed()->get();
-        $gender = $user->gender;
 
-        if ($gender == 'L') {
-            $room = $user->maleRoom;
-        } elseif ($gender == 'P') {
+        // if ($gender == 'L') {
+        //     $room = $user->maleRoom;
+        // } elseif ($gender == 'P') {
+        //     $room = $user->femaleRoom;
+        // }
+
+        $room = $user->maleRoom;
+        $roomGender = 'L';
+
+        if($room == NULL){
             $room = $user->femaleRoom;
+            $roomGender = 'P';
         }
 
         if ($room) {
@@ -31,6 +38,6 @@ class RoomController extends Controller
             $averageRating = null;
         }
 
-        return view('user.my-room', compact('room', 'averageRating', 'guests', 'reports'));
+        return view('user.my-room', compact('room', 'roomGender', 'averageRating', 'guests', 'reports'));
     }
 }

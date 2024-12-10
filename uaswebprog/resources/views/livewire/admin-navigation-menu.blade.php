@@ -18,12 +18,6 @@
                 </div>
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('add_room_images') }}"  :active="request()->routeIs('add_room_images')">
-                        {{ __('Add Room Images') }}
-                    </x-nav-link>
-                </div>
-                
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('manage_reservations') }}"  :active="request()->routeIs('manage_reservations')">
                         {{ __('Manage Reservations') }}
                     </x-nav-link>
@@ -159,12 +153,6 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('add_room_images') }}" :active="request()->routeIs('add_room_images')">
-                {{ __('Add Room Images') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">

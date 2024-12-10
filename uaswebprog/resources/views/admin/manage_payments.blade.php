@@ -12,13 +12,14 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Male Occupants</h3>
                 <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
-                    @foreach ($maleOccupants as $user)
+                    @foreach ($maleOccupants as $kamar)
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}
+                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $kamar->user->full_name }}
                             </h4>
-                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->maleRoom->nomor_kamar }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($user->deadline_bayar)->format('F j, Y') }}</p>
-                            <button onclick="openPaymentModal({{ $user->id_user }})" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Prolong Ownership</button>
+                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $kamar->nomor_kamar }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($kamar->user->deadline_bayar)->format('F j, Y') }}</p>
+                            <button onclick="openPaymentModal({{ $kamar->user->id_user }})" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Prolong Ownership</button>
+                            <button onclick="openRevokeModal({{ $kamar->user->id_user }})" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Revoke Ownership</button>
                         </div>
                     @endforeach
                 </div>
@@ -31,13 +32,14 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Female Occupants</h3>
                 <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
-                    @foreach ($femaleOccupants as $user)
+                    @foreach ($femaleOccupants as $kamar)
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $user->full_name }}
+                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $kamar->user->full_name }}
                             </h4>
-                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $user->femaleRoom->nomor_kamar }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($user->deadline_bayar)->format('F j, Y') }}</p>
-                            <button onclick="openPaymentModal({{ $user->id_user }})" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">Prolong Ownership</button>
+                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $kamar->nomor_kamar }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Payment Due At: {{ Carbon\Carbon::parse($kamar->user->deadline_bayar)->format('F j, Y') }}</p>
+                            <button onclick="openPaymentModal({{ $kamar->user->id_user }})" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Prolong Ownership</button>
+                            <button onclick="openRevokeModal({{ $kamar->user->id_user }})" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Revoke Ownership</button>
                         </div>
                     @endforeach
                 </div>
@@ -85,6 +87,28 @@
         </div>
     </div>
 
+    <div id="revokeModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                <div class="px-4 py-3">
+                    <h2 class="text-lg font-semibold">Confirm Cancellation</h2>
+                    <p>Are you sure you want to revoke this person's kos ownership?</p>
+                    <form method="post" action="{{ route('admin.revoke_ownership') }}">
+                        @csrf
+
+                        <x-input type="hidden" name="id_user" value="" />
+
+                        <div class="flex justify-end mt-4">
+                            <button type="button" onclick="closeRevokeModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
+                            <button type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </x-admin-layout>
 
 <script>
@@ -98,6 +122,18 @@
 
     function closePaymentModal() {
         const modal = document.getElementById('paymentModal');
+        modal.classList.add('hidden');
+    }
+
+    function openRevokeModal(userId) {
+        const modal = document.getElementById('revokeModal');
+        const userInput = modal.querySelector('input[name="id_user"]');
+        userInput.value = userId;
+        modal.classList.remove('hidden');
+    }
+
+    function closeRevokeModal() {
+        const modal = document.getElementById('revokeModal');
         modal.classList.add('hidden');
     }
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('gender_kamar', ['L', 'P']);
             $table->date('tanggal');
             $table->string('desc_pelaporan');
+            $table->string('proof')->nullable();
             $table->softDeletes();
         });
     }

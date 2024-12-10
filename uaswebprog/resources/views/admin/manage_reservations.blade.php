@@ -14,9 +14,9 @@
                         <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
                             <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $reservation->user->full_name }}</h4>
                             <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $reservation->nomor_kamar }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Nomor HP User: {{ $reservation->user->no_telp }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">User Gender: {{ $reservation->user->gender == 'P' ? "Perempuan" : "Laki-Laki" }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $reservation->gender == 'P' ? "Perempuan" : "Laki-Laki" }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">User Gender: {{ $reservation->user->gender == 'P' ? "Perempuan" : "Laki-Laki" }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Nomor HP: {{ $reservation->user->no_telp }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Start Date: {{ Carbon\Carbon::parse($reservation->start_date)->format('F j, Y') }}</p>
 
                             <form action="{{ route('admin.update_reservation') }}" method="POST">
