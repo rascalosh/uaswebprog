@@ -1,1 +1,1 @@
-<p>U AIGHT WHITE BOY</p>
+<p>Your Reservation has been Accepted!</p>
