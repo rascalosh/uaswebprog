@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guest;
 use App\Models\Pelaporan;
 use App\Models\Reservation;
 use App\Models\User;
@@ -15,6 +16,15 @@ class UserController extends Controller
         $report = Pelaporan::onlyTrashed()->find($id);
     
         $report->forceDelete();
+
+        return redirect()->back()->with('success', 'Report Has Been Deleted..');
+    }
+
+    public function destroyGuest($id){
+
+        $guest = Guest::find($id);
+    
+        $guest->delete();
 
         return redirect()->back()->with('success', 'Report Has Been Deleted..');
     }

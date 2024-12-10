@@ -23,7 +23,7 @@
                     <div>
                         <h4 class="font-semibold mb-2 mt-5">Contact</h4>
                         <ul>
-                            <li>Phone: +62 812-3456-7890</li>
+                            <li>Phone: +62 821-8064-9696</li>
                             <li>Email: info@alohaguesthouse.com</li>
                             <li>Address: Gading Serpong, Indonesia</li>
                         </ul>

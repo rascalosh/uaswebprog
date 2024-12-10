@@ -20,7 +20,7 @@
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link href="{{ route('reserve-room') }}" :active="request()->routeIs('reserve-room')">
-                            {{ __('Reserve Room') }}
+                            {{ __('Reserve a Room') }}
                         </x-nav-link>
                     </div>
 

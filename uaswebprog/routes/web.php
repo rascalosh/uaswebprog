@@ -6,7 +6,6 @@ use App\Http\Controllers\CreateReport;
 use App\Http\Controllers\CreateGuest;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CreateReservation;
-use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\FacilitiesController;
@@ -43,9 +42,10 @@ Route::middleware([
     })->name('guest-form');
     Route::post('/create_guest', [CreateGuest::class, 'create'])->name('create-guest');
     Route::post('/cancel_reservation', [UserController::class, 'cancel_reservation'])->name('cancel_reservation');
-    Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
+    // Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
     Route::get('/my_room', [RoomController::class, 'showMyRoom'])->name('my_room');
     Route::delete('/destroy/report/{id?}', [UserController::class, 'destroyReport'])->name('report.destroy');
+    Route::delete('/destroy/guest/{id?}', [UserController::class, 'destroyGuest'])->name('guest.destroy');
 });
 
 

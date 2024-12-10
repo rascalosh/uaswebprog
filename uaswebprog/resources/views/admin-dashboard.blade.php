@@ -25,37 +25,6 @@ use App\Models\Guest;
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Tamu berkunjung</h3>
-                <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
-                    @foreach ($guests as $guest)
-                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
-                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $guest->guest_name }}
-                            </h4>
-                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $guest->nomor_kamar }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $guest->gender }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Email: {{ $guest->email_user }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Relation: {{ $guest->relation }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Check In: {{ Carbon::parse($guest->visit_date)->format('F j, Y') }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Check Out: {{ Carbon::parse($guest->end_date)->format('F j, Y') }}</p>
-                            <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}
-                            </p>
-                            <form action="{{ route('admin.guests.destroy', $guest->id_guest) }}" method="POST"
-                                onsubmit="return confirm('Apakah anda yakin ingin menghapus tamu ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Selesai
-                                    Berkunjung</button>
-                            </form>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Reports</h3>
                 <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
                     @foreach ($reports as $report)
@@ -93,6 +62,39 @@ use App\Models\Guest;
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Guests</h3>
+                <div class="grid grid-flow-col auto-cols-max gap-10 overflow-x-auto">
+                    @foreach ($guests as $guest)
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md text-wrap">
+                            <h4 class="text-xl font-semibold text-gray-800 dark:text-gray-200">{{ $guest->guest_name }}
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">Room Number: {{ $guest->nomor_kamar }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Jenis Kos: {{ $guest->gender }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Email: {{ $guest->email_user }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Relation: {{ $guest->relation }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Check In: {{ Carbon::parse($guest->visit_date)->format('F j, Y') }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Check Out: {{ Carbon::parse($guest->end_date)->format('F j, Y') }}</p>
+                            <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}
+                            </p>
+
+                            @if($guest->deleted_at)
+                                <form action="{{ route('admin.guests.destroy', $guest->id_guest) }}" method="POST"
+                                    onsubmit="return confirm('Apakah anda yakin ingin menghapus tamu ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</button>
+                                </form>
+                            @endif
                         </div>
                     @endforeach
                 </div>

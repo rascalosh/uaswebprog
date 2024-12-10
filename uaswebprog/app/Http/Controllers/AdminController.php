@@ -193,7 +193,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         // Fetch guests data from the database
-        $guests = Guest::all();
+        $guests = Guest::withTrashed()->get();
         $reports = Pelaporan::all();
 
         // Pass the guests data to the view
@@ -203,7 +203,7 @@ class AdminController extends Controller
     public function destroyGuest($id)
     {
 
-        $guest = Guest::findOrFail($id);
+        $guest = Guest::onlyTrashed()->findOrFail($id);
 
         $guestDetails = [
             'guest_name' => $guest->guest_name,
@@ -217,7 +217,7 @@ class AdminController extends Controller
 
         Mail::to($guestDetails['user_email'])->send(new GuestResolved($guestDetails));
         // Delete the guest from the database
-        DB::table('guests')->where('id_guest', $id)->delete();
+        $guest->forceDelete();
 
         // Redirect back to the admin dashboard with a success message
         return redirect()->route('admin.dashboard')->with('success', 'Guest deleted successfully.');

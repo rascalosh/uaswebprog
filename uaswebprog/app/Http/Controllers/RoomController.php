@@ -14,7 +14,7 @@ class RoomController extends Controller
         $user = Auth::user();
         $user = User::find($user->id_user);
         $reports = $user->reports()->withTrashed()->get();
-        $guests = $user->guests()->withTrashed()->get();
+        $guests = $user->guests()->get();
 
         // if ($gender == 'L') {
         //     $room = $user->maleRoom;

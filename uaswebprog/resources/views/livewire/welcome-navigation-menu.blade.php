@@ -19,7 +19,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('reserve-room') }}" :active="request()->routeIs('reserve-room')">
-                        {{ __('Reserve Room') }}
+                        {{ __('Reserve a Room') }}
                     </x-nav-link>
                 </div>
 
@@ -152,7 +152,7 @@
 
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('reserve-room') }}" :active="request()->routeIs('reserve-room')">
-                {{ __('Reserve Room') }}
+                {{ __('Reserve a Room') }}
             </x-responsive-nav-link>
         </div>
 
@@ -164,6 +164,17 @@
                         <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                     </div>
                 @endif
+
+                <div class="mt-3 space-y-1">
+
+                    <x-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                        {{ __('Login') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                        {{ __('Register') }}
+                    </x-responsive-nav-link>
+
             </div>
         </div>
     </div>

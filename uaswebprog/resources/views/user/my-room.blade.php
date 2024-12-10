@@ -3,22 +3,34 @@
 use Carbon\Carbon;
 use App\Models\Pelaporan;
 use App\Models\Guest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
+$imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
+$imagesPria = File::files(public_path('images/KamarPria'));
+
+if($roomGender == "P"){
+    $randomFile = $imagesPerempuan[array_rand($imagesPerempuan)];
+    $randomAsset = 'images/KamarPerempuan/' . $randomFile->getFilename();
+}
+else{
+    $randomFile = $imagesPria[array_rand($imagesPria)];
+    $randomAsset = 'images/KamarPria/' . $randomFile->getFilename();
+}
+
+$user = Auth::user();
+$gender = $user->gender;
+
+Guest::where('end_date', '<', Carbon::now()->subDays(7))
+    ->delete();
+
+Pelaporan::onlyTrashed()
+    ->where('deleted_at', '<', Carbon::now()->subDays(7))
+    ->forceDelete();
 
 ?>
 
 <x-app-layout>
-    @php
-        $user = Auth::user();
-        $gender = $user->gender;
-
-        Guest::where('end_date', '<', Carbon::now()->subDays(7))
-            ->delete();
-
-        Pelaporan::onlyTrashed()
-            ->where('deleted_at', '<', Carbon::now()->subDays(7))
-            ->forceDelete();
-    @endphp
-
     @if ($room)
     <x-slot name="header">
             <h2 class="font-semibold text-2xl text-gray-900 dark:text-gray-200 leading-tight">
@@ -30,7 +42,7 @@ use App\Models\Guest;
         <div class=" ms-5 mb-5 flex gap-8">
             <!-- Room Image -->
             <div class="mt-5 w-1/3">
-                <img src="https://via.placeholder.com/600x400/gray/FFFFFF/?text=Room+Image" alt="Room Image" class="w-full h-auto rounded-lg shadow-md">
+                <img src="{{ asset($randomAsset) }}" alt="Room Image" class="w-full h-auto rounded-lg shadow-md">
             </div>
 
             <!-- Personal Information -->
@@ -93,19 +105,24 @@ use App\Models\Guest;
                                 <p class="text-gray-600 dark:text-gray-400">Reported At: {{ Carbon::parse($report->tanggal)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Decription: {{ $report->desc_pelaporan }}</p>
 
-                                @if($report->proof)
-                                    <button onclick="openProofModal()" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Proof</button>
-                                @endif
-
                                 @if($report->deleted_at)
                                     <p class="text-red-600 font-medium">Report has been resolved</p>
-                                    <form action="{{ route('report.destroy', $report->id_pelaporan) }}" method="POST"
-                                        onsubmit="return confirm('Apakah anda yakin ingin menghapus report ini?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</button>
-                                    </form>
                                 @endif
+
+                                <div class="flex justify-between">
+                                    @if($report->proof)
+                                        <button onclick="openProofModal()" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Proof</button>
+                                    @endif
+
+                                    @if($report->deleted_at)
+                                        <form action="{{ route('report.destroy', $report->id_pelaporan) }}" method="POST"
+                                            onsubmit="return confirm('Apakah anda yakin ingin menghapus report ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</button>
+                                        </form>
+                                    @endif
+                                </div>  
                             </div>
 
                             <div id="proofModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
@@ -143,7 +160,7 @@ use App\Models\Guest;
                                 <p class="text-gray-600 dark:text-gray-400">Check In: {{ Carbon::parse($guest->visit_date)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Check Out: {{ Carbon::parse($guest->end_date)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}</p>
-                                <form action="{{ route('admin.guests.destroy', $guest->id_guest) }}" method="POST"
+                                <form action="{{ route('guest.destroy', $guest->id_guest) }}" method="POST"
                                     onsubmit="return confirm('Apakah anda yakin ingin menghapus tamu ini?');">
                                     @csrf
                                     @method('DELETE')
@@ -155,31 +172,6 @@ use App\Models\Guest;
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="py-12 bg-gray-50 flex items-center">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class=bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6> 
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Enjoying your stay? Share your experience by rating us!
-                    <form method="POST" action="{{ route('submit-review') }}" class="mt-5 ms-5 mb-1 flex flex-col items-center justify-center">
-                        @csrf
-                        <x-label for="review" value="{{ __('Rate the Room') }}" class="mx-5 mb-3"/>
-                        <div class="star-rating">
-                            <input type="radio" id="star5" name="review" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star4" name="review" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star3" name="review" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star2" name="review" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input type="radio" id="star1" name="review" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
-                        </div>
-                        
-                        <div class="btn-rating">
-                        <x-button class="mt-5 ml-3 py-3 px-8 text-center text-yellow-600 font-semibold border-2 border-yellow-600 bg-transparent rounded-lg transition-all duration-300 ease-in-out transform hover:bg-yellow-600 hover:text-white hover:border-yellow-600 hover:scale-105">
-                            {{ __('Submit Rating') }}
-                        </x-button>
-                        </div>
-                    </form>
-                </div>
-            </div>        
         </div>
     @else
         <div class="flex flex-col min-h-screen">
@@ -375,33 +367,3 @@ use App\Models\Guest;
     }
 
 </script>
-
-<style>
-    .star-rating {
-        display: inline-block;
-        direction: rtl;
-    }
-
-    .star-rating input[type="radio"] {
-        display: none;
-    }
-
-    .star-rating label {
-        font-size: 2em;
-        color: #ddd;
-        cursor: pointer;
-    }
-
-    .star-rating input[type="radio"]:checked ~ label i {
-        color: #f5b301;
-    }
-
-    .star-rating label:hover i,
-    .star-rating label:hover ~ label i {
-        color: #f5b301;
-    }
-
-    .fixed {
-        position: fixed;
-    }
-</style>
