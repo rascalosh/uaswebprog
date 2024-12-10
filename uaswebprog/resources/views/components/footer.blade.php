@@ -17,7 +17,7 @@
                         <ul>
                             <li><a href="{{ Auth::check() ? route('dashboard') : route('welcome') }}" class="hover:text-white">Home</a></li>
                             <li><a href="{{ route('fasilitas') }}" class="hover:text-white">Facilities</a></li>
-                            <li><a href="https://wa.link/4ee7rb" class="hover:text-white">Contact Us</a></li>
+                            <li><a href="https://wa.link/71i4rz" class="hover:text-white">Contact Us</a></li>
                         </ul>
                     </div>
                     <div>

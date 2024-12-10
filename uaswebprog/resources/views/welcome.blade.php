@@ -42,7 +42,7 @@ $imagesPria = File::files(public_path('images/KamarPria'));
 
                 <!-- Call to Action Section -->
                 <div class="flex justify-center lg:justify-start mb-8 animate__animated animate__fadeIn animate__delay-1.5s">
-                    <a href="https://wa.link/4ee7rb" 
+                    <a href="https://wa.link/71i4rz" 
                     class="inline-block px-8 py-3 border-2 border-yellow-600 text-lg font-semibold text-yellow-600 bg-transparent rounded-lg transition-all duration-300 ease-in-out transform hover:bg-yellow-600 hover:text-white hover:border-yellow-600 hover:scale-105">
                         Contact Us
                     </a>
