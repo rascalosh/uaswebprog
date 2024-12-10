@@ -69,12 +69,12 @@ use App\Models\Pelaporan;
         <!-- Action Buttons Section -->
         <div class="mt-5 flex justify-center flex-wrap gap-4 ms-5">
             <!-- Report a Problem Button -->
-                <x-button onclick="openReportModal()" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                <x-button onclick="openReportModal()" class="mt-5 ml-3 py-3 px-8 text-center text-yellow-600 font-semibold border-2 border-yellow-600 bg-transparent rounded-lg transition-all duration-300 ease-in-out transform hover:bg-yellow-600 hover:text-white hover:border-yellow-600 hover:scale-105">
                     Report a Problem
                 </x-button>
 
             <!-- Notify Guest Button -->
-                <x-button onclick="openGuestFormModal()" class="block py-3 px-8 text-center text-gray-700 font-medium border border-gray-300 rounded-lg transform transition-all duration-300 ease-in-out hover:bg-yellow-50 hover:text-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 shadow-md hover:shadow-lg active:scale-95">
+                <x-button onclick="openGuestFormModal()" class="mt-5 ml-3 py-3 px-8 text-center text-yellow-600 font-semibold border-2 border-yellow-600 bg-transparent rounded-lg transition-all duration-300 ease-in-out transform hover:bg-yellow-600 hover:text-white hover:border-yellow-600 hover:scale-105">
                     Notify Guest
                 </x-button>
         </div>
@@ -218,7 +218,7 @@ use App\Models\Pelaporan;
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
                             <button type="button" onclick="closeReportModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
-                            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Submit</button>
+                            <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -296,7 +296,7 @@ use App\Models\Pelaporan;
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
                             <button type="button" onclick="closeGuestFormModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
-                            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Submit</button>
+                            <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700">Submit</button>
                         </div>
                     </form>
                 </div>
