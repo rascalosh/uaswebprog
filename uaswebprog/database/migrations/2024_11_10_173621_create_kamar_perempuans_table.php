@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('kamar_perempuan', function (Blueprint $table) {
             $table->char('nomor_kamar', 2)->primary();
             // $table->string('foto')->nullable();
-            $table->integer('tipe_kamar');
             $table->foreignId('id_user')->nullable()->unique()->onDelete('cascade');
-            $table->foreign('tipe_kamar')->references('tipe_kamar')->on('tipe_kamars')->onDelete('cascade');
+            $table->unsignedBigInteger('tipe_kamar');
         });
     }
 

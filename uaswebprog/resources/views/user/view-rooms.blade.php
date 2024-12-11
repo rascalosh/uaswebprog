@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\KamarPerempuan;
+use App\Models\KamarPria;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
@@ -19,29 +21,25 @@ if($user){
 }
 
 if($gender == "P"){
-    $table = "kamar_perempuan";
+    $room = KamarPerempuan::find($id);
     $randomFile = $imagesPerempuan[array_rand($imagesPerempuan)];
     $randomAsset = 'images/KamarPerempuan/' . $randomFile->getFilename();
     $kos_gender = "Kos Perempuan";
 }
 else{
-    $table = "kamar_pria";
+    $room = KamarPria::find($id);
     $randomFile = $imagesPria[array_rand($imagesPria)];
     $randomAsset = 'images/KamarPria/' . $randomFile->getFilename();
     $kos_gender = "Kos Pria";
 }
 
-$room = DB::table($table)
-            ->where('nomor_kamar', $id)
-            ->first();
+$price = "Rp. " . number_format($room->tipe->harga, 0, ',', '.');
 
 if($room->tipe_kamar == 1){
-    $price = 'Rp2.000.000';
     $name = "Premium ";
     $bathroom_facility = "Kamar Mandi Dalam";
 }
-else{
-    $price = 'Rp1.700.000';
+else{;
     $name = "Standard ";
     $bathroom_facility = "Kamar Mandi Luar";
 }
@@ -53,8 +51,14 @@ else{
     $name = $name . "Male Room";
 }
 
-if($room->id_user) $status = "Maaf, Sudah Occupied.";
-else $status = "Tersedia!";
+if($room->id_user){
+    $status = "Maaf, Sudah Occupied.";
+    $color = "text-red-600";
+}
+else{
+    $status = "Tersedia!";
+    $color = "text-green-600";
+}
 
 $floor = "";
 if ($room) {
@@ -177,7 +181,7 @@ if ($room) {
             <p class="text-gray-500 text-sm mb-4">{{ $kos_gender }} | Allogio Barat 3</p>
 
             <!-- Availability -->
-            <p class="text-lg font-bold text-red-600 mb-4">{{ $status }}</p>
+            <p class="text-lg font-bold {{ $color }} mb-4">{{ $status }}</p>
 
             <!-- Divider -->
             <hr class="border-gray-300 mb-6">
@@ -225,7 +229,7 @@ if ($room) {
     <!-- Title Section -->
     <div class="text-center mb-6">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Your Reservation</h3>
-        <p class="text-xl font-semibold text-green-600">{{ $price }} /bulan</p>
+        <p class="text-xl font-semibold text-green-600">{{ $price }}/bulan</p>
     </div>
 
             <!-- Booking Buttons -->

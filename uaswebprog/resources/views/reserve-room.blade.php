@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\KamarPria;
+use App\Models\KamarPerempuan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+
 
 $user = Auth::user();
 
@@ -10,8 +13,8 @@ $user = Auth::user();
 $imagesPerempuan = File::files(public_path('images/KamarPerempuan'));
 $imagesPria = File::files(public_path('images/KamarPria'));
 
-$women = DB::table('kamar_perempuan')->get();
-$men = DB::table('kamar_pria')->get();
+$women = KamarPerempuan::get();
+$men = KamarPria::get();
 $is_reserving = FALSE;
 $has_room = FALSE;
 if($user){
@@ -150,16 +153,17 @@ if($user){
 
                 @foreach ($women as $room)
                     @php
+                        $price = "Rp. " . number_format($room->tipe->harga, 0, ',', '.');
+                        
                         $randomFile = $imagesPerempuan[array_rand($imagesPerempuan)];
                         $randomAsset = 'images/KamarPerempuan/' . $randomFile->getFilename();
+
                         if($room->tipe_kamar == 1){
                             $features = ['AC', 'WiFi', 'Meja', 'Kasur', 'Lemari Baju', 'Kamar Mandi Dalam'];
-                            $price = 'Rp. 2.000.000,00';
                             $name = "Premium Female Room";
                         }
                         else{
                             $features = ['AC', 'WiFi', 'Meja', 'Kasur', 'Lemari Baju'];
-                            $price = 'Rp. 1.700.000,00';
                             $name = "Standard Female Room";
                         }
                         if($room->id_user) $status = "TANYA PEMILIK";
@@ -172,7 +176,7 @@ if($user){
                         $i++;
                     @endphp
 
-                <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white" data-aos="fade-up">
+                <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white {{ $loop->last ? 'lg:col-start-2' : '' }}" data-aos="fade-up">
                     <!-- Room Image -->
                     <div class="w-full bg-gray-300 rounded-lg h-32 mb-4 flex items-center justify-center">
                         <img src="{{ asset($randomAsset) }}" class="w-full h-full object-cover rounded-lg">
@@ -213,16 +217,16 @@ if($user){
 
                 @foreach ($men as $room)
                     @php
+                        $price = "Rp. " . number_format($room->tipe->harga, 0, ',', '.');
+
                         $randomFile = $imagesPria[array_rand($imagesPria)];
                         $randomAsset = 'images/KamarPria/' . $randomFile->getFilename();
                         if($room->tipe_kamar == 1){
                             $features = ['AC', 'WiFi', 'Meja', 'Kasur', 'Lemari Baju', 'Kamar Mandi Dalam'];
-                            $price = 'Rp. 2.000.000,00';
                             $name = "Premium Male Room";
                         }
                         else{
                             $features = ['AC', 'WiFi', 'Meja', 'Kasur', 'Lemari Baju'];
-                            $price = 'Rp. 1.700.000,00';
                             $name = "Standard Male Room";
                         }
                         if($room->id_user) $status = "TANYA PEMILIK";
@@ -235,7 +239,7 @@ if($user){
                         $i++;
                     @endphp
 
-                    <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white" data-aos="fade-up">
+                    <div class="border border-gray-200 rounded-lg shadow-lg flex flex-col p-4 bg-white {{ $loop->last ? 'lg:col-start-2' : '' }}" data-aos="fade-up">
                         <!-- Room Image -->
                         <div class="w-full bg-gray-300 rounded-lg h-32 mb-4 flex items-center justify-center">
                             <img src="{{ asset($randomAsset) }}" class="w-full h-full object-cover rounded-lg">
