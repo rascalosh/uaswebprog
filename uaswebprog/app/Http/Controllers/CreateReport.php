@@ -32,16 +32,11 @@ class CreateReport extends Controller
 
         if ($request->hasFile('proof')) {
             $proof = $request->file('proof');
-            $imageName = $proof->getClientOriginalName();
-            $proof->storeAs('public/images/ReportProofs', $imageName);
-            $data['proof'] = $imageName;
-
-            $folder = public_path('images/ReportProofs');
+            $path = $request->file('proof')->storePublicly('reportProofs', 'public');
+            $data['proof'] = $path;
 
             // $filename = uniqid() . '.' . $request['proof']->getClientOriginalExtension();
             $filename = $proof->getClientOriginalName();
-
-            $request['proof']->move($folder, $filename);
         }
 
         Pelaporan::create($data);

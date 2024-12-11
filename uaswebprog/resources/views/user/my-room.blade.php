@@ -111,7 +111,7 @@ Pelaporan::onlyTrashed()
 
                                 <div class="flex justify-between">
                                     @if($report->proof)
-                                        <button onclick="openProofModal()" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Proof</button>
+                                        <button onclick="openProofModal('{{ asset('storage/' . $report->proof) }}')" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Proof</button>
                                     @endif
 
                                     @if($report->deleted_at)
@@ -123,21 +123,6 @@ Pelaporan::onlyTrashed()
                                         </form>
                                     @endif
                                 </div>  
-                            </div>
-
-                            <div id="proofModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
-                                <div class="flex items-center justify-center min-h-screen">
-                                    <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
-                                    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
-                                        <div class="px-4 py-3">
-                                            <h2 class="text-lg font-semibold">Proof Image</h2>
-                                            <img src="{{ asset('images/ReportProofs/' . $report->proof) }}" /> 
-                                            <div class="flex justify-end mt-4">
-                                                <button type="button" onclick="closeProofModal()" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -321,6 +306,21 @@ Pelaporan::onlyTrashed()
             </div>
         </div>
     </div>
+
+    <div id="proofModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                <div class="px-4 py-3">
+                    <h2 class="text-lg font-semibold">Proof Image</h2>
+                    <img id="proofImage" src="" alt="Proof Image" />
+                    <div class="flex justify-end mt-4">
+                        <button type="button" onclick="closeProofModal()" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
 
 
@@ -356,8 +356,10 @@ Pelaporan::onlyTrashed()
         document.getElementById('guestFormModal').classList.add('hidden');
     }
 
-    function openProofModal(userId) {
+    function openProofModal(imageSrc) {
         const modal = document.getElementById('proofModal');
+        const image = document.getElementById('proofImage');
+        image.src = imageSrc;
         modal.classList.remove('hidden');
     }
 

@@ -165,8 +165,7 @@
                     </div>
                 @endif
 
-                <div class="mt-3 space-y-1">
-
+                <div class="mt-3 space-y-1">--
                     <x-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                         {{ __('Sign In') }}
                     </x-responsive-nav-link>
@@ -174,7 +173,6 @@
                     <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                         {{ __('Register') }}
                     </x-responsive-nav-link>
-
             </div>
         </div>
     </div>
