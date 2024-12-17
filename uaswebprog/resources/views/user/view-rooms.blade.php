@@ -353,7 +353,7 @@ if ($room) {
         <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
             <div class="px-6 py-4">
                 <h2 class="text-lg font-semibold">Reserve Form</h2>
-                <form method="POST" action="{{ route('create-reservation') }}">
+                <form method="POST" action="{{ route('create-reservation') }}" onsubmit="disableSubmitButton()">
                     @csrf
                     <!-- Choose a Room -->
                     <div class="mt-4">
@@ -368,12 +368,13 @@ if ($room) {
                     <!-- Buttons -->
                     <div class="mt-6 flex justify-end">
                         <button type="button" onclick="closeReserveModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
-                        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">RESERVE!!!</button>
+                        <button id="reserveButton" type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">RESERVE!!!</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+</div>
     @endif
 
     <x-footer />
@@ -428,6 +429,13 @@ function openReserveModal() {
 function closeReserveModal() {
     const modal = document.getElementById('reserveModal');
     modal.classList.add('hidden');
+}
+
+function disableSubmitButton() {
+    const submitButton = document.getElementById('reserveButton');
+    submitButton.disabled = true;
+    submitButton.innerText = "Processing...";
+    submitButton.classList.add("opacity-50", "cursor-not-allowed");
 }
 
 // Image drag functionality

@@ -13,6 +13,7 @@ use App\Models\Guest;
 use App\Models\KamarPria;
 use App\Models\KamarPerempuan;
 use App\Models\Reservation;
+use App\Models\TipeKamar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -175,21 +176,21 @@ class AdminController extends Controller
         return redirect()->back();
     }
     
-    public function add_images(Request $request)
-    {
-        Validator::make($request->all(), [
-            'image' => ['required', 'image', 'mimes:jpeg,png,jpg','max:2048'],
-            'jenis_kos' => ['required', 'string', 'max:20']
-        ])->validate();
+    // public function add_images(Request $request)
+    // {
+    //     Validator::make($request->all(), [
+    //         'image' => ['required', 'image', 'mimes:jpeg,png,jpg','max:2048'],
+    //         'jenis_kos' => ['required', 'string', 'max:20']
+    //     ])->validate();
 
-        $folder = public_path('images/' . $request['jenis_kos']);
+    //     $folder = public_path('images/' . $request['jenis_kos']);
 
-        $filename = uniqid() . '.' . $request['image']->getClientOriginalExtension();
+    //     $filename = uniqid() . '.' . $request['image']->getClientOriginalExtension();
 
-        $request['image']->move($folder, $filename);
+    //     $request['image']->move($folder, $filename);
 
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
     public function dashboard()
     {
         // Fetch guests data from the database
@@ -257,11 +258,12 @@ class AdminController extends Controller
 
         Validator::make($request->all(), [
             'reservation_id' => ['required', 'integer'],
+            'action' => ['required', 'string']
         ])->validate();
 
         $reservation = Reservation::where('reservation_id', $request->reservation_id)->first();
 
-        if ($request->input('clear_reservation')) {
+        if ($request->input('action') === "reject") {
             User::where('id_user', $reservation->id_user)
                 ->update(['is_reserving' => FALSE]);
 
@@ -335,6 +337,26 @@ class AdminController extends Controller
         $user->guests()->forceDelete();
 
         $user->update(['has_room' => FALSE]);
+
+        return redirect()->back();
+    }
+
+    public function prices()
+    {
+        $tipeKamar = TipeKamar::all();
+        return view('admin.prices', compact('tipeKamar'));
+    }
+
+    public function update_prices(Request $request)
+    {
+        Validator::make($request->all(), [
+            'price' => ['required', 'integer'],
+            'tipe_kamar' => ['required', 'in:dalam,luar']
+        ])->validate();
+
+        $isKamarMandi = $request->tipe_kamar == "dalam" ? 1 : 0;
+
+        TipeKamar::find($isKamarMandi)->update(['harga' => $request->price]);
 
         return redirect()->back();
     }

@@ -13,6 +13,8 @@ class TipeKamar extends Model
     protected $primaryKey = 'tipe_kamar';
     public $timestamps = false;
 
+    protected $fillable = ['harga'];
+
     public function pria_rooms()
     {
         return $this->hasMany(KamarPria::class, 'tipe_kamar', 'tipe_kamar');

@@ -28,6 +28,12 @@
                         {{ __('Manage Payments') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('prices') }}"  :active="request()->routeIs('prices')">
+                        {{ __('Update Room Prices') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -163,6 +169,11 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('manage_payments') }}" :active="request()->routeIs('manage_payments')">
                 {{ __('Manage Payments') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('prices') }}" :active="request()->routeIs('prices')">
+                {{ __('Update Room Prices') }}
             </x-responsive-nav-link>
         </div>
 

@@ -19,19 +19,19 @@
                             <p class="text-gray-600 dark:text-gray-400">Nomor HP: {{ $reservation->user->no_telp }}</p>
                             <p class="text-gray-600 dark:text-gray-400">Start Date: {{ Carbon\Carbon::parse($reservation->start_date)->format('F j, Y') }}</p>
 
-                            <form action="{{ route('admin.update_reservation') }}" method="POST">
+                            <form id="updateReservationForm" action="{{ route('admin.update_reservation') }}" method="POST">
                                 @csrf
                                 <div>
-                                    <x-button>
+                                    <button onclick="openConfirmReservationModal('accept', '{{ $reservation->reservation_id }}')" type="button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
                                         {{ __('Accept') }}
-                                    </x-button>
+                                    </button>
 
-                                    <x-button name="clear_reservation" value="1">
+                                    <button onclick="openConfirmReservationModal('reject', '{{ $reservation->reservation_id }}')" type="button" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
                                         {{ __('Reject') }}
-                                    </x-button>
-                                </div>
+                                    </button>
 
-                                <x-input id="reservation_id" type="hidden" name="reservation_id" value='{{ $reservation->reservation_id }}'/>
+                                    <x-input id="reservation_id" type="hidden" name="reservation_id" value='{{ $reservation->reservation_id }}'/>
+                                </div>
                             </form>
                         </div>
                     @endforeach
@@ -40,44 +40,58 @@
         </div>
     </div>
 
+    <div id="confirmReservationModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                <div class="px-4 py-3">
+                    <h2 class="text-lg font-semibold">Confirmation</h2>
+                    <p>Are you sure of your decision?</p>
+                        <div class="flex justify-end mt-4">
+                            <button type="button" onclick="closeConfirmReservationModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
+                            <button type="button" onclick="confirmUpdateReservation(); disableSubmitButton(this);" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </x-admin-layout>
 
 <script>
-document.getElementById('user_email').addEventListener('input', function() {
-   fetch('/admin/search_email', {
-       method: 'POST',
-       headers: {
-           'Content-Type': 'application/json',
-           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-       },
-       body: JSON.stringify({user_email: this.value})
-   })
-   .then(res => res.json())
-   .then(user => {
-       const resultDiv = document.getElementById('userResult');
-       const decisionForm = document.getElementById('decisionForm');
-       if(user) {
 
-           if(user.gender == 'L') gender = "Pria";
-           else if(user.gender == 'P') gender = "Perempuan";
-           else gender = "None";
+    let reservationAction = '';
+    let reservationId = '';
 
-           document.getElementById('fullName').textContent = user.full_name || 'None';
-           document.getElementById('userEmail').textContent = user.email || 'None';
-           document.getElementById('roomNumber').textContent = user.is_reserving || 'None';
-           document.getElementById('reservationStatus').textContent = user.is_reserving ? 'Yes' : 'Not Reserving';
-           document.getElementById('email_reservation').value = user.email;
-           document.getElementById('gender').textContent = gender;
-           resultDiv.classList.remove('hidden');
+    function openConfirmReservationModal(action, id) {
+        reservationAction = action;
+        reservationId = id;
+        document.getElementById('confirmReservationModal').classList.remove('hidden');
+    }
 
-           if (user.is_reserving) {
-                decisionForm.classList.remove('hidden');
-            } else {
-                decisionForm.classList.add('hidden');
-            }
-       } else {
-           resultDiv.classList.add('hidden');
-       }
-   });
-});
+    function closeConfirmReservationModal() {
+        document.getElementById('confirmReservationModal').classList.add('hidden');
+    }
+
+    function disableSubmitButton(button) {
+        button.disabled = true;
+        button.innerText = "Processing...";
+        button.classList.add("opacity-50", "cursor-not-allowed");
+    }
+
+    function confirmUpdateReservation(){
+        const form = document.getElementById('updateReservationForm');
+        const actionInput = document.createElement('input');
+        actionInput.type = 'hidden';
+        actionInput.name = 'action';
+        actionInput.value = reservationAction;
+
+        form.appendChild(actionInput);
+
+        form.reservation_id.value = reservationId;
+
+        form.submit();
+    }
+
 </script>

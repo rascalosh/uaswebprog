@@ -8,22 +8,23 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CreateReservation;
 use App\Http\Controllers\RoomController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\PreventAdmin;
 use App\Http\Controllers\FacilitiesController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-    })->name('welcome');
-Route::get('/facilities', [FacilitiesController::class, 'index'])->name('fasilitas');
-Route::get('/reserve_room', function () {
-    return view('reserve-room');
-})->name('reserve-room');
+Route::middleware([PreventAdmin::class])->group(function () {
+    // Route::get('/', function () {
+    //     return view('welcome');
+    //     })->name('welcome');
+    Route::get('/', [HomeController::class, 'index'])->name('welcome');
+    Route::get('/facilities', [FacilitiesController::class, 'index'])->name('fasilitas');
+    Route::get('/reserve_room', function () {
+        return view('reserve-room');
+    })->name('reserve-room');
+});
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', PreventAdmin::class])->group(function () {
+    Route::get('/dashboard', function (){
         return view('dashboard');
     })->name('dashboard');
     Route::get('/view_rooms/{id?}/{gender?}', function ($id, $gender) {
@@ -64,10 +65,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::get('/admin/manage_reservations', [AdminController::class, 'manage_reservations'])->name('manage_reservations');
     Route::get('/admin/manage_payments', [AdminController::class, 'manage_payments'])->name('manage_payments');
+    Route::get('/admin/prices', [AdminController::class, 'prices'])->name('prices');
     Route::post('/admin/search_email', [AdminController::class, 'search_email'])->name('admin.search_email');
     Route::post('/admin/update_reservation', [AdminController::class, 'update_reservation'])->name('admin.update_reservation');
     Route::post('/admin/update_payment', [AdminController::class, 'update_payment'])->name('admin.update_payment');
     Route::post('/admin/revoke_ownership', [AdminController::class, 'revoke_ownership'])->name('admin.revoke_ownership');
+    Route::post('/admin/update_prices', [AdminController::class, 'update_prices'])->name('admin.update_prices');
 
 
     // Route::get('/home', [AdminController::class, 'index'])->name('home');

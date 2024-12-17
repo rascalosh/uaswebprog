@@ -55,7 +55,7 @@
             <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
                 <div class="px-6 py-4">
                     <h2 class="text-lg font-semibold">Prolong Kos Ownership</h2>
-                    <form method="POST" action="{{ route('admin.update_payment') }}">
+                    <form method="POST" action="{{ route('admin.update_payment') }}" onsubmit="disableFormSubmitButton()">
                         @csrf
                         <!-- Date -->
                         <div class="mt-4">
@@ -81,7 +81,7 @@
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
                             <button type="button" onclick="closePaymentModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
-                            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Submit</button>
+                            <button type="submit" class="submit-button bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -96,14 +96,14 @@
                 <div class="px-4 py-3">
                     <h2 class="text-lg font-semibold">Confirm Cancellation</h2>
                     <p>Are you sure you want to revoke this person's kos ownership?</p>
-                    <form method="post" action="{{ route('admin.revoke_ownership') }}">
+                    <form method="post" action="{{ route('admin.revoke_ownership') }}" onsubmit="disableFormSubmitButton()">
                         @csrf
 
                         <x-input type="hidden" name="id_user" value="" />
 
                         <div class="flex justify-end mt-4">
                             <button type="button" onclick="closeRevokeModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
-                            <button type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                            <button type="submit" name="cancel" class="submit-button ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
                         </div>
                     </form>
                 </div>
@@ -137,6 +137,21 @@
     function closeRevokeModal() {
         const modal = document.getElementById('revokeModal');
         modal.classList.add('hidden');
+    }
+
+    function disableSubmitButton(button) {
+        button.disabled = true;
+        button.innerText = "Processing...";
+        button.classList.add("opacity-50", "cursor-not-allowed");
+    }
+
+    function disableFormSubmitButton() {
+        const buttons = document.querySelectorAll('.submit-button'); // Select all buttons with the class
+        buttons.forEach(button => {
+            button.disabled = true;
+            button.innerText = "Processing...";
+            button.classList.add("opacity-50", "cursor-not-allowed");
+        });
     }
 
 </script>

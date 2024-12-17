@@ -115,11 +115,10 @@ Pelaporan::onlyTrashed()
                                     @endif
 
                                     @if($report->deleted_at)
-                                        <form action="{{ route('report.destroy', $report->id_pelaporan) }}" method="POST"
-                                            onsubmit="return confirm('Apakah anda yakin ingin menghapus report ini?');">
+                                        <form id="deleteReportForm-{{ $report->id_pelaporan }}" action="{{ route('report.destroy', $report->id_pelaporan) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</button>
+                                            <button onclick="openConfirmReportModal('{{ $report->id_pelaporan }}'); disableSubmitButton(this);" type="button" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Delete</button>
                                         </form>
                                     @endif
                                 </div>  
@@ -145,11 +144,10 @@ Pelaporan::onlyTrashed()
                                 <p class="text-gray-600 dark:text-gray-400">Check In: {{ Carbon::parse($guest->visit_date)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Check Out: {{ Carbon::parse($guest->end_date)->format('F j, Y') }}</p>
                                 <p class="text-gray-600 dark:text-gray-400">Jumlah Pengunjung: {{ $guest->guest_amount }}</p>
-                                <form action="{{ route('guest.destroy', $guest->id_guest) }}" method="POST"
-                                    onsubmit="return confirm('Apakah anda yakin ingin menghapus tamu ini?');">
+                                <form id="deleteGuestForm-{{ $guest->id_guest }}" action="{{ route('guest.destroy', $guest->id_guest) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Selesai
+                                    <button onclick="openConfirmGuestModal('{{ $guest->id_guest }}'); disableSubmitButton(this);" type="button" class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Selesai
                                         Berkunjung</button>
                                 </form>
                             </div>
@@ -176,7 +174,7 @@ Pelaporan::onlyTrashed()
             <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
                 <div class="px-6 py-4">
                     <h2 class="text-lg font-semibold">Report a Problem</h2>
-                    <form method="POST" action="{{ route('create-report') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('create-report') }}" enctype="multipart/form-data" onsubmit="disableFormSubmitButton()">
                         @csrf
                         <!-- Jenis Kos -->
                         <div class="mt-4">
@@ -221,7 +219,7 @@ Pelaporan::onlyTrashed()
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
                             <button type="button" onclick="closeReportModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
-                            <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700">Submit</button>
+                            <button type="submit" class="submit-button bg-yellow-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -236,7 +234,7 @@ Pelaporan::onlyTrashed()
             <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
                 <div class="px-6 py-4">
                     <h2 class="text-lg font-semibold">Add Guest</h2>
-                    <form method="POST" action="{{ route('create-guest') }}">
+                    <form method="POST" action="{{ route('create-guest') }}" onsubmit="disableFormSubmitButton()">
                         @csrf
 
                         <!-- Guest Name -->
@@ -299,7 +297,7 @@ Pelaporan::onlyTrashed()
                         <!-- Buttons -->
                         <div class="mt-6 flex justify-end">
                             <button type="button" onclick="closeGuestFormModal()" class="text-gray-500 hover:text-gray-800 mr-3">Cancel</button>
-                            <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700">Submit</button>
+                            <button type="submit" class="submit-button bg-yellow-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -317,6 +315,40 @@ Pelaporan::onlyTrashed()
                     <div class="flex justify-end mt-4">
                         <button type="button" onclick="closeProofModal()" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Close</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmReportModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                <div class="px-4 py-3">
+                    <h2 class="text-lg font-semibold">Confirmation</h2>
+                    <p>Are you sure you want to delete this resolved report?</p>
+                        <div class="flex justify-end mt-4">
+                            <button type="button" onclick="closeConfirmReportModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
+                            <button type="button" onclick="confirmDeleteReport(); disableSubmitButton(this);" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmGuestModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-gray-500 opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg">
+                <div class="px-4 py-3">
+                    <h2 class="text-lg font-semibold">Confirmation</h2>
+                    <p>Are you sure the guest has finished visiting?</p>
+                        <div class="flex justify-end mt-4">
+                            <button type="button" onclick="closeConfirmGuestModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
+                            <button type="button" onclick="confirmDeleteGuest(); disableSubmitButton(this);" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -366,6 +398,57 @@ Pelaporan::onlyTrashed()
     function closeProofModal() {
         const modal = document.getElementById('proofModal');
         modal.classList.add('hidden');
+    }
+
+    let currentReportFormId = null;
+
+    function openConfirmReportModal(reportId) {
+
+        currentReportFormId = `deleteReportForm-${reportId}`;
+        document.getElementById('confirmReportModal').classList.remove('hidden');
+    }
+
+    function closeConfirmReportModal() {
+        document.getElementById('confirmReportModal').classList.add('hidden');
+    }
+
+    function confirmDeleteReport() {
+        if (currentReportFormId) {
+            document.getElementById(currentReportFormId).submit();
+        }
+    }
+
+    let currentGuestFormId = null;
+
+    function openConfirmGuestModal(guestId) {
+
+        currentGuestFormId = `deleteGuestForm-${guestId}`;
+        document.getElementById('confirmGuestModal').classList.remove('hidden');
+    }
+
+    function closeConfirmGuestModal() {
+        document.getElementById('confirmGuestModal').classList.add('hidden');
+    }
+
+    function confirmDeleteGuest() {
+        if (currentGuestFormId) {
+            document.getElementById(currentGuestFormId).submit();
+        }
+    }
+
+    function disableSubmitButton(button) {
+        button.disabled = true;
+        button.innerText = "Processing...";
+        button.classList.add("opacity-50", "cursor-not-allowed");
+    }
+
+    function disableFormSubmitButton() {
+        const buttons = document.querySelectorAll('.submit-button'); // Select all buttons with the class
+        buttons.forEach(button => {
+            button.disabled = true;
+            button.innerText = "Processing...";
+            button.classList.add("opacity-50", "cursor-not-allowed");
+        });
     }
 
 </script>

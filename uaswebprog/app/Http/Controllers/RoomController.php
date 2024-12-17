@@ -30,14 +30,14 @@ class RoomController extends Controller
             $roomGender = 'P';
         }
 
-        if ($room) {
-            $averageRating = DB::table('reviews')
-                ->where('nomor_kamar', $room->nomor_kamar)
-                ->avg('review');
-        } else {
-            $averageRating = null;
-        }
+        // if ($room) {
+        //     $averageRating = DB::table('reviews')
+        //         ->where('nomor_kamar', $room->nomor_kamar)
+        //         ->avg('review');
+        // } else {
+        //     $averageRating = null;
+        // }
 
-        return view('user.my-room', compact('room', 'roomGender', 'averageRating', 'guests', 'reports'));
+        return view('user.my-room', compact('room', 'roomGender', 'guests', 'reports'));
     }
 }

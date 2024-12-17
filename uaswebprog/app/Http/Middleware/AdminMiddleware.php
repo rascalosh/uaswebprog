@@ -17,12 +17,13 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        // Only allow admins to proceed
         if (Auth::check() && Auth::user()->is_admin) {
             return $next($request);
         }
 
-        // return redirect()->route('admin.dashboard');
-        return redirect()->back();
+        // Redirect non-admin users trying to access admin routes
+        return redirect(Auth::check() ? '/dashboard' : '/');
     }
 
     
