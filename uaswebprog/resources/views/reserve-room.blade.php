@@ -73,11 +73,11 @@ if($user){
                     <div class="px-4 py-3">
                         <h2 class="text-lg font-semibold">Confirm Cancellation</h2>
                         <p>Are you sure you want to cancel your reservation?</p>
-                        <form method="post" action="{{ route('cancel_reservation') }}">
+                        <form method="post" action="{{ route('cancel_reservation') }}" onsubmit="disableSubmitButton()">
                             @csrf
                             <div class="flex justify-end mt-4">
                                 <button type="button" onclick="closeModal()" class="text-gray-500 hover:text-gray-800">Cancel</button>
-                                <button type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
+                                <button id="reserveButton" type="submit" name="cancel" class="ml-2 text-white bg-red-600 hover:bg-red-700 rounded px-4 py-2">Yes</button>
                             </div>
                         </form>
                     </div>
@@ -293,6 +293,13 @@ if($user){
     document.addEventListener('DOMContentLoaded', function() {
         showContent('woman');
     });
+
+    function disableSubmitButton() {
+        const submitButton = document.getElementById('reserveButton');
+        submitButton.disabled = true;
+        submitButton.innerText = "Processing...";
+        submitButton.classList.add("opacity-50", "cursor-not-allowed");
+    }
 
     function showContent(type) {
         const womanContent = document.getElementById('content-woman');
